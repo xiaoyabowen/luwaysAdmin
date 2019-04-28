@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台主题UI框架</title>
+    <meta name="keywords">
+    <meta name="description">
+    <meta name="keywords">
+    <meta name="description">
+    <!--网页logo-->
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../resource/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../resource/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../resource/js/plugins/select2/css/select2.css" rel="stylesheet">
+    <link href="../resource/js/plugins/bootstarp-table/css/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../resource/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../resource/css/animate.css" rel="stylesheet">
+    <link href="../resource/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../resource/css/common.css" rel="stylesheet">
+    <!--iCheck样式-->
+    <link rel="stylesheet" type="text/css" href="../resource/css/plugins/iCheck/custom.css"/>
+</head>
+<style>
+.tableCaption{
+    width: 100%; background: #F5F5F5; padding-left: 10px;font-size: 16px;color: #333;
+}
+
+</style>
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>订单出行人信息</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+
+                    <!--产品/联系人信息-->
+                    <div class="tableBoxInfo">
+                        <table class="table table-bordered">
+                            <caption class="tableCaption">产品/联系人信息</caption>
+                            <thead>
+                            <tr>
+                                <th>商品ID</th>
+                                <th>联系人姓名</th>
+                                <th>联系电话</th>
+                                <th>订单总价</th>
+                                <th>邮件地址</th>
+                                <th>酒店地址</th>
+                                <th>酒店名称</th>
+                                <th>接送地址</th>
+                                <th>标题</th>
+                                <th>产品名称</th>
+                                <th>套餐名称</th>
+                                <th>用餐时间</th>
+                                <th>出发日期</th>
+                                <th>最晚确认时间</th>
+                                <th>备注信息</th>
+                            </tr>
+                            </thead>
+                            <tbody id="TeacherList">
+                            <!--<tr>
+                                <td>Tanmay</td>
+                                <td>Bangalore</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>Tanmay</td>
+                                <td>Bangalore</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                            </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--订单子项-->
+                    <div class="tableBoxSub">
+                        <table class="table table-bordered">
+                            <caption class="tableCaption">订单子项</caption>
+                            <thead>
+                            <tr>
+                                <th>新美大订单ID</th>
+                                <th>新美大SKUID</th>
+                                <th>供应商SKUID</th>
+                                <th>售卖类型</th>
+                                <th>数量</th>
+                                <th>sku单价</th>
+                            </tr>
+                            </thead>
+                            <tbody id="TorderSubList">
+                            <!--<tr>
+                                <td>Tanmay</td>
+                                <td>Bangalore</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                            </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--出游人信息-->
+                    <div class="tableBoxTraveInfo" id="InfoList">
+                        <table class="table table-bordered">
+                            <caption class="tableCaption">出游人信息</caption>
+                            <thead>
+                            <tr>
+                                <th>售卖类型</th>
+                                <th>游玩人姓名</th>
+                                <th>游玩人姓</th>
+                                <th>游玩人名</th>
+                                <th>游玩人名拼音</th>
+                                <th>游玩人姓拼音</th>
+                                <th>生日</th>
+                                <th>身份证</th>
+                                <th>护照</th>
+                                <th>体重</th>
+                                <th>港澳通行证</th>
+                                <th>台湾通行证</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Tanmay</td>
+                                <td>Bangalore</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>Tanmay</td>
+                                <td>Bangalore</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--订座信息-->
+                    <div class="tableBoxTraveInfo" id="ReservationList">
+                        <table class="table table-bordered">
+                            <caption class="tableCaption">订座信息</caption>
+                            <thead>
+                                <tr>
+                                    <th>订座人数</th>
+                                    <th>首选预订时间</th>
+                                    <th>备选预订时间1</th>
+                                    <th>备选预订时间2</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reserList">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--供应商-->
+                    <div class="tableBoxSub">
+                        <input type="hidden" name="id" id="costId" >
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>供应商名称</th>
+                                <th>供应商订单号</th>
+                                <th>成本价</th>
+                                <th>币种</th>
+                                <th>状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="col-sm-12">
+                                        <select class="parent form-control supplyName">
+                                            <option value="YouYou">YouYou</option>
+                                            <option value="Grayline Munich">Grayline Munich</option>
+                                            <option value="Gray Line Paris">Gray Line Paris</option>
+                                            <option value="Gray Line Rome">Gray Line Rome</option>
+                                            <option value="MayalandMexico">MayalandMexico</option>
+                                            <option value="以色列IntCongresses">以色列IntCongresses</option>
+                                            <option value="Russiacitypass">Russiacitypass</option>
+                                            <option value="HotelBeds">HotelBeds</option>
+                                            <option value="Withlocals">Withlocals</option>
+                                            <option value="CitySightseeing">CitySightseeing</option>
+                                            <option value="66旅行">66旅行</option>
+                                            <option value="ParisCityVision">ParisCityVision</option>
+                                            <option value="MUSEMENT">MUSEMENT</option>
+                                            <option value="Flixbus">Flixbus</option>
+                                            <option value="SixtMyDriver">SixtMyDriver</option>
+                                            <option value="GoldenTours">GoldenTours</option>
+                                            <option value="leisurePassGroup">leisurePassGroup</option>
+                                            <option value="Easy Transfers">Easy Transfers</option>
+                                            <option value="Grayline Chile">Grayline Chile</option>
+                                            <option value="Grayline Iceland">Grayline Iceland</option>
+                                            <option value="Grayline Venice">Grayline Venice</option>
+                                            <option value="Grayline Croatia">Grayline Croatia</option>
+                                            <option value="Grayline Florence">Grayline Florence</option>
+                                            <option value="Grayline SanFrancisco">Grayline SanFrancisco</option>
+                                            <option value="Grayline Emirates">Grayline Emirates</option>
+                                            <option value="Tangol">Tangol</option>
+                                            <option value="Go2Serbia">Go2Serbia</option>
+                                            <option value="Viator">Viator</option>
+                                            <option value="东京HelloKitty">东京HelloKitty</option>
+                                            <option value="新西兰EYOUNZ">新西兰EYOUNZ</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <input type="text"  class="form-control" id="supplyNum" placeholder="请输入供应商订单号">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <input type="text"  class="form-control" id="costs" placeholder="请输入成本价">
+                                            <input type="hidden" id="goDate" >
+                                            <input type="hidden" value="2" name="ascription" id="ascription" >
+                                            <input type="hidden" value="" name="channelNum" id="channelNum" >
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col-sm-12">
+                                        <select class="parent form-control currency" name="currency">
+                                            <option value="$">$(美元/新西兰元)</option>
+                                            <option value="€">€(欧元)</option>
+                                            <option value="£">£(英镑)</option>
+                                            <option value="￥">￥(人民币)</option>
+                                            <option value="AED">AED(迪拉姆)</option>
+                                            <option value="ISK">ISK（克朗）</option>
+                                            <option value="AUD">AUD（澳元）</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col-sm-12">
+                                        <select class="parent form-control statusCooper">
+                                            <option value="1">待确认</option>
+                                            <option value="2">成功</option>
+                                            <option value="3">取消</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5"><button class="btn btn-info costSave">保存</button></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <!--运营备注-->
+
+                    <div class="form-group">
+                        <p class="control-label">运营备注</p>
+                        <input type="hidden" class="OperateId">
+                        <textarea name="remark" class="remarkOperate" style="resize: none;width: 100%; height: 100px;padding: 5px"></textarea>
+                        <button class="btn btn-info OperateSave">保存</button>
+                    </div>
+
+                    <div class="form-group">
+                        <p class="control-label">预定备注</p>
+                        <input type="hidden" class="ReserveId">
+                        <textarea name="remark" class="remarkReserve" style="resize: none;width: 100%; height: 100px;"></textarea>
+                        <button class="btn btn-info ReserveSave">保存</button>
+                    </div>
+
+                </div>
+                <div id="toolbar">
+                    <div class="form-group col-sm-1">
+                        <button class="btn btn-success  btn-outline" id="btn_add">
+                            <i class="fa fa-plus">返回上一页</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- End Panel Other -->
+</div>
+
+<!-- 全局js -->
+<script src="../resource/js/jquery.min.js?v=2.1.4"></script>
+<script src="../resource/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="../resource/js/content.js?v=1.0.0"></script>
+
+<script src="../resource/js/plugins/select2/js/select2.full.js"></script>
+<script src="../resource/js/plugins/select2/js/i18n/zh-CN.js"></script>
+<script src="../resource/js/plugins/layer/layer.js"></script>
+<script src="../resource/js/plugins/laydate/laydate.js"></script>
+<!-- ztree -->
+<!-- Bootstrap table -->
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table.js"></script>
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="../resource/js/plugins/bootstrap-3-typeahead/bootstrap3-typeahead.js"></script>
+
+<script src="../resource/common/multiselect.js"></script>
+<script src="../resource/common/common.js?time=" +Math.random()></script>
+
+<!--多选框 icheck.js-->
+<script src="../resource/js/plugins/iCheck/iCheck.js"></script>
+
+<!--js模板渲染-->
+<script src="../resource/js/template-native.js"></script>
+
+<script type="text/html" id="TeacherHtml">
+    <tr>
+        <td class="otaPID" style="cursor: pointer;color:#337ab7 "><%=list.otaPID%></td>
+        <td><%=list.contactInfo.name%></td>
+        <td><%=list.contactInfo.phone%></td>
+        <td><%=list.contactInfo.orderPrice%></td>
+        <td><%=list.contactInfo.email%></td>
+        <td><%=list.contactInfo.hotelAddressEn%></td>
+        <td><%=list.contactInfo.hotelNameEn%></td>
+        <td><%=list.contactInfo.pickupAddress%></td>
+        <td><%=list.subTitle%></td>
+        <td><%=list.parentPackageName%></td>
+        <td><%=list.packageName%></td>
+        <td><%=list.reserveConsumeTime%></td>
+        <td><%=list.contactInfo.startDate%></td>
+        <td><%=list.confirmCloseTime%></td>
+        <td><%=list.remark%></td>
+    </tr>
+
+</script>
+
+
+<script type="text/html" id="orderSubHtml">
+    <%for(var i=0;i<listSub.length;i++){%>
+        <tr>
+            <td><%=listSub[i].orderId%></td>
+            <td><%=listSub[i].skuId%></td>
+            <td><%=listSub[i].otaSkuId%></td>
+            <td><%=listSub[i].saleType%></td>
+            <td><%=listSub[i].quantity%></td>
+            <td><%=listSub[i].skuPrice%></td>
+        </tr>
+    <%}%>
+</script>
+
+
+<script type="text/html" id="PassengerHtml">
+    <%for(var i=0;i<listInfo.length;i++){%>
+    <table class="table table-bordered">
+        <caption class="tableCaption">出游人信息</caption>
+        <thead>
+        <tr>
+            <th>售卖类型</th>
+            <th>游玩人姓名</th>
+            <th>游玩人姓</th>
+            <th>游玩人名</th>
+            <th>游玩人名拼音</th>
+            <th>游玩人姓拼音</th>
+            <th>生日</th>
+            <th>身份证</th>
+            <th>护照</th>
+            <th>体重</th>
+            <th>港澳通行证</th>
+            <th>台湾通行证</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="saleType"><%=listInfo[i].saleType%></td>
+            <td><%=listInfo[i].name%></td>
+            <td><%=listInfo[i].firstName%></td>
+            <td><%=listInfo[i].secondName%></td>
+            <td><%=listInfo[i].firstEnName%></td>
+            <td><%=listInfo[i].secondEnName%></td>
+            <td><%=listInfo[i].birthday%></td>
+            <td><%=listInfo[i].idCardNumber%></td>
+            <td><%=listInfo[i].passportNumber%></td>
+            <td class="weight"><%=listInfo[i].weight%></td>
+            <td><%=listInfo[i].hkPassportNumber%></td>
+            <td><%=listInfo[i].twPassportNumber%></td>
+
+        </tr>
+        </tbody>
+    </table>
+    <%}%>
+</script>
+
+<!--订座信息-->
+<script type="text/html" id="ReservationHtml">
+    <tr>
+        <td><%=ReserLi.reserveNumber%></td>
+        <td><%=ReserLi.reserveConsumeTime%></td>
+        <td><%=ReserLi.backupConsumeTime1%></td>
+        <td><%=ReserLi.backupConsumeTime2%></td>
+    </tr>
+
+</script>
+
+
+<script>
+    $("#btn_add").click(function () {
+        closeMyselfInIframe()
+    })
+
+    myAjax(orderdp_orderDetail,getQueryParam("id"),handle);
+    function handle(data,param){
+        console.log(data)
+        var listSubData = data.data.OrderItem
+        var infoData = data.data.PassengerInfo;
+
+
+        $("#channelNum").val(data.data.OrderItem[0].orderId)
+        $("#goDate").val(data.data.ContactInfo.startDate)
+
+        // 运营备注数据回显
+        if (data.data.DpOrder.description != null){
+            $(".remarkOperate").val(data.data.DpOrder.description)
+        }
+
+
+
+        // 预定备注数据回显
+        if (data.data.DpOrder.reserveRemark != null){
+            $(".remarkReserve").val(data.data.DpOrder.reserveRemark)
+        }
+
+        //   供应商数据回显
+        if (data.data.cost == null){
+
+        }else{
+            $("#costId").val(data.data.cost.id)
+            $(".supplyName").val(data.data.cost.supplyName)
+            $("#supplyNum").val(data.data.cost.supplyNum)
+            $("#costs").val(data.data.cost.cost)
+            $(".currency").val(data.data.cost.currency)
+            $(".statusCooper").val(data.data.cost.status)
+        }
+
+
+
+        $(".OperateId").val(data.data.DpOrder.id)
+        $(".remarkOperate").val(data.data.DpOrder.description)
+
+        $(".ReserveId").val(data.data.DpOrder.id)
+        $(".remarkReserve").val(data.data.DpOrder.reserveRemark)
+
+        if(data.success) {
+            var Contactdata = {list: data.data.DpOrder};
+            var html = template("TeacherHtml",Contactdata);
+            document.getElementById('TeacherList').innerHTML = html;
+            $(".otaPID").click(function () {
+                var otaPID = $(this).html();
+                // sessionStorage.setItem("otaPID",otaPID)
+                addReeMenuItem("../html/ticketProduct.html?otaPID="+otaPID,"产品详情");
+            })
+            // 订单子项
+            var dataSub = {listSub: listSubData};
+            var htmlSub = template("orderSubHtml",dataSub);
+            document.getElementById('TorderSubList').innerHTML = htmlSub;
+
+            // 出游人  信息
+            var dataInfo = {listInfo: infoData};
+            var htmlInfo = template("PassengerHtml",dataInfo);
+            document.getElementById('InfoList').innerHTML = htmlInfo;
+
+            var saleTypeHtml = $(".saleType").html();
+            if (saleTypeHtml == 1){
+                $(".saleType").html("成人票");
+            }else{
+                $(".saleType").html("儿童票");
+            }
+
+            var wightHtml = $(".weight").html();
+            if (wightHtml == 0){
+                $(".weight").html('');
+            }
+
+            // 订座信息
+            if (data.data.Reservation == null){
+                $("#ReservationList").hide()
+            }else {
+                $("#ReservationList").show()
+                var ReserData = {ReserLi: data.data.Reservation};
+                var ReserHtml = template("ReservationHtml",ReserData);
+                document.getElementById('reserList').innerHTML = ReserHtml;
+            }
+
+
+        }else{
+
+        }
+    }
+
+    // 运营备注
+    $(".OperateSave").click(function () {
+        var prame = {};
+        prame.id = $(".OperateId").val()
+        prame.description = $(".remarkOperate").val()
+        myAjax(updateDescriptionDpOrder,prame,handle);
+        function handle(data,param){
+            console.log(data)
+            layer.msg("保存成功", {icon: 1,time:3000,shade: 0.01});
+            window.location.reload()
+        }
+    })
+
+    // 预定备注
+    $(".ReserveSave").click(function () {
+        var prames = {};
+        prames.id = $(".ReserveId").val()
+        prames.reserveRemark= $(".remarkReserve").val()
+        myAjax(updateRemarkDpOrder,prames,handle);
+        function handle(data,param){
+            console.log(data)
+            layer.msg("保存成功", {icon: 1,time:1000,shade: 0.01});
+            window.location.reload()
+        }
+    })
+
+    //供应商名称
+    $(".costSave").click(function () {
+        var prames={
+            "id":$("#costId").val(),
+            "supplyNum":$("#supplyNum").val(),
+            "cost":$("#costs").val(),
+            "currency":$(".currency").val(),
+            "supplyName":$(".supplyName").val(),
+            "status":$(".statusCooper").val(),
+            "goDate":$("#goDate").val(),
+            "channelNum":$("#channelNum").val(),
+            "ascription":getQueryParam("ascription").ascription,
+        };
+
+        myAjax(updateCost,prames,handle);
+        function handle(data,param){
+            console.log(data)
+            layer.msg("保存成功", {icon: 1,time:1000,shade: 0.01});
+            window.location.reload()
+        }
+    })
+
+</script>
+
+</body>
+
+</html>

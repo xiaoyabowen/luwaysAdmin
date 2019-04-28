@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台主题UI框架</title>
+    <meta name="keywords">
+    <meta name="description">
+    <meta name="keywords">
+    <meta name="description">
+    <!--网页logo-->
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../resource/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../resource/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../resource/js/plugins/select2/css/select2.css" rel="stylesheet">
+    <link href="../resource/js/plugins/bootstarp-table/css/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../resource/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../resource/css/animate.css" rel="stylesheet">
+    <link href="../resource/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../resource/css/common.css" rel="stylesheet">
+    <!--iCheck样式-->
+    <link rel="stylesheet" type="text/css" href="../resource/css/plugins/iCheck/custom.css"/>
+</head>
+<style>
+    .inputClass{
+        display: inline-block;
+        width: 50px;
+    }
+    .tableClass th,.tableClass td{
+        text-align: center;
+    }
+    #toolbar{
+        width: 1000px;
+    }
+    .labelSelect{
+        display: flex;
+    }
+    .distribution{
+        display: none;
+    }
+
+</style>
+<body class="gray-bg">
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>门票类型</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <div id="toolbar">
+
+                    </div>
+                    <table id="tb_table"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Panel Other -->
+</div>
+
+<!-- 全局js -->
+<script src="../resource/js/jquery.min.js?v=2.1.4"></script>
+<script src="../resource/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="../resource/js/content.js?v=1.0.0"></script>
+
+<script src="../resource/js/plugins/select2/js/select2.full.js"></script>
+<script src="../resource/js/plugins/select2/js/i18n/zh-CN.js"></script>
+<script src="../resource/js/plugins/layer/layer.js"></script>
+<script src="../resource/js/plugins/laydate/laydate.js"></script>
+<!-- ztree -->
+<!-- Bootstrap table -->
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table.js"></script>
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="../resource/js/plugins/bootstrap-3-typeahead/bootstrap3-typeahead.js"></script>
+
+<script src="../resource/common/multiselect.js"></script>
+<script src="../resource/common/common.js?time=" +Math.random()></script>
+
+<!--多选框 icheck.js-->
+<script src="../resource/js/plugins/iCheck/iCheck.js"></script>
+
+<script>
+
+
+    var $table = $('#tb_table');
+    function Table() {
+        $table.bootstrapTable({
+            url: adminOrderRestfulControllerList,         //请求后台的URL（*）
+            method: 'get',                      //请求方式（*）
+            contentType : "application/x-www-form-urlencoded",
+            toolbar: '#toolbar',                //工具按钮用哪个容器
+//                    striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            sortable: true,                     //是否启用排序
+            sortOrder: "asc",                   //排序方式
+            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber: 1,                       //初始化加载第一页，默认第一页
+            pageSize: 10,                       //每页的记录行数（*）
+            pageList:5,                         //分页步进值
+            pageList: [10, 20, 30, 50],        //可供选择的每页的行数（*）
+//                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            strictSearch: true,
+            showColumns: false,                         showRefresh: false,
+            minimumCountColumns: 2,             //最少允许的列数
+            clickToSelect: true,                //是否启用点击选中行
+//				height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+//                showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+            cardView: false,                    //是否显示详细视图
+            detailView: false,                   //是否显示父子表
+//                    showFooter:true,            //表格底部
+            onClickRow: function (row) {
+                console.log(row)
+            },
+            queryParamsType: 'limit',
+            queryParams: function (params) {
+
+                return {
+                    pageNo: (params.offset / params.limit) + 1,
+                    pageSize: params.limit,
+                    keywords: $("#keywords").val(),
+                    orderType:$(".orderType").val(),
+                    orderFrom:$(".orderFrom").val(),
+                };
+            },
+            onLoadSuccess : function (data) {
+                // console.log(data)
+            },
+            responseHandler : function (e) {
+                console.log(e)
+                return { "rows": e.data.list.list, "total": e.data.list.total };
+
+            },
+            columns : [
+
+                {
+                    field: "name", title: "定制完成", formatter: function (value, row, index) {
+                        var data = row
+                        var userHtml = '';
+                        userHtml += "<a  class='btn btn-danger btn-sm btn-outline deleteData' href='javascript:void(0)' onclick=\'madeSucc(" + data.id + ")\'><i class='fa fa-check'></i>定制完成</a>";
+                        return userHtml;
+                    }
+                },
+                {
+                    field: "name", title: "出行主题", formatter: function (value, row, index) {
+                        return value;
+                    }
+                },
+                {
+                    field: "name", title: "姓名", formatter: function (value, row, index) {
+                        return value;
+
+                    }
+                },
+                {
+                    field: "name", title: "手机", formatter: function (value, row, index) {
+                        return value;
+
+                    }
+                },
+                {
+                    field: "name", title: "联系邮箱", formatter: function (value, row, index) {
+                        return value;
+
+                    }
+                },
+                {
+                    field: "name", title: "目的地", formatter: function (value, row, index) {
+                        return value;
+
+                    }
+                },
+                {
+                    field: "name", title: "出行天数", formatter: function (value, row, index) {
+                        return value;
+
+                    }
+                },
+                {
+                    field: "name", title: "出行人数", formatter: function (value, row, index) {
+                        return value;
+
+                    }
+                },
+                {
+                    field: "name", title: "预算", formatter: function (value, row, index) {
+                        return value;
+
+                    }
+                },
+                {
+                    field: "name", title: "需求", formatter: function (value, row, index) {
+                        return value;
+
+                    }
+                },
+                {
+                    field: "name", title: "操作", align: "center", formatter: function (value, row, index) {
+
+                        return value;
+                    }
+                },
+
+            ]
+        });
+
+    }
+
+    //删除
+    function deleteData(did){
+        console.log(did)
+        var url = businessRestfulControllerDelete;
+        var param = {id:did};
+        var result = {succ:'删除成功!',fail:'删除失败'};
+        layer.msg("确定要删除该消息？", {
+            shade: [0.1, '##f5f5f5'],
+            time: 0 //不自动关闭
+            ,btn: ['确定','取消']
+            ,yes: function(index){
+                layer.close(index);
+                myAjax(url,param,handle);
+                function handle(data,param){
+                    var msg = (data.msg == undefined ? '':','+data.msg);
+                    if(data.success) {
+                        layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                        handleTable(did,4);
+                    }else{
+                        layer.msg(result.fail+msg, {icon: 2,time:1000,shade: 0.01});
+                    }
+                }
+            },btn2: function(index, layero){
+            }
+        });
+    }
+
+    //添加修改
+    function addOrEdit(rowData){
+        var subType ;
+        if(isNotBlank(rowData)){
+            subType  = 1;
+
+        }else{
+            subType  = 0;
+            // formReset();
+        }
+        var index= layer.open({
+            type: 1 , shade: 0.01,
+            id: 'area', //设定一个id，防止重复弹出
+            title: '添加/更新',
+            area: ['600px','400px'],
+            content: $('.content-view'),
+            btn: ['提交', '关闭'],
+            yes:function(index){
+                submitData(index,subType);
+            },
+            shadeClose: true, //开启遮罩关闭
+            success: function(){
+
+                // 负责人  渲染人数
+                // 点击提交接口
+                myAjax(businessRestfulControllertoPage,'', handle)
+                function handle(data,params) {
+                    var managerHtml = ''
+                    var propertyHtml = ''
+                    var managerData = data.data.usss;
+                    var propertyData = data.data.queryPropertyList;
+
+                    // 总负责人
+                    for (var i=0;i<managerData.length;i++){
+                        if (managerData[i].name == ''){
+                            managerHtml += ''
+                        }else {
+                            managerHtml += '<option value="'+managerData[i].name+'">'+managerData[i].name+'</option>'
+                        }
+
+                    }
+                    $(".manager").html(managerHtml)
+                    // 渠道/
+                    for (var j=0;j<propertyData.length;j++){
+
+                        propertyHtml += '<option value="'+propertyData[j].info+'">'+propertyData[j].info+'</option>'
+                    }
+                    $(".property").html(propertyHtml)
+                }
+
+
+
+                if(isNotBlank(rowData)){
+                    $('#id').val(rowData.id);
+                    $('#username').val(rowData.masterUser.username);
+                    $('#name').val(rowData.masterUser.name);
+                    $('#lkm').val(rowData.lkm);
+                    $('#lkmPhone').val(rowData.lkmPhone);
+                    $('#lkmEmail').val(rowData.lkmEmail);
+                    $('.property').val(rowData.property);
+                    $('.channelType').val(rowData.channelType);
+                    $('#profit').val(rowData.profit);
+                    $('.manager').val(rowData.manager);
+                }
+            }
+
+        })
+    }
+
+    function submitData(index,type){
+        var id=$('#id').val();
+        var username=$.trim($('#username').val());
+        var name= $.trim($('#name').val());
+        var lkm=$.trim($('#lkm').val());
+        var lkmPhone=$.trim($('#lkmPhone').val());
+        var lkmEmail=$.trim($('#lkmEmail').val());
+        var property=$.trim($('.property').val());
+        var channelType=$.trim($('.channelType').val());
+        var profit=$.trim($('#profit').val());
+        var manager=$.trim($('.manager').val());
+        var result;
+        var params = {};
+        var url;
+        if(type == 0){
+            url =businessRestfulControllerSave;
+
+            result = {succ:'添加成功！',fail:'添加失败！'};
+        }else{
+            url = businessRestfulControllerSave;
+            result = {succ:'更新成功！',fail:'更新失败'};
+        }
+        /*if(isBlank(title)){
+            showValidate('#title');
+            return  ;
+        }
+        if(isBlank(startDate)){
+            showValidate('#pstartTime');
+            return  ;
+        }
+        if(isBlank(endDate)){
+            showValidate('#pendTime');
+            return  ;
+        }
+        if(isBlank(tid)){
+            tid=0;
+        }*/
+
+        if(isNotBlank(id)){
+            params.id = id;
+        }
+
+        layer.close(index);
+        params.type =2;
+        params.username = username;
+        params.name = name;
+        params.lkm = lkm;
+        params.lkmPhone = lkmPhone;
+        params.lkmEmail = lkmEmail;
+        params.property = property;
+        params.channelType =channelType;
+        params.profit =profit;
+        params.manager =manager;
+        myAjax(businessRestfulControllerSave,params,handle);
+        function handle(data,params){
+            var msg = (data.msg == undefined ? '':','+data.msg);
+            if(data.success) {
+                layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                handleTable("",3,businessRestfulControllerList);
+            }else{
+                layer.msg(result.fail+msg, {icon: 1,ime:1000,shade: 0.01});
+            }
+        }
+
+    }
+
+
+    // 表单  刷新
+    function formReset() {
+        $("#areaFormAdius")[0].reset();
+    }
+
+    function openPOP(){
+        addOrEdit();
+    }
+
+    $(function () {
+        // var Table = new TableInit(columns);
+        Table();
+        var oButtonInit = new ButtonInit();
+        oButtonInit.Init();
+
+    });
+
+
+
+    function reInitTable() {
+        $table.bootstrapTable('refresh');
+    }
+
+    //初始化页面上面的按钮事件
+    var ButtonInit = function () {
+        var oInit = new Object();
+        oInit.Init = function () {
+            $('#btn_add').click(openPOP);
+            $('#btn_search').click(reInitTable);
+            $('.i_check').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+                increaseArea: '20%'
+            });
+        };
+        laydate.render({
+            elem: '#startTime', type: 'datetime'
+        });
+        laydate.render({
+            elem: '#endTime'
+            ,type: 'datetime'
+        });
+        return oInit;
+
+    };
+
+</script>
+</body>
+
+</html>

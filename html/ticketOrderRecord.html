@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台主题UI框架</title>
+    <meta name="keywords">
+    <meta name="description">
+    <meta name="keywords">
+    <meta name="description">
+    <!--网页logo-->
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../resource/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../resource/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../resource/js/plugins/select2/css/select2.css" rel="stylesheet">
+    <link href="../resource/js/plugins/bootstarp-table/css/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../resource/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../resource/css/animate.css" rel="stylesheet">
+    <link href="../resource/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../resource/css/common.css" rel="stylesheet">
+    <!--iCheck样式-->
+    <link rel="stylesheet" type="text/css" href="../resource/css/plugins/iCheck/custom.css"/>
+</head>
+<style>
+    .inputClass{
+        display: inline-block;
+        width: 50px;
+    }
+    .tableClass th,.tableClass td{
+        text-align: center;
+    }
+    #toolbar{
+        width:100%;
+    }
+    .labelSelect{
+        display: flex;
+    }
+    .distribution{
+        display: none;
+    }
+
+</style>
+<body class="gray-bg">
+
+<!--编辑  motal-->
+<div class="wrapper wrapper-content animated  fadeInDown  content-view  ">
+
+    <form method="get" class="form-horizontal" id="areaForm">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">订单归属</label>
+            <div class="col-sm-8">
+                <select class="fom form-control">
+                    <option value="1">北京</option>
+                    <option value="2">上海</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">订单种类</label>
+            <div class="col-sm-8">
+                <select class="typo form-control" name="typo">
+                    <option value="1">门票</option>
+                    <option value="2">酒店</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">下单时间</label>
+            <div class="col-sm-8">
+                <input type="hidden" id="id" >
+                <input type="text" class="form-control" id="payTime" name="payTime" placeholder="请输入下单时间" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">产品ID</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="productId" name="productId" placeholder="请输入产品ID">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">产品名称</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="productName" name="productName" placeholder="请输入产品名称">
+            </div>
+        </div>
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">出行时间</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="goDate" name="goDate" placeholder="请输入下单时间" readonly>
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">客户姓名</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="userName" name="userName" placeholder="请输入客户姓名">
+            </div>
+        </div>
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">客户联系方式</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="userPhone" name="userPhone" placeholder="请输入客户联系方式">
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">状态</label>
+            <div class="col-sm-8">
+                <select class="statusType form-control"  name="remarks">
+                    <option value="0">取消</option>
+                    <option value="1">成功</option>
+                    <option value="2">待确认</option>
+                    <option value="4">等待正式确认</option>
+                    <option value="3" selected="selected">其他</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">分销渠道</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="distribution" name="distribution" placeholder="请输入分销渠道">
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">渠道订单号</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="distributionOrderId" name="distributionOrderId" placeholder="请输入渠道订单号">
+            </div>
+        </div>
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">成人价($)</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="adultPrice" name="adultPrice" placeholder="请输入成人价($)">
+            </div>
+        </div>
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">成人数量(人)</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="adultNumber" name="adultNumber" placeholder="请输入成人价($)">
+            </div>
+        </div>
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">儿童价($)</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="childrenPrice" name="childrenPrice" placeholder="请输入儿童价($)">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">儿童数量(人)</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="childrenNumber" name="childrenNumber" placeholder="请输入儿童数量(人)">
+            </div>
+        </div>
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">婴儿价($)</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="babyPrice" name="babyPrice" placeholder="请输入婴儿价($)">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">婴儿数量(人)</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="babyNumber" name="babyNumber" placeholder="请输入婴儿数量(人)">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">销售金额(¥)</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="salseAmount" name="salseAmount" placeholder="请输入销售金额(¥)">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">币种</label>
+            <div class="col-sm-8">
+                <select class="currency form-control" name="currency">
+                    <option value="$">$(美元/新西兰元)</option>
+                    <option value="€">€(欧元)</option>
+                    <option value="£">£(英镑)</option>
+                    <option value="￥">￥(人民币)</option>
+                    <option value="AED">AED(迪拉姆)</option>
+                    <option value="ISK">ISK（克朗）</option>
+                    <option value="AUD">AUD（澳元）</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">供货渠道</label>
+            <div class="col-sm-8">
+                <select class="supplyChannel form-control" id="supplyChannel" name="supplyChannel">
+                    <option value="YouYou">YouYou</option>
+                    <option value="Grayline Munich">Grayline Munich</option>
+                    <option value="Gray Line Paris">Gray Line Paris</option>
+                    <option value="Gray Line Rome">Gray Line Rome</option>
+                    <option value="MayalandMexico">MayalandMexico</option>
+                    <option value="以色列IntCongresses">以色列IntCongresses</option>
+                    <option value="Russiacitypass">Russiacitypass</option>
+                    <option value="HotelBeds">HotelBeds</option>
+                    <option value="Withlocals">Withlocals</option>
+                    <option value="CitySightseeing">CitySightseeing</option>
+                    <option value="66旅行">66旅行</option>
+                    <option value="ParisCityVision">ParisCityVision</option>
+                    <option value="MUSEMENT">MUSEMENT</option>
+                    <option value="Flixbus">Flixbus</option>
+                    <option value="SixtMyDriver">SixtMyDriver</option>
+                    <option value="GoldenTours">GoldenTours</option>
+                    <option value="leisurePassGroup">leisurePassGroup</option>
+                    <option value="Easy Transfers">Easy Transfers</option>
+                    <option value="Grayline Chile">Grayline Chile</option>
+                    <option value="Grayline Iceland">Grayline Iceland</option>
+                    <option value="Grayline Venice">Grayline Venice</option>
+                    <option value="Grayline Croatia">Grayline Croatia</option>
+                    <option value="Grayline Florence">Grayline Florence</option>
+                    <option value="Grayline SanFrancisco">Grayline SanFrancisco</option>
+                    <option value="Grayline Emirates">Grayline Emirates</option>
+                    <option value="Tangol">Tangol</option>
+                    <option value="Go2Serbia">Go2Serbia</option>
+                    <option value="Viator">Viator</option>
+                    <option value="东京HelloKitty">东京HelloKitty</option>
+                    <option value="新西兰EYOUNZ">新西兰EYOUNZ</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">供货渠道订单号</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="supplyOrderId" name="supplyOrderId" placeholder="请输入供货渠道订单号">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">三毛语音导览</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="sanmaoyou" name="sanmaoyou" placeholder="请输入三毛语音导览">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">金额-美元</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="moneyDoller" name="moneyDoller" placeholder="请输入金额-美元">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">金额-人民币</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="moneyRmb" name="moneyRmb" placeholder="请输入金额-人民币">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">金额-欧元</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="moneyEuro" name="moneyEuro" placeholder="请输入金额-欧元">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">备注</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="refundWhy" name="refundWhy" placeholder="请输入备注">
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>订单记录管理</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <div id="toolbar">
+                        <div class="form-group col-sm-1 newBtn" style="display: none">
+                            <button class="btn btn-success  btn-outline" id="btn_add">
+                                <i class="fa fa-plus">添加</i>
+                            </button>
+                        </div>
+                        <div class="col-sm-1 searchBtn" style="padding: 0">
+                            <select class="location form-control" id="location" >
+                                <option value="1" selected="selected">北京</option>
+                                <option value="2">上海</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2 searchBtn">
+                            <select class="remarks form-control">
+                                <option value="">全部-状态</option>
+                                <option value="2">待确认</option>
+                                <option value="1">完成</option>
+                                <option value="0">取消</option>
+                                <option value="4">等正式确认函</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1 searchBtn" style="padding: 0">
+                            <select class="channel form-control">
+                                <option value="">全部</option>
+                                <option value="qn">去哪儿</option>
+                                <option value="tm">天猫</option>
+                                <option value="mfw">蚂蜂窝</option>
+                                <option value="xmd">新美大</option>
+
+                            </select>
+                        </div>
+                        <div class="col-sm-2 searchBtn">
+                            <select class="supplyChannel form-control supplyChannelAll">
+                                <option value="" selected="selected">全部-供应商</option>
+                                <option value="YouYou">YouYou</option>
+                                <option value="Grayline Munich">Grayline Munich</option>
+                                <option value="Gray Line Paris">Gray Line Paris</option>
+                                <option value="Gray Line Rome">Gray Line Rome</option>
+                                <option value="MayalandMexico">MayalandMexico</option>
+                                <option value="以色列IntCongresses">以色列IntCongresses</option>
+                                <option value="Russiacitypass">Russiacitypass</option>
+                                <option value="HotelBeds">HotelBeds</option>
+                                <option value="Withlocals">Withlocals</option>
+                                <option value="CitySightseeing">CitySightseeing</option>
+                                <option value="66旅行">66旅行</option>
+                                <option value="ParisCityVision">ParisCityVision</option>
+                                <option value="MUSEMENT">MUSEMENT</option>
+                                <option value="Flixbus">Flixbus</option>
+                                <option value="SixtMyDriver">SixtMyDriver</option>
+                                <option value="GoldenTours">GoldenTours</option>
+                                <option value="leisurePassGroup">leisurePassGroup</option>
+                                <option value="Easy Transfers">Easy Transfers</option>
+                                <option value="Grayline Chile">Grayline Chile</option>
+                                <option value="Grayline Iceland">Grayline Iceland</option>
+                                <option value="Grayline Venice">Grayline Venice</option>
+                                <option value="Grayline Croatia">Grayline Croatia</option>
+                                <option value="Grayline Florence">Grayline Florence</option>
+                                <option value="Grayline SanFrancisco">Grayline SanFrancisco</option>
+                                <option value="Grayline Emirates">Grayline Emirates</option>
+                                <option value="Tangol">Tangol</option>
+                                <option value="Go2Serbia">Go2Serbia</option>
+                                <option value="Viator">Viator</option>
+                                <option value="东京HelloKitty">东京HelloKitty</option>
+                                <option value="新西兰EYOUNZ">新西兰EYOUNZ</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group labelSelect col-sm-2 searchBtn">
+                            <input type="text" class="col-sm-12 form-control" id="keywords" placeholder="产品关键字">
+                        </div>
+                        <div class="form-group labelSelect col-sm-2 searchBtn">
+                            <input type="text" class="col-sm-12 form-control" id="productIdSearch" placeholder="产品ID搜索">
+                        </div>
+                        <div class="form-group col-sm-1 searchBtn">
+                            <button class="btn btn-primary  btn-outline" id="btn_search">
+                                <i class="fa fa-search">搜索</i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <table id="tb_table"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--文档表单-->
+    <form style="opacity: 0" action="" class="wordForm" autocomplete="off" enctype="multipart/form-data">
+        <input type="hidden" id="orderNoFile" name="orderId">
+        <input type="hidden" id="recordId" name="recordId">
+        <input type="hidden" value="2" id="type" name="type">
+        <input style="height: 0;width: 0;" type="file" name="myfiles" accept=".pdf"/>
+    </form>
+    <!-- End Panel Other -->
+</div>
+
+<!-- 全局js -->
+<script src="../resource/js/jquery.min.js?v=2.1.4"></script>
+<script src="../resource/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="../resource/js/content.js?v=1.0.0"></script>
+
+<script src="../resource/js/plugins/select2/js/select2.full.js"></script>
+<script src="../resource/js/plugins/select2/js/i18n/zh-CN.js"></script>
+<script src="../resource/js/plugins/layer/layer.js"></script>
+<script src="../resource/js/plugins/laydate/laydate.js"></script>
+<!-- ztree -->
+<!-- Bootstrap table -->
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table.js"></script>
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="../resource/js/plugins/bootstrap-3-typeahead/bootstrap3-typeahead.js"></script>
+
+<script src="../resource/common/multiselect.js"></script>
+<script src="../resource/common/common.js?time=" +Math.random()></script>
+
+<!--多选框 icheck.js-->
+<script src="../resource/js/plugins/iCheck/iCheck.js"></script>
+
+<script>
+
+
+    /*for (var i=0;i<getUserInfo().roles[0].resources.length;i++){
+        if (getUserInfo().roles[0].resources[i].permission == 100004001){
+            $(".newBtn").show()
+        }
+        if (getUserInfo().roles[0].resources[i].permission == 100004004){
+            $(".searchBtn").show()
+        }
+    }
+*/
+
+    var $table = $('#tb_table');
+    function Table() {
+        $table.bootstrapTable({
+            url: orderUpdateOrderRecordList,         //请求后台的URL（*）
+            method: 'get',                      //请求方式（*）
+            contentType : "application/x-www-form-urlencoded",
+            toolbar: '#toolbar',                //工具按钮用哪个容器
+//                    striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            sortable: true,                     //是否启用排序
+            sortOrder: "asc",                   //排序方式
+            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber: 1,                       //初始化加载第一页，默认第一页
+            pageSize: 10,                       //每页的记录行数（*）
+            pageList:5,                         //分页步进值
+            pageList: [10, 20, 30, 50],        //可供选择的每页的行数（*）
+//                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            strictSearch: true,
+            showColumns: false,                         showRefresh: false,
+            minimumCountColumns: 2,             //最少允许的列数
+            clickToSelect: true,                //是否启用点击选中行
+//				height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+//                showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+            cardView: false,                    //是否显示详细视图
+            detailView: false,                   //是否显示父子表
+//                    showFooter:true,            //表格底部
+            onClickRow: function (row) {
+                // console.log(row)
+            },
+            queryParamsType: 'limit',
+            queryParams: function (params) {
+
+                return {
+                    pageNo: (params.offset / params.limit) + 1,
+                    pageSize: params.limit,
+                    keywords: $("#keywords").val(),
+                    supplyChannel:$(".supplyChannelAll").val(),
+                    productId:$(".productIdSearch").val(),
+                    remarks:$(".remarks").val(),
+                    fom:$("#location").val(),
+                    distribution:$(".channel").val(),
+                };
+            },
+            onLoadSuccess : function (data) {
+                console.log(data)
+            },
+            responseHandler : function (e) {
+                console.log(e)
+                return { "rows": e.data.list.list, "total": e.data.list.total };
+
+            },
+            columns : [
+
+                {
+                    field: "name",width:100, title: "产品ID<br />产品名称",width:300, formatter: function (value, row, index) {
+                        var nameHtml = ''
+                        var productIdHtml = ''
+                        if (row.productName == null){
+                            nameHtml += '-'
+                        }else {
+                            nameHtml += row.productName
+                        }
+                        if (row.productId == null){
+                            productIdHtml += '-'
+                        }else {
+                            productIdHtml += row.productId
+                        }
+                        return productIdHtml + "<br />" + nameHtml;
+                    }
+                },
+                {
+                    field: "name", title: "下单时间<br />出行时间", formatter: function (value, row, index) {
+                        var payTime = ''
+                        var goDate = ''
+                        if (row.payTime == null){
+                            payTime += '-'
+                        }else{
+                            payTime += timestampToTime(row.payTime)
+                        }
+                        if (row.goDate == null){
+                            goDate += '-'
+                        }else{
+                            goDate += timestampToTime(row.goDate)
+                        }
+                        return  payTime + "<br />" + goDate;
+                    }
+                },
+                {
+                    field: "title", title: "状态", formatter: function (value, row, index) {
+                        var statusHtml = ''
+                        if (row.remarks == "0"){
+                            statusHtml = '取消'
+                        }else if (row.remarks == "1"){
+                            statusHtml = '完成'
+                        }else if (row.remarks == "2"){
+                            statusHtml = '待确认'
+                        }else if (row.remarks == "4"){
+                            statusHtml = '等正式确认函'
+                        }else if (row.remarks == "3"){
+                            statusHtml = '其他'
+                        }
+                        return statusHtml;
+                    }
+                },
+                {
+                        field: "distribution", title: "渠道", formatter: function (value, row, index) {
+
+                        return value;
+                    }
+                },
+                {
+                    field: "name",cellStyle:{
+                        css:{"word-wrap":"break-word",}
+                    },title: "渠道订单号<br />供货订单号<br />联系人信息", formatter: function (value, row, index) {
+                        // var OrderIdHtml = ''
+                        var userPhoneHtml = ''
+                        // var str = row.distributionOrderId
+                        var OrderIdHtml = row.distributionOrderId
+                        /*if (str.indexOf(" ") == -1) {
+                            OrderIdHtml+= str
+                        } else {
+                            var OrderIdStr = str.trim().split(/\s+/)
+                            OrderIdHtml += OrderIdStr[0]
+                        }*/
+                        if (row.userPhone == null){
+                            userPhoneHtml += '-'
+                        }else{
+                            userPhoneHtml += row.userPhone
+                        }
+                        return OrderIdHtml+"<br />"+row.supplyOrderId +"<br />"+userPhoneHtml ;
+                    }
+                },
+                {
+                    field: "name", title: "数量<br />成人价格", formatter: function (value, row, index) {
+
+                        var adultHtml = ''
+                        var adultPriceHtml = ''
+                        if (row.adultNumber == null){
+                            adultHtml += '-'
+                        }else{
+                            adultHtml += row.adultNumber
+                        }
+                        if (row.adultPrice == null){
+                            adultPriceHtml += '-'
+                        }else{
+                            adultPriceHtml += row.adultPrice
+                        }
+
+                        return adultHtml +"<br />" + adultPriceHtml;
+                    }
+                },
+                {
+                    field: "name",width:20,title: "数量<br />儿童价格", formatter: function (value, row, index) {
+
+                        var childrenHtml = ''
+                        var childrenPriceHtml = ''
+                        if (row.childrenNumber == null){
+                            childrenPriceHtml += '- <br />'
+                        }else{
+                            childrenPriceHtml += row.childrenNumber+ '<br />'
+                        }
+                        if (row.childrenPrice == null){
+                            childrenPriceHtml += '-'
+                        }else{
+                            childrenPriceHtml += row.childrenPrice
+                        }
+                        return childrenHtml + childrenPriceHtml;
+                    }
+                },
+                {
+                    field: "supplyChannel", title: "供货渠道", formatter: function (value, row, index) {
+                        return value;
+                    }
+                },
+                {
+                    field: "modifier", title: "修改人", formatter: function (value, row, index) {
+                        return value;
+                    }
+                },
+                {
+                    field: "name", title: "修改时间", formatter: function (value, row, index) {
+                        return row.uptime;
+                    }
+                },
+                {
+                    field: "id", title: "操作",width:150, align: "center", formatter: function (value, row, index) {
+                        var data = row
+                        var orderStatus = ''
+
+                        if ($.inArray("100004002",arrayHtml) !== -1){
+                            orderStatus += '<a  class="btn-infoEdit deleteData" href="javascript:void(0)" onclick=\'addOrEdit(' + JSON.stringify(data) + ')\'>编辑</a>'
+                            orderStatus += '&nbsp;'
+                        }else{
+                            orderStatus += '&nbsp';
+                        }
+                        if ($.inArray("100004003",arrayHtml) !== -1){
+                            // orderStatus += '<a  class="btn-dangerEdit deleteData" href="javascript:void(0)"  href="javascript:void(0)" onclick=\'deleteData(' + data.id + ')\'>删除</a>'
+
+                        }else{
+                            orderStatus += '&nbsp';
+                        }
+
+
+                       /* for (var i=0;i<getUserInfo().roles[0].resources.length;i++){
+                            if (getUserInfo().roles[0].resources[i].permission == 100004002){
+                                orderStatus += '<a  class="btn btn-info btn-sm btn-outline deleteData" href="javascript:void(0)" onclick=\'addOrEdit(' + JSON.stringify(data) + ')\'><i class="fa fa-edit"></i>编辑</a>'
+                                orderStatus += '&nbsp;'
+                            }else if (getUserInfo().roles[0].resources[i].permission == 100004003){
+                                orderStatus += '<a  class="btn btn-danger btn-sm btn-outline deleteData" href="javascript:void(0)" onclick=\'deleteData(' + data.id + ')\'><i class="fa fa-window-close"></i>删除</a>'
+                            }else {
+                                orderStatus += ''
+                            }
+
+                        }*/
+
+
+                        return orderStatus;
+                    }
+                },
+                {
+                    field: "refundWhy", title: "备注", formatter: function (value, row, index) {
+                        return row.remarks;
+
+                    }
+                },
+                {
+                    field: "status", title: "文件", formatter: function (value, row, index) {
+                        var statusHtml = ''
+                        if (row.voucherStatus == 0){
+                            statusHtml += '<a style="margin-right: 2px;display: inline-block" class="btn-infoEdit updateBtnToggle" onclick="uploadWord(\''+row.distributionOrderId+'\',\''+row.id+'\')">上传</button>'
+                        }else if(row.voucherStatus == 2){
+                            statusHtml += '<a style="margin-right: 2px;display:inline-block;" class="btn-successEdit">已发送</a>'
+                        }else{
+                            statusHtml += '<a style="margin-right: 2px;display: inline-block;" class="btn-primaryEdit sendBtnToggle" onclick="viocher(\''+row.distributionOrderId+'\',\''+row.productName+'\',\''+row.userPhone+'\',\''+row.id+'\')">发送</a>'
+                        }
+                        // statusHtml += '<a type="button" href="http://192.168.3.252:10909/upDownController/downloadFile/'+row.orderNo+'" class="btn btn-info" onclick="downWoad('+row.id+')">下载</a>'
+                        statusHtml += '<a type="button" href="http://voucher.luways.com/upDownController/downloadFile/'+row.distributionOrderId+'" class="btn-successEdit" onclick="downWoad('+row.id+')">下载</a>'
+                        return statusHtml;
+                    }
+                },
+            ]
+        });
+
+    }
+
+    //删除
+    function deleteData(did){
+        console.log(did)
+        var url = orderUpdateOrderRecordDelete;
+        var param = {id:did};
+        var result = {succ:'删除成功!',fail:'删除失败'};
+        layer.msg("确定要删除该消息？", {
+            shade: [0.1, '##f5f5f5'],
+            time: 0 //不自动关闭
+            ,btn: ['确定','取消']
+            ,yes: function(index){
+                layer.close(index);
+                myAjax(url,param,handle);
+                function handle(data,param){
+                    var msg = (data.msg == undefined ? '':','+data.msg);
+                    if(data.success) {
+                        layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                        handleTable(did,4);
+                    }else{
+                        layer.msg(result.fail+msg, {icon: 2,time:1000,shade: 0.01});
+                    }
+                }
+            },btn2: function(index, layero){
+            }
+        });
+    }
+
+    //添加修改
+    function addOrEdit(rowData){
+        var subType ;
+        if(isNotBlank(rowData)){
+            subType  = 1;
+
+        }else{
+            subType  = 0;
+            formReset();
+        }
+        var index= layer.open({
+            type: 1 , shade: 0.01,
+            id: 'area', //设定一个id，防止重复弹出
+            title: '添加/更新',
+            area: ['600px','400px'],
+            content: $('.content-view'),
+            btn: ['提交', '关闭'],
+            yes:function(index){
+                submitData(index,subType);
+            },
+            shadeClose: true, //开启遮罩关闭
+            success: function(){
+
+                if(isNotBlank(rowData)){
+                    $(".fom").val(rowData.fom)
+                    $(".typo").val(rowData.typo)
+                    $(".typo").val(rowData.typo)
+                    $("#id").val(rowData.id)
+                    $("#productId").val(rowData.productId)
+                    $("#productName").val(rowData.productName)
+
+
+                    if (rowData.payTime == null){
+                        $("#payTime").val('')
+                    }else{
+                        $("#payTime").val(timestampToTime(rowData.payTime))
+                    }
+
+                    if (rowData.payTime == null){
+                        $("#payTime").val('')
+                    }else{
+                        $("#goDate").val(timestampToTime(rowData.goDate))
+                    }
+                    $("#userName").val(rowData.userName)
+                    $("#userPhone").val(rowData.userPhone)
+                    $(".statusType").val(rowData.remarks)    //状态
+                    $("#distribution").val(rowData.distribution)
+                    $("#distributionOrderId").val(rowData.distributionOrderId)
+                    $("#adultPrice").val(rowData.adultPrice)
+                    $("#adultNumber").val(rowData.adultNumber)
+                    $("#childrenPrice").val(rowData.childrenPrice)
+                    $("#childrenNumber").val(rowData.childrenNumber)
+                    $("#babyPrice").val(rowData.babyPrice)
+                    $("#babyNumber").val(rowData.babyNumber)
+                    $("#salseAmount").val(rowData.salseAmount)
+                    $("#supplyChannel").val(rowData.supplyChannel)
+                    $(".currency").val(rowData.currency)
+                    $("#supplyOrderId").val(rowData.supplyOrderId)
+                    $("#sanmaoyou").val(rowData.sanmaoyou)
+                    $("#moneyDoller").val(rowData.moneyDoller)
+                    $("#moneyRmb").val(rowData.moneyRmb)
+                    $("#moneyEuro").val(rowData.moneyEuro)
+                    $("#refundWhy").val(rowData.refundWhy)
+                }
+            }
+
+        })
+    }
+
+    function submitData(index,type){
+        var id=$('#id').val();
+
+        var result;
+        var params = {};
+        var url;
+        if(type == 0){
+            url =orderUpdateChangeRecord;
+
+            result = {succ:'添加成功！',fail:'添加失败！'};
+        }else{
+            url = orderUpdateChangeRecord;
+            result = {succ:'更新成功！',fail:'更新失败'};
+        }
+        /*if(isBlank(title)){
+            showValidate('#title');
+            return  ;
+        }
+        if(isBlank(startDate)){
+            showValidate('#pstartTime');
+            return  ;
+        }
+        if(isBlank(endDate)){
+            showValidate('#pendTime');
+            return  ;
+        }
+        if(isBlank(tid)){
+            tid=0;
+        }*/
+
+        if(isNotBlank(id)){
+            params.id = id;
+        }
+
+        layer.close(index);
+        var areaFormForm = $("#areaForm").serialize()
+        myAjax(orderUpdateChangeRecord,areaFormForm+"&fom="+$(".fom").val()+"&id="+id,handle);
+        function handle(data,params){
+            var msg = (data.msg == undefined ? '':','+data.msg);
+            if(data.success) {
+                layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                handleTable("",3,orderUpdateOrderRecordList);
+                formReset()
+            }else{
+                layer.msg(result.fail+msg, {icon: 1,ime:1000,shade: 0.01});
+            }
+        }
+
+    }
+
+
+
+
+
+    $(function () {
+        // var Table = new TableInit(columns);
+        Table();
+        var oButtonInit = new ButtonInit();
+        oButtonInit.Init();
+        $('.i_check').iCheck({
+            handler:'radio',
+            radioClass: 'iradio_square-green',
+            increaseArea: '20%',
+        });
+
+        //按钮权限
+        var resourcesData = getUserInfo().roles[0].resources
+        var resourcesHtml = []
+        for(item in resourcesData){
+            var activeDivObj = new Array();
+            resourcesHtml.push(activeDivObj)
+            if(resourcesData[item].parent == 5){
+                var addObj = {};
+                addObj.parent =  resourcesData[item].permission
+                resourcesHtml[item].push(addObj)
+            }
+        }
+        arrayHtml = new Array();
+        for (i in resourcesHtml){
+            if (resourcesHtml[i] != ''){
+                arrayHtml.push(resourcesHtml[i][0].parent)
+            }
+        }
+        console.log(arrayHtml)
+        if ($.inArray("100004001",arrayHtml) !== -1){
+            $(".newBtn").show()
+        }
+       /* if ($.inArray("100004004",arrayHtml) !== -1){
+            $(".searchBtn").show()
+        }
+*/
+    });
+
+    //   =================== 文档上传
+    function uploadWord(orderNo,recordId) {
+        var OrderIdHtml = ''
+        var str = orderNo
+        if (str.indexOf(" ") == -1) {
+            OrderIdHtml+= str
+        } else {
+            var OrderIdStr = str.trim().split(/\s+/)
+            OrderIdHtml += OrderIdStr[0]
+        }
+        console.log(OrderIdHtml)
+
+        $("#orderNoFile").val(OrderIdHtml)
+        $("#recordId").val(recordId)
+        $(".wordForm input").click();
+    }
+    /*--------------文档上传-----------*/
+    $(".wordForm input").change(function () {
+        var index = layer.load(1, {time: 1*500});
+        // $('#wordCover').val($(this).val());
+        var formData = new FormData($(this).parent()[0]);
+        $.ajax({
+            url: uploadFile, //Server script to process data
+            type: 'POST',
+            data: formData,
+            sync: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    layer.msg('上传成功！', {
+                        icon: 1,
+                        time:1000,shade: 0.01
+                    });
+                    handleTable("",3,orderUpdateOrderRecordList);
+                    wordForm()
+
+                } else {
+                    layer.msg('上传失败！', {
+                        icon: 2,
+                        time:1000,shade: 0.01
+                    });
+                }
+
+            },
+            error: function () {
+                layer.msg('上传失败！', {
+                    icon: 2,
+                    time:1000,shade: 0.01
+                });
+            }
+        });
+    })
+
+    // 上传成功之后  点击发送按钮
+    function viocher(orderNo,skuTitle,contractEmail,recordId) {
+        /*console.log(orderNo)
+        console.log(skuTitle)
+        console.log(contractEmail)*/
+        var OrderIdHtml =''
+        var str = orderNo
+        if (str.indexOf(" ") == -1) {
+            OrderIdHtml+= str
+        } else {
+            var OrderIdStr = str.trim().split(/\s+/)
+            OrderIdHtml += OrderIdStr[0]
+        }
+        console.log(OrderIdHtml)
+
+        addReeMenuItem("../html/sendEmalJi.html?orderNo="+OrderIdHtml+"&skuTitle="+skuTitle+"&contractEmail="+contractEmail+"&recordId="+recordId,"发送邮箱");
+    }
+
+    function reInitTable() {
+        $table.bootstrapTable('refresh');
+    }
+    // 表单  刷新
+    function formReset() {
+        $("#areaForm")[0].reset();
+    }
+
+    function wordForm() {
+        $(".wordForm")[0].reset();
+    }
+    function openPOP(){
+        addOrEdit();
+    }
+
+    //初始化页面上面的按钮事件
+    var ButtonInit = function () {
+        var oInit = new Object();
+        oInit.Init = function () {
+            $('#btn_add').click(openPOP);
+            $('#btn_search').click(reInitTable);
+
+        };
+        laydate.render({
+            elem: '#payTime'
+        });
+        laydate.render({
+            elem: '#goDate'
+        });
+        return oInit;
+
+    };
+
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台主题UI框架</title>
+    <meta name="keywords">
+    <meta name="description">
+    <meta name="keywords">
+    <meta name="description">
+    <!--网页logo-->
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../resource/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../resource/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../resource/js/plugins/select2/css/select2.css" rel="stylesheet">
+    <link href="../resource/js/plugins/bootstarp-table/css/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../resource/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../resource/css/animate.css" rel="stylesheet">
+    <link href="../resource/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../resource/css/common.css" rel="stylesheet">
+    <!--iCheck样式-->
+    <link rel="stylesheet" type="text/css" href="../resource/css/plugins/iCheck/custom.css"/>
+</head>
+<style>
+.tableBoxType{
+    display: flex;
+    flex-wrap: wrap;
+}
+.tableBoxType>table{
+    width: 49%;
+}
+.tableBoxType>table:nth-of-type(1n){
+    margin-right: 1%;
+}
+</style>
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>订单出行人信息</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+
+                    <!--产品/联系人信息-->
+                    <div class="tableBoxInfo">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>蚂蜂窝订单号</th>
+                                <th>预定人姓名/邮箱/电话</th>
+                                <th>订单金额</th>
+                                <th style="width:15%">商家产品名称</th>
+                                <th style="width:15%">产品名称</th>
+                                <th style="width:15%">库存名称</th>
+                                <th>出行时间</th>
+                                <th>客人备注</th>
+                                <th>成人票数量</th>
+                                <th>儿童票数量</th>
+                                <th>订单状态</th>
+                                <th>订单备注</th>
+                                <th>成本价</th>
+                            </tr>
+                            </thead>
+                            <tbody id="TeacherList">
+                            <!--<tr>
+                                <td>Tanmay</td>
+                                <td>Bangalore</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>Tanmay</td>
+                                <td>Bangalore</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                            </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--产品/联系人信息-->
+                    <div class="tableBoxInfo">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>描述</th>
+                                <th>名称</th>
+                                <th>数量</th>
+                                <th>单价</th>
+                                <th>费用项</th>
+                                <th>本项支付金额</th>
+                                <th>本项总金额</th>
+                                <th>购买项描述</th>
+                                <th>本项购买个数</th>
+                            </tr>
+                            </thead>
+                            <tbody id="TeacherListM">
+                            <tr>
+                                <td>Tanmay</td>
+                                <td>Bangalore</td>
+                                <td>Tanmay</td>
+                                <td>Bangalore</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                                <td>560001</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="tableBoxType" id="travelPeoplesHtml">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>供应商名称</th>
+                                <th>供应商订单号</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>中文姓名</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>拼音姓名</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>境外联系电话</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>联系电话</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>性别</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>护照号</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>港澳通行证</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>出生年月日</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>微信</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>身高（cm）</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>体重（kg）</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>接送酒店名称</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>接送酒店地址</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>拼音姓</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>拼音名</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>供应商名称</th>
+                                <th>供应商订单号</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>中文姓名</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>拼音姓名</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>境外联系电话</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>联系电话</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>性别</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>护照号</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>港澳通行证</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>出生年月日</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>微信</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>身高（cm）</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>体重（kg）</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>接送酒店名称</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>接送酒店地址</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>拼音姓</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>拼音名</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>供应商名称</th>
+                                <th>供应商订单号</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>中文姓名</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>拼音姓名</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>境外联系电话</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>联系电话</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>性别</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>护照号</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>港澳通行证</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>出生年月日</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>微信</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>身高（cm）</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>体重（kg）</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>接送酒店名称</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>接送酒店地址</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>拼音姓</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            <tr>
+                                <td>拼音名</td>
+                                <td>Bangalore</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--供应商-->
+                    <div class="tableBoxSub">
+                        <input type="hidden" name="id" id="costId" >
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>供应商名称</th>
+                                <th>供应商订单号</th>
+                                <th>成本价</th>
+                                <th>币种</th>
+                                <th>状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="col-sm-12">
+                                        <select class="parent form-control supplyName">
+                                            <option value="YouYou">YouYou</option>
+                                            <option value="Grayline Munich">Grayline Munich</option>
+                                            <option value="Gray Line Paris">Gray Line Paris</option>
+                                            <option value="Gray Line Rome">Gray Line Rome</option>
+                                            <option value="MayalandMexico">MayalandMexico</option>
+                                            <option value="以色列IntCongresses">以色列IntCongresses</option>
+                                            <option value="Russiacitypass">Russiacitypass</option>
+                                            <option value="HotelBeds">HotelBeds</option>
+                                            <option value="Withlocals">Withlocals</option>
+                                            <option value="CitySightseeing">CitySightseeing</option>
+                                            <option value="66旅行">66旅行</option>
+                                            <option value="ParisCityVision">ParisCityVision</option>
+                                            <option value="MUSEMENT">MUSEMENT</option>
+                                            <option value="Flixbus">Flixbus</option>
+                                            <option value="SixtMyDriver">SixtMyDriver</option>
+                                            <option value="GoldenTours">GoldenTours</option>
+                                            <option value="leisurePassGroup">leisurePassGroup</option>
+                                            <option value="Easy Transfers">Easy Transfers</option>
+                                            <option value="Grayline Chile">Grayline Chile</option>
+                                            <option value="Grayline Iceland">Grayline Iceland</option>
+                                            <option value="Grayline Venice">Grayline Venice</option>
+                                            <option value="Grayline Croatia">Grayline Croatia</option>
+                                            <option value="Grayline Florence">Grayline Florence</option>
+                                            <option value="Grayline SanFrancisco">Grayline SanFrancisco</option>
+                                            <option value="Grayline Emirates">Grayline Emirates</option>
+                                            <option value="Tangol">Tangol</option>
+                                            <option value="Go2Serbia">Go2Serbia</option>
+                                            <option value="Viator">Viator</option>
+                                            <option value="东京HelloKitty">东京HelloKitty</option>
+                                            <option value="新西兰EYOUNZ">新西兰EYOUNZ</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <input type="text"  class="form-control" id="supplyNum" placeholder="请输入供应商订单号">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <input type="text"  class="form-control" id="costs"  onkeyup="clearNoNum(this)" placeholder="请输入成本价">
+                                            <input type="hidden" id="goDate" >
+                                            <input type="hidden" value="2" name="ascription" id="ascription" >
+                                            <input type="hidden" value="" name="channelNum" id="channelNum" >
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col-sm-12">
+                                        <select class="parent form-control currency" name="currency">
+                                            <option value="$">$(美元/新西兰元)</option>
+                                            <option value="€">€(欧元)</option>
+                                            <option value="£">£(英镑)</option>
+                                            <option value="￥">￥(人民币)</option>
+                                            <option value="AED">AED(迪拉姆)</option>
+                                            <option value="ISK">ISK（克朗）</option>
+                                            <option value="AUD">AUD（澳元）</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col-sm-12">
+                                        <select class="parent form-control statusCooper">
+                                            <option value="1">待确认</option>
+                                            <option value="2">成功</option>
+                                            <option value="3">取消</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5"><button class="btn btn-info costSave">保存</button></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="form-group">
+                        <p class="control-label">运营备注</p>
+                        <input type="hidden" class="OperateId">
+                        <textarea name="remark" class="remarkOperate" style="resize: none;width: 100%; height: 100px;padding: 5px"></textarea>
+                        <button class="btn btn-info OperateSave">保存</button>
+                    </div>
+
+                    <div class="form-group">
+                        <p class="control-label">预定备注</p>
+                        <input type="hidden" class="ReserveId">
+                        <textarea name="remark" class="remarkReserve" style="resize: none;width: 100%; height: 100px;"></textarea>
+                        <button class="btn btn-info ReserveSave">保存</button>
+                    </div>
+
+                </div>
+                <div id="toolbar">
+                    <div class="form-group col-sm-1">
+                        <button class="btn btn-success  btn-outline" id="btn_add">
+                            <i class="fa fa-plus">返回上一页</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Panel Other -->
+</div>
+
+<!-- 全局js -->
+<script src="../resource/js/jquery.min.js?v=2.1.4"></script>
+<script src="../resource/js/bootstrap.min.js?v=3.3.6"></script>
+
+<!-- 自定义js -->
+<script src="../resource/js/content.js?v=1.0.0"></script>
+
+<script src="../resource/js/plugins/select2/js/select2.full.js"></script>
+<script src="../resource/js/plugins/select2/js/i18n/zh-CN.js"></script>
+<script src="../resource/js/plugins/layer/layer.js"></script>
+<script src="../resource/js/plugins/laydate/laydate.js"></script>
+<!-- ztree -->
+<!-- Bootstrap table -->
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table.js"></script>
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="../resource/js/plugins/bootstrap-3-typeahead/bootstrap3-typeahead.js"></script>
+
+<script src="../resource/common/multiselect.js"></script>
+<script src="../resource/common/common.js?time=" +Math.random()></script>
+
+<!--多选框 icheck.js-->
+<script src="../resource/js/plugins/iCheck/iCheck.js"></script>
+
+<!--js模板渲染-->
+<script src="../resource/js/template-native.js"></script>
+
+<script type="text/html" id="TeacherHtml">
+    <tr>
+        <td><%=list.orderId%></td>
+        <td><%=list.userName%><br /><%=list.email%><br /><%=list.phone%></td>
+        <td><%=list.totalPrice%></td>
+        <td><%=list.otaSalesName%></td>
+        <td><%=list.salesName%></td>
+        <td><%=list.stockName%></td>
+        <td><%=list.goDate%></td>
+        <td><%=list.description%></td>
+        <td><%=list.adultNum%></td>
+        <td><%=list.kidNum%></td>
+        <!--<td><%=list.orderStatus%></td>-->
+        <%if(list.orderStatus == 1){%>
+        <td>未支付</td>
+        <%}else if(list.orderStatus == 2){%>
+        <td>已支付</td>
+        <%}else if(list.orderStatus == 3){%>
+        <td></td>
+        <%}else if(list.orderStatus == 4){%>
+        <td>已出单</td>
+        <%}else if(list.orderStatus == 5){%>
+        <td>已完成</td>
+        <%}else{%>
+        <td>已关闭</td>
+        <%}%>
+        <%if(list.MfwMemoinfo == undefined){%>
+        <td>-</td>
+        <%}else{%>
+        <td><%=list.MfwMemoinfo.content%></td>
+        <%}%>
+
+        <td><%=list.cost%></td>
+    </tr>
+
+</script>
+
+<script type="text/html" id="TeacherHtmlM">
+    <%for(var i=0;i<listM.length;i++){%>
+        <tr>
+            <td><%=listM[i].cname%></td>
+            <td><%=listM[i].cnameKey%></td>
+            <td><%=listM[i].cnameValue%></td>
+            <td><%=listM[i].price%></td>
+            <td><%=listM[i].priceType%></td>
+            <td><%=listM[i].paymentFee%></td>
+            <td><%=listM[i].totalPrice%></td>
+            <td><%=listM[i].name%></td>
+            <td><%=listM[i].num%></td>
+        </tr>
+    <%}%>
+</script>
+
+<script>
+    $("#btn_add").click(function () {
+        closeMyselfInIframe()
+    })
+
+    myAjax(mfw_orderDetail,getQueryParam("id"),handle);
+    function handle(data,param){
+        console.log(data)
+        // 运营备注数据回显
+        $(".OperateId").val(data.data.mfwOrder.id)
+        if (data.data.mfwOrder.description != null){
+            $(".remarkOperate").val(data.data.mfwOrder.description)
+        }
+
+        // 预定备注数据回显
+        $(".ReserveId").val(data.data.mfwOrder.id)
+        if (data.data.mfwOrder.reserveRemark != null){
+            $(".remarkReserve").val(data.data.mfwOrder.reserveRemark)
+        }
+
+        //   供应商数据回显
+        if (data.data.cost == null){
+
+        }else{
+            $("#costId").val(data.data.cost.id)
+            $(".supplyName").val(data.data.cost.supplyName)
+            $("#supplyNum").val(data.data.cost.supplyNum)
+            $("#costs").val(data.data.cost.cost)
+            $(".currency").val(data.data.cost.currency)
+            $(".statusCooper").val(data.data.cost.status)
+        }
+
+        $("#channelNum").val(data.data.mfwOrder.orderId)
+        $("#goDate").val(data.data.mfwOrder.goDate)
+
+
+
+
+        var mafengUser = data.data.mfwOrder
+        var mafengUserM = data.data.mfwOrder.itemsNum
+        var travel = data.data.mfwOrder.travelPeoples
+        console.log(travel)
+        if(data.success) {
+            // 蚂蜂窝订单   预定 信息
+            var data = {list: mafengUser};
+            var html = template("TeacherHtml",data);
+            document.getElementById('TeacherList').innerHTML = html;
+
+            var dataM = {listM: mafengUserM};
+            var htmlM = template("TeacherHtmlM",dataM);
+            document.getElementById('TeacherListM').innerHTML = htmlM;
+
+          /*  var datatravel = {travel: travelPeoplesData};
+            var travelList = template("travelPeoples",datatravel);
+            document.getElementById('travelPeoplesHtml').innerHTML = travelList;
+*/
+            var travelHtml = ''
+            for(var j=0;j<travel.length;j++){
+                travelHtml += '<table class="table table-bordered">\n' +
+                    '        <thead>\n' +
+                    '        <tr>\n' +
+                    '            <th>供应商名称</th>\n' +
+                    '            <th>供应商订单号</th>\n' +
+                    '        </tr>\n' +
+                    '        </thead>\n' +
+                    '        <tbody>\n' +
+                    '        <tr>\n' +
+                    '            <td>中文姓名</td>\n' +
+                    '            <td class="nullHtml">'+travel[j].name+'</td>\n' +
+                    '        </tr>\n' +
+                    '        <tr>\n' +
+                    '            <td>拼音姓名</td>\n' +
+                    '            <td class="nullHtml">'+travel[j].nameEn+'</td>\n' +
+                    '        </tr>\n' +
+                    '        <tr>\n' +
+                    '            <td>境外联系电话</td>\n' +
+                    '            <td class="nullHtml">'+travel[j].phone+'</td>\n' +
+                    '        </tr>\n' +
+                    '        <tr>\n' +
+                    '            <td>联系电话</td>\n' +
+                    '            <td class="nullHtml">'+travel[j].cellphone+'</td>\n' +
+                    '        </tr>\n' +
+                    '        <tr>\n' +
+                    '            <td>性别</td>\n' +
+                    '            <td class="nullHtml">'+travel[j].gender+'</td>\n' +
+                    '        </tr>\n' +
+                    '        <tr>\n' +
+                    '            <td>护照号</td>\n' +
+                    '            <td class="nullHtml">'+travel[j].passport+'</td>\n' +
+                    '        </tr>\n' +
+                    '        <tr>\n' +
+                    '            <td>港澳通行证</td>\n' +
+                    '            <td class="nullHtml">'+travel[j].laissezPasser+'</td>\n' +
+                    '        </tr>\n' +
+                    '        <tr>\n' +
+                    '            <td>出生年月日</td>\n' +
+                    '            <td class="nullHtml">'+travel[j].birthday+'</td>\n' +
+                    '        </tr>\n' +
+                    '        <tr>\n' +
+                    '            <td>微信</td>\n' +
+                    '            <td class="nullHtml">'+travel[j].wechat+'</td>\n' +
+                    '        </tr>\n' +
+                    '        <tr>\n' +
+                    '            <td>身高（cm）</td>\n' +
+                    '            <td class="nullHtml">'+travel[j].height+'</td>\n' +
+                    '        </tr>\n' +
+                    '        <tr>\n' +
+                    '            <td>体重（kg）</td>\n' +
+                    '            <td class="nullHtml">'+travel[j].weight+'</td>\n' +
+                    '        </tr>\n' +
+                    '        <tr>\n' +
+                    '            <td>接送酒店名称</td>\n' +
+                    '            <td class="nullHtml">'+travel[j].hotelNameEn+'</td>\n' +
+                    '        </tr>\n' +
+                    '        <tr>\n' +
+                    '            <td>接送酒店地址</td>\n' +
+                    '            <td class="nullHtml">'+travel[j].hotelAddressEn+'</td>\n' +
+                    '        </tr>\n' +
+                    '        <tr>\n' +
+                    '            <td>拼音姓</td>\n' +
+                    '            <td class="nullHtml">'+travel[j].familyName+'</td>\n' +
+                    '        </tr>\n' +
+                    '        <tr>\n' +
+                    '            <td>拼音名</td>\n' +
+                    '            <td class="nullHtml">'+travel[j].firstName+'</td>\n' +
+                    '        </tr>\n' +
+                    '        </tbody>\n' +
+                    '    </table>'
+            }
+            $("#travelPeoplesHtml").html(travelHtml)
+
+            $(".nullHtml").each(function (index) {
+                if ($(this).html() == 'null'){
+                    $(this).html('-')
+                }
+            })
+
+        }else{
+
+        }
+    }
+
+    // 运营备注
+    $(".OperateSave").click(function () {
+        var prame = {};
+        prame.id = $(".OperateId").val()
+        prame.description = $(".remarkOperate").val()
+        myAjax(updateDescriptionMfoOrder,prame,handle);
+        function handle(data,param){
+            console.log(data)
+            layer.msg("保存成功", {icon: 1,time:3000,shade: 0.01});
+            window.location.reload()
+        }
+    })
+
+    // 预定备注
+    $(".ReserveSave").click(function () {
+        var prames = {};
+        prames.id = $(".ReserveId").val()
+        prames.reserveRemark= $(".remarkReserve").val()
+        myAjax(updateRemarkMfoOrder,prames,handle);
+        function handle(data,param){
+            console.log(data)
+            layer.msg("保存成功", {icon: 1,time:1000,shade: 0.01});
+            window.location.reload()
+        }
+    })
+
+    //供应商名称
+    $(".costSave").click(function () {
+        var prames={
+            "id":$("#costId").val(),
+            "supplyNum":$("#supplyNum").val(),
+            "cost":$("#costs").val(),
+            "currency":$(".currency").val(),
+            "supplyName":$(".supplyName").val(),
+            "status":$(".statusCooper").val(),
+            "goDate":$("#goDate").val(),
+            "channelNum":$("#channelNum").val(),
+            "ascription":getQueryParam("ascription").ascription,
+        };
+
+        myAjax(updateCost,prames,handle);
+        function handle(data,param){
+            console.log(data)
+            layer.msg("保存成功", {icon: 1,time:1000,shade: 0.01});
+            window.location.reload()
+        }
+    })
+
+
+
+
+
+
+</script>
+
+</body>
+
+</html>

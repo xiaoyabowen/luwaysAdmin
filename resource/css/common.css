@@ -1,0 +1,75 @@
+.validate{
+    display: none;
+    color: red;
+}
+.redColor{
+    color: red;
+}
+.img{ height: 40px}
+
+.content-view,.totalarea,.hiddenid{display: none}
+/*公共*/
+
+.btn-primaryEdit,.btn-successEdit,.btn-dangerEdit,.btn-infoEdit,.btn-defaultEdit,.btn-warningEdit{
+    padding: 0 !important;
+    white-space: nowrap;
+}
+.btn-primaryEdit:hover,.btn-successEdit:hover,.btn-dangerEdit:hover,.btn-infoEdit:hover,.btn-defaultEdit:hover,.btn-warningEdit:hover{
+    transition: .3s !important;
+}
+/*primary*/
+.btn-primaryEdit{
+    color: #1ab394 !important;
+}
+.btn-primaryEdit:hover{
+    color: #18a689 !important;
+}
+
+    /*btn-yellowEdit*/
+.btn-yellowEdit{
+    background: #f4b400 !important;
+}
+.btn-yellowEdit:hover{
+    background: #f6c12a !important;
+}
+/*success*/
+.btn-successEdit{
+    color: #1c84c6;
+}
+.btn-successEdit:hover{
+    color: #1a7bb9 !important;
+}
+
+    /*btn-danger*/
+.btn-dangerEdit{
+    color: #ed5565 !important;
+
+}
+.btn-dangerEdit:hover{
+    color: #ec4758 !important;
+}
+/*btn-info*/
+.btn-infoEdit{
+    color: #23c6c8 !important;
+}
+.btn-infoEdit:hover{
+    color: #21b9bb !important;
+}
+
+
+/*btn-default*/
+.btn-defaultEdit{
+    color: #c2c2c2 !important;
+}
+.btn-defaultEdit:hover{
+    color: #bababa !important;
+}
+
+
+/*.btn-warningEdit*/
+.btn-warningEdit{
+    color: #f8ac59 !important;
+}
+.btn-warningEdit:hover{
+    color: #f7a54a !important;
+}

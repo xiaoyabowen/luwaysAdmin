@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台主题UI框架</title>
+    <meta name="keywords">
+    <meta name="description">
+    <meta name="keywords">
+    <meta name="description">
+    <!--网页logo-->
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../resource/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../resource/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../resource/js/plugins/select2/css/select2.css" rel="stylesheet">
+    <link href="../resource/js/plugins/bootstarp-table/css/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../resource/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../resource/css/animate.css" rel="stylesheet">
+    <link href="../resource/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../resource/css/common.css" rel="stylesheet">
+    <!--iCheck样式-->
+    <link rel="stylesheet" type="text/css" href="../resource/css/plugins/iCheck/custom.css"/>
+</head>
+<style>
+    .inputClass{
+        display: inline-block;
+        width: 50px;
+    }
+    .tableClass th,.tableClass td{
+        text-align: center;
+    }
+    #toolbar{
+        width: 100%;
+    }
+    .labelSelect{
+        display: flex;
+    }
+    .labelSelect>input{
+        margin-right: 5px;
+    }
+    .distribution{
+        display: none;
+    }
+
+</style>
+<body class="gray-bg">
+
+<!--查看酒店详情  motal-->
+<div class="wrapper wrapper-content animated  fadeInDown  content-view  ">
+
+    <form method="get" class="form-horizontal" id="areaForm">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">酒店ID</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control"  id="hotelId" readonly="readonly"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">酒店中文名称</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control"  id="hotelName"  readonly="readonly"/>
+                <span class="help-block m-b-none validate"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">酒店英文名称</label>
+            <div class="col-sm-8">
+                <input type="text"  class="form-control" id="hotelEnName" readonly="readonly">
+            </div>
+
+        </div>
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">酒店地址</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="hotelAdress" readonly="readonly">
+            </div>
+        </div>
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">酒店星级</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="hotelStar" readonly="readonly">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">酒店电话</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="hotelTel" readonly="readonly">
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>酒店订单管理</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <div id="toolbar">
+                        <div class="form-group col-sm-1 btnSeacher"  style="display:none;">
+                            <button class="btn btn-success  btn-outline" id="btn_add">
+                                <i class="fa fa-plus">添加</i>
+                            </button>
+                        </div>
+
+                        <div class="form-group labelSelect col-sm-8">
+                            <input type="text" class="col-sm-2 form-control" id="referenceNum" placeholder="供应商订单号">
+                            <input type="text" class="col-sm-2 form-control" id="orderNum" placeholder="渠道商订单号">
+                            <input type="text" class="col-sm-2 form-control" id="startDate" name="startDate" placeholder="请输入开始日期">
+                            <input type="text" class="col-sm-2 form-control" id="endDate" name="endDate" placeholder="请输入结束日期">
+                        </div>
+                        <div class="col-sm-2">
+                            <select class="orderType form-control" id="confirmStatus">
+                                <option value="">全部</option>
+                                <option value="6">已发voucher</option>
+                                <option value="5">取消</option>
+                                <option value="4">失败</option>
+                                <option value="3">确认</option>
+                                <option value="2">处理中</option>
+                                <option value="1">等待</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-1">
+                            <button class="btn btn-primary  btn-outline" id="btn_search">
+                                <i class="fa fa-search">搜索</i>
+                            </button>
+                        </div>
+                    </div>
+                    <table id="tb_table"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Panel Other -->
+</div>
+
+<!-- 全局js -->
+<script src="../resource/js/jquery.min.js?v=2.1.4"></script>
+<script src="../resource/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="../resource/js/content.js?v=1.0.0"></script>
+
+<script src="../resource/js/plugins/select2/js/select2.full.js"></script>
+<script src="../resource/js/plugins/select2/js/i18n/zh-CN.js"></script>
+<script src="../resource/js/plugins/layer/layer.js"></script>
+<script src="../resource/js/plugins/laydate/laydate.js"></script>
+<!-- ztree -->
+<!-- Bootstrap table -->
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table.js"></script>
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="../resource/js/plugins/bootstrap-3-typeahead/bootstrap3-typeahead.js"></script>
+
+<script src="../resource/common/multiselect.js"></script>
+<script src="../resource/common/common.js?time=" +Math.random()></script>
+
+<!--多选框 icheck.js-->
+<script src="../resource/js/plugins/iCheck/iCheck.js"></script>
+
+<script>
+    /*for (var i=0;i<getUserInfo().roles[0].resources.length;i++){
+        if (getUserInfo().roles[0].resources[i].permission == 101002001){
+            $("#toolbar").show()
+        }
+    }*/
+    $("#startDate").val(getDay(-7))
+    $("#endDate").val(getDay(0))
+    var $table = $('#tb_table');
+    function Table() {
+        $table.bootstrapTable({
+            url: hotelOrderRestfulControllerList,         //请求后台的URL（*）
+            method: 'get',                      //请求方式（*）
+            contentType : "application/x-www-form-urlencoded",
+            toolbar: '#toolbar',                //工具按钮用哪个容器
+//                    striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            sortable: true,                     //是否启用排序
+            sortOrder: "asc",                   //排序方式
+            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber: 1,                       //初始化加载第一页，默认第一页
+            pageSize: 10,                       //每页的记录行数（*）
+            pageList:5,                         //分页步进值
+            pageList: [10, 20, 30, 50],        //可供选择的每页的行数（*）
+//                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            strictSearch: true,
+            showColumns: false,                         showRefresh: false,
+            minimumCountColumns: 2,             //最少允许的列数
+            clickToSelect: true,                //是否启用点击选中行
+//				height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+//                showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+            cardView: false,                    //是否显示详细视图
+            detailView: false,                   //是否显示父子表
+//                    showFooter:true,            //表格底部
+            onClickRow: function (row) {
+                // console.log(row)
+            },
+            queryParamsType: 'limit',
+            queryParams: function (params) {
+
+                return {
+                    pageNo: (params.offset / params.limit) + 1,
+                    pageSize: params.limit,
+                    referenceNum: $("#referenceNum").val(),
+                    confirmStatus: $("#confirmStatus").val(),
+                    orderNum: $("#orderNum").val(),
+                    startDate:$("#startDate").val(),
+                    endDate:$("#endDate").val()
+                };
+            },
+            onLoadSuccess : function (data) {
+                // console.log(data)
+            },
+            responseHandler : function (e) {
+                console.log(e)
+                return { "rows": e.data.list.bookings, "total": e.data.list.total};
+
+            },
+            columns : [
+                {
+                    field: "id", title: "id", formatter: function (value, row, index) {
+                        return value;
+                    }
+                },
+                {
+                    field: "name", title: "Country/City", formatter: function (value, row, index) {
+                        return row.hotel.city.countryName + "<br />" + row.hotel.city.provinceName;
+                    }
+                },
+                {
+                    field: "name", title: "Hotel name<br />room name", formatter: function (value, row, index) {
+                        return row.product.hotelName +"<br />" + row.product.roomName;
+                    }
+                },
+                {
+                    field: "name", title: "Meal type", formatter: function (value, row, index) {
+                        return row.product.boardName;
+                    }
+                },
+                {
+                    field: "name", title: "Order No(C/S)", formatter: function (value, row, index) {
+                        var referenceNumHtml =''
+                        if (row.referenceNum == ''){
+                            referenceNumHtml += '-'
+                        }else{
+                            referenceNumHtml += row.referenceNum
+                        }
+
+                        return row.orderNum+"<br />"+ referenceNumHtml;
+
+                    }
+                },
+                {
+                    field: "name", title: "Agent(C/S)", formatter: function (value, row, index) {
+
+                        var companyId = ''
+                        var supplierId = ''
+
+                        if (row.companyId == 1){
+                            companyId += 'luways'
+                        }else if (row.companyId == 2){
+                            companyId += 'qunar'
+                        }else if (row.companyId == 3){
+                            companyId += 'taobao'
+                        }else if (row.companyId == 4){
+                            companyId += 'elong'
+                        }
+
+                        if (row.supplierId == 2){
+                            supplierId += 'hotelbeds'
+                        }else if (row.supplierId == 3){
+                            supplierId += 'hotelspro'
+                        }else if (row.supplierId == 4){
+                            supplierId += 'welcomebeds'
+                        }
+
+                        return companyId+"<br />"+supplierId;
+
+                    }
+                },
+                {
+                    field: "name", title: "Price(C/S)<br />Difference value", formatter: function (value, row, index) {
+                        var priceHtml = ''
+                        var differenceHtml = ''
+                        var totalPriceHtml = '<em style="color: #ff9600;">'+parseFloat(row.totalPrice).toFixed(2)+'</em>'
+                        if (row.referencePrice == 0){
+                            priceHtml += '-'
+                            differenceHtml += '-'
+                        }else{
+                            priceHtml += '<em style="color: #ff9600;">'+parseFloat(row.referencePrice).toFixed(2)+'</em>'
+                            differenceHtml +=  '<em style="color: #ff9600;">'+ parseFloat(row.totalPrice - row.referencePrice).toFixed(2)+'</em>'
+                        }
+                        return totalPriceHtml +"&nbsp;&nbsp;/&nbsp;&nbsp;"+ priceHtml+"<br />"+ differenceHtml
+                    }
+                },
+                {
+                    field: "name", title: "Check in/out", formatter: function (value, row, index) {
+                        return row.checkIn + "<br />" +row.checkOut;
+
+                    }
+                },
+                {
+                    field: "contactName", title: "Contact", formatter: function (value, row, index) {
+                        return value;
+
+                    }
+                },
+                {
+                    field: "name", title: "R/N", formatter: function (value, row, index) {
+                        return row.numberOfRooms + "间<br />" + row.night +"夜";
+                    }
+                },
+                {
+                    field: "name", title: "policy", formatter: function (value, row, index) {
+                        var OrderHtml = ''
+                        if (row.cancelPolicy == null){
+                            OrderHtml += '-'
+                        }else {
+                            if (row.cancelPolicy.isNonRefundable == 1){
+                                OrderHtml += '不可取消'
+                            }else if (row.cancelPolicy.isNonRefundable == 0){
+                                OrderHtml += '可在'+ '<em style="color: #ff9600"> '+row.cancelPolicy.fromTime+'</em>' +'<br />之前取消'
+                            }
+                        }
+                        return OrderHtml;
+
+                    }
+                },
+                {
+                    field: "name", title: "ADR", formatter: function (value, row, index) {
+                        var ADRhtml = ''
+                        if (row.referencePrice == ''){
+                            ADRhtml += '-'
+                        } else{
+                            ADRhtml += '<em style="color: #ff9600;">'+parseFloat(row.referencePrice/(row.numberOfRooms*row.night)).toFixed(2)+'</em>'
+                        }
+                        return ADRhtml;
+
+                    }
+                },
+                {
+                    field: "createDate", title: "createDate", formatter: function (value, row, index) {
+                        return formatDateTime(row.createDate)
+                    }
+                },
+                {
+                    field: "name", title: "Status", formatter: function (value, row, index) {
+                       var StatusHtml = ''
+                        if (row.confirmStatus == 1){
+                            StatusHtml += "<a  class='btn-primaryEdit' href='javascript:void(0)'>等待中</a>"
+                        }else if (row.confirmStatus == 2){
+                            StatusHtml += "<a  class='btn-warningEdit' href='javascript:void(0)'>处理中</a>"
+                        }else if (row.confirmStatus == 3){
+                            StatusHtml += "<a  class='btn-successEdit' href='javascript:void(0)'>已确认</a>"
+                        }else if (row.confirmStatus == 4){
+                            StatusHtml += "<a  class='btn-dangerEdit' href='javascript:void(0)'>失败</a>"
+                        }else if (row.confirmStatus == 5){
+                            StatusHtml += "<a  class='btn-infoEdit' href='javascript:void(0)'>已取消</a>"
+                        }else if (row.confirmStatus == 6){
+                            StatusHtml += "<a  class='btn-primaryEdit' href='javascript:void(0)'>已发送voucher</a>"
+                        }
+                        return StatusHtml
+                    }
+                },
+                /*{
+                    field: "name", title: "operation", formatter: function (value, row, index) {
+                        var data = row
+                        var detailHtml = ''
+                        detailHtml += "<a  class='btn btn-warning btn-sm btn-outline' href='javascript:void(0)' onclick=\'seeDate(" + data.id + ")\'><i class='fa fa-eye'></i>酒店详情</a>";
+                        return detailHtml
+                    }
+                },*/
+            ]
+        });
+
+    }
+
+
+    function seeDate(rowData){
+        console.log(rowData)
+        formReset();
+        var index= layer.open({
+            type: 1 , shade: 0.01,
+            id: 'area', //设定一个id，防止重复弹出
+            title: '添加/更新',
+            area: ['600px','400px'],
+            content: $('.content-view'),
+            btn: ['提交', '关闭'],
+            yes:function(index){
+                layer.close(index);
+                formReset();
+            },
+            shadeClose: true, //开启遮罩关闭
+            success: function(){
+                $("#hotelId").val(rowData.hotel.id)
+                $("#hotelName").val(rowData.hotel.name)
+                $("#hotelEnName").val(rowData.hotel.cnName)
+                $("#hotelAdress").val(rowData.hotel.address)
+                $("#hotelTel").val(rowData.hotel.tel)
+                $("#hotelStar").val(rowData.hotel.star + "星级")
+            }
+
+        })
+    }
+
+    function formReset() {
+        $("#areaForm")[0].reset();
+    }
+
+    $(function () {
+        // var Table = new TableInit(columns);
+        Table();
+        var oButtonInit = new ButtonInit();
+        oButtonInit.Init();
+        $('.i_check').iCheck({
+            handler:'radio',
+            radioClass: 'iradio_square-green',
+            increaseArea: '20%',
+        });
+
+        //按钮权限
+        var resourcesData = getUserInfo().roles[0].resources
+        var resourcesHtml = []
+        for(item in resourcesData){
+            var activeDivObj = new Array();
+            resourcesHtml.push(activeDivObj)
+            if(resourcesData[item].parent == 4){
+                var addObj = {};
+                addObj.parent =  resourcesData[item].permission
+                resourcesHtml[item].push(addObj)
+            }
+        }
+        arrayHtml = new Array();
+        for (i in resourcesHtml){
+            if (resourcesHtml[i] != ''){
+                arrayHtml.push(resourcesHtml[i][0].parent)
+            }
+        }
+        console.log(arrayHtml)
+        if ($.inArray("101002001",arrayHtml) !== -1){
+            $(".btnSeacher").show()
+        }
+
+    });
+
+    function reInitTable() {
+        $table.bootstrapTable('refresh');
+    }
+
+    //初始化页面上面的按钮事件
+    var ButtonInit = function () {
+        var oInit = new Object();
+        oInit.Init = function () {
+            $('#btn_search').click(reInitTable);
+        };
+        laydate.render({
+            elem:'#startDate',
+            done: function(value, date, endDate){
+                var endTime = $("#endDate").val()
+                if(Date.parse(value)>Date.parse(endTime)){
+                    layer.msg("请选择结束日期之前", {icon: 2,time:1000,shade: 0.01});
+                    $("#startDate").val('')
+                }
+            }
+        })
+        laydate.render({
+            elem:'#endDate',
+            done: function(value, date, endDate){
+                var startDate = $("#startDate").val()
+                if(Date.parse(startDate)>Date.parse(value)){
+                    layer.msg("请选择开始日期之后", {icon: 2,time:1000,shade: 0.01});
+                    $("#endDate").val('')
+                }
+            }
+        })
+        return oInit;
+
+    };
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台主题UI框架</title>
+    <meta name="keywords">
+    <meta name="description">
+    <meta name="keywords">
+    <meta name="description">
+    <!--网页logo-->
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../resource/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../resource/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../resource/js/plugins/select2/css/select2.css" rel="stylesheet">
+    <link href="../resource/js/plugins/bootstarp-table/css/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../resource/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../resource/css/animate.css" rel="stylesheet">
+    <link href="../resource/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../resource/css/common.css" rel="stylesheet">
+    <!--iCheck样式-->
+    <link rel="stylesheet" type="text/css" href="../resource/css/plugins/iCheck/custom.css"/>
+</head>
+<style>
+    .inputClass{
+        display: inline-block;
+        width: 50px;
+    }
+    .tableClass th,.tableClass td{
+        text-align: center;
+    }
+    #toolbar{
+        width: 1000px;
+    }
+    .labelSelect{
+        display: flex;
+    }
+    .distribution{
+        display: none;
+    }
+
+</style>
+<body class="gray-bg">
+
+
+
+<!--未审核  motal-->
+<div class="wrapper wrapper-content animated  fadeInDown  distribution">
+
+    <form method="get" class="form-horizontal" id="areaFormAdius">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">联系人</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control"  id="notName" name="lkm" placeholder="请输入联系人"/>
+                <span class="help-block m-b-none validate"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">联系电话</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control"  id="notPhone" name="lkmPhone" placeholder="请输入联系人"/>
+                <span class="help-block m-b-none validate"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">联系邮箱</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control"  id="notEmail" name="lkmEmail" placeholder="请输入联系人"/>
+                <span class="help-block m-b-none validate"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">公司名称</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control"  id="componyName" name="name" placeholder="请输入公司名称"/>
+                <span class="help-block m-b-none validate"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">公司所在地</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control"  id="componyAdress" name="location" placeholder="请输入公司所在地"/>
+                <span class="help-block m-b-none validate"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">公司性质</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control"  id="componyXing" name="property" placeholder="请输入公司性质"/>
+                <span class="help-block m-b-none validate"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">企业范围</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control"  id="componyFan" name="scope" placeholder="请输入企业范围"/>
+                <span class="help-block m-b-none validate"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">固定电话</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control"  id="notMixPhone" name="tel" placeholder="请输入固定电话"/>
+                <span class="help-block m-b-none validate"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">传真</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control"  id="notFax" name="fax" placeholder="请输入传真"/>
+                <span class="help-block m-b-none validate"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">经营业务描述</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control"  id="notDescribe" name="description" placeholder="请输入经营业务描述"/>
+                <span class="help-block m-b-none validate"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">经营许可证号</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control"  id="notNumber" name="identityNum" placeholder="请输入经营许可证号"/>
+                <span class="help-block m-b-none validate"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">审核</label>
+            <div class="col-sm-8">
+                <label class="i_check">
+                    <input type="radio" class="radioHtmlType" name="auditStatus" value="2" /> 通过
+                </label>
+                <label class="i_check">
+                    <input type="radio" class="radioHtmlType" name="auditStatus" value="3" /> 拒绝
+                </label>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">审核</label>
+            <div class="col-sm-8">
+                </label>
+                <textarea name="remark" id="" cols="30" rows="10" style="width: 100%;resize: none;height: 150px"></textarea>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<!--编辑  motal-->
+<div class="wrapper wrapper-content animated  fadeInDown  content-view  ">
+
+    <form method="get" class="form-horizontal" id="areaForm">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">账户名*</label>
+            <div class="col-sm-8">
+                <input type="hidden" class="form-control hiddenid" id="id">
+                <input type="text" class="form-control"  id="username" placeholder="请输入公司名字"/>
+                <span class="help-block m-b-none validate"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">公司名*</label>
+            <div class="col-sm-8">
+                <input type="text"  class="form-control" id="name" placeholder="请输入公司名">
+            </div>
+
+        </div>
+        <!--<div class="form-group">
+
+            <label class="col-sm-3 control-label">所属集团*</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="channelType" placeholder="请输入所属集团">
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="col-sm-3 control-label">联系人</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="lkm" placeholder="请输入联系人">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">联系电话</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="lkmPhone" placeholder="请输入联系电话">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">联系邮箱</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="lkmEmail" placeholder="请输入联系邮箱">
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">公司性质</label>
+            <div class="col-sm-8">
+                <select class="property form-control" >
+
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">渠道类型</label>
+            <div class="col-sm-8">
+                <select class="channelType form-control" >
+                    <option value="1">普通门店</option>
+                    <option value="2">组团社</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">渠道利润率</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="profit" placeholder="请输入联系邮箱">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">负责人</label>
+            <div class="col-sm-8">
+                <select class="manager form-control" >
+                    <option value="叶湘凡">叶湘凡</option>
+                    <option value="李琪琦">李琪琦</option>
+                    <option value="周娜">周娜</option>
+                    <option value="赵雅琦">赵雅琦</option>
+                    <option value="丁熳熳">丁熳熳</option>
+                    <option value="刘洋">刘洋</option>
+                    <option value="Robbie">Robbie</option>
+                    <option value="Jacob Goering">Jacob Goering</option>
+                </select>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>供应商管理</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <div id="toolbar">
+                        <div class="form-group 0">
+                            <button class="btn btn-success  btn-outline" id="btn_add" style="display: none">
+                                <i class="fa fa-plus">添加</i>
+                            </button>
+                        </div>
+                        <div class="form-group labelSelect col-sm-4">
+                            <input type="text" class="col-sm-12 form-control" id="keywords" placeholder="产品ID、Hotelbeds url、产品关键字、更新人">
+                        </div>
+                        <div class="form-group col-sm-1">
+                            <button class="btn btn-primary  btn-outline" id="btn_search">
+                                <i class="fa fa-search">搜索</i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <table id="tb_table"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Panel Other -->
+</div>
+
+<!-- 全局js -->
+<script src="../resource/js/jquery.min.js?v=2.1.4"></script>
+<script src="../resource/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="../resource/js/content.js?v=1.0.0"></script>
+
+<script src="../resource/js/plugins/select2/js/select2.full.js"></script>
+<script src="../resource/js/plugins/select2/js/i18n/zh-CN.js"></script>
+<script src="../resource/js/plugins/layer/layer.js"></script>
+<script src="../resource/js/plugins/laydate/laydate.js"></script>
+<!-- ztree -->
+<!-- Bootstrap table -->
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table.js"></script>
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="../resource/js/plugins/bootstrap-3-typeahead/bootstrap3-typeahead.js"></script>
+
+<script src="../resource/common/multiselect.js"></script>
+<script src="../resource/common/common.js?time=" +Math.random()></script>
+
+<!--多选框 icheck.js-->
+<script src="../resource/js/plugins/iCheck/iCheck.js"></script>
+
+<script>
+    /*for (var i=0;i<getUserInfo().roles[0].resources.length;i++){
+        if (getUserInfo().roles[0].resources[i].permission == 102002005){
+            $("#toolbar").show()
+        }
+    }*/
+
+
+
+
+    var $table = $('#tb_table');
+    function Table() {
+        $table.bootstrapTable({
+            url: businessRestfulControllerList,         //请求后台的URL（*）
+            method: 'get',                      //请求方式（*）
+            contentType : "application/x-www-form-urlencoded",
+            toolbar: '#toolbar',                //工具按钮用哪个容器
+//                    striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            sortable: true,                     //是否启用排序
+            sortOrder: "asc",                   //排序方式
+            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber: 1,                       //初始化加载第一页，默认第一页
+            pageSize: 10,                       //每页的记录行数（*）
+            pageList:5,                         //分页步进值
+            pageList: [10, 20, 30, 50],        //可供选择的每页的行数（*）
+//                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            strictSearch: true,
+            showColumns: false,                         showRefresh: false,
+            minimumCountColumns: 2,             //最少允许的列数
+
+            clickToSelect: true,                //是否启用点击选中行
+//				height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+//                showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+            cardView: false,                    //是否显示详细视图
+            detailView: false,                   //是否显示父子表
+//                    showFooter:true,            //表格底部
+            onClickRow: function (row) {
+                console.log(row)
+            },
+            queryParamsType: 'limit',
+            queryParams: function (params) {
+
+                return {
+                    pageNo: (params.offset / params.limit) + 1,
+                    pageSize: params.limit,
+                    type:2,
+                    keywords: $("#keywords").val()
+                };
+            },
+            onLoadSuccess : function (data) {
+                // console.log(data)
+            },
+            responseHandler : function (e) {
+                // console.log(e)
+                return { "rows": e.data.list.list, "total": e.data.list.total };
+
+            },
+            columns : [
+
+                {
+                    field: "name", title: "账户名", formatter: function (value, row, index) {
+                        return row.masterUser.username;
+                    }
+                },
+                {
+                    field: "name", title: "公司名", formatter: function (value, row, index) {
+                        // var CityHtml = '';
+                        return row.masterUser.name;
+                    }
+                },
+                {
+                    field: "title", title: "所属集团", formatter: function (value, row, index) {
+                        var channelTypeHtml = '';
+                        if (row.channelType == 2){
+                            channelTypeHtml += "总社"
+                        }else {
+                            if(row.parentId == 0 ){
+                                channelTypeHtml += "无"
+                            }else {
+                                channelTypeHtml += row.parent.name
+                            }
+                        }
+                        return channelTypeHtml;
+                    }
+                },
+                {
+                    field: "onSale", title: "联系人/电话<br />联系邮箱", formatter: function (value, row, index) {
+                        return row.lkm  + row.lkmPhone + "<br />" + row.lkmEmail;
+                    }
+                },
+                {
+                    field: "categories", title: "创建时间", formatter: function (value, row, index) {
+                        return formatDateTime(row.createDate);
+                    }
+                },
+                {
+                    field: "cityName", title: "认证", formatter: function (value, row, index) {
+                        var data = row;
+                        var auditStatusHtml = ''
+                        if (row.auditStatus == 2){
+                            auditStatusHtml += '通过'
+                        }else if (row.auditStatus == 3){
+                            auditStatusHtml += '拒绝'
+                        }else if (row.auditStatus ==1){
+                            /*for (var i=0;i<getUserInfo().roles[0].resources.length;i++){
+                                if (getUserInfo().roles[0].resources[i].permission == 102002007){
+                                    auditStatusHtml += '<a class="notAuditStatus" onclick="examine('+data.id+')">未审核</a>'
+                                }else {
+                                    html += '&nbsp';
+                                }
+                            }*/
+                            if ($.inArray("102002007",arrayHtml) !== -1){
+                                auditStatusHtml += '<a class="notAuditStatus" onclick="examine('+data.id+')">未审核</a>'
+                            }else{
+                                auditStatusHtml += '&nbsp';
+                            }
+                        }
+                        return auditStatusHtml;
+                    }
+                },
+                {
+                    field: "status", title: "状态", formatter: function (value, row, index) {
+
+                        var statusHtml = ''
+                        if (row.status == 0){
+                            statusHtml += '禁用'
+                        }else if (row.status == 1){
+                            statusHtml += '启用'
+                        }
+                        return statusHtml;
+
+                    }
+                },
+                {
+                    field: "author", title: "利润", formatter: function (value, row, index) {
+                        return row.profit;
+                    }
+                },
+                {
+                    field: "author", title: "负责人", formatter: function (value, row, index) {
+
+                        return row.manager;
+                    }
+                },
+                {
+                    field: "id",width:150, title: "操作", align: "center", formatter: function (value, row, index) {
+
+                        var data = row;
+                        var html = '';
+
+                        if ($.inArray("102002002",arrayHtml) !== -1){
+                            html += "<a  class='btn-dangerEdit deleteData' href='javascript:void(0)' onclick=\'deleteData(" + data.id + ")\'>删除</a>";
+                            html += '&nbsp;';
+                        }else{
+                            html += '&nbsp';
+                        }
+                        if ($.inArray("102002004",arrayHtml) !== -1){
+                            html += "<a  class='btn-warningEdit' id='btn_add' href='javascript:void(0)' onclick=\'addOrEdit(" + JSON.stringify(data) + ")\'>编辑</a>";
+                            html += '&nbsp';
+                        }else{
+                            html += '&nbsp';
+                        }
+
+
+                        /*for (var i=0;i<getUserInfo().roles[0].resources.length;i++){
+
+                            if (getUserInfo().roles[0].resources[i].permission == 102002002){
+                                html += "<a  class='btn btn-danger btn-sm btn-outline deleteData' href='javascript:void(0)' onclick=\'deleteData(" + data.id + ")\'><i class='fa fa-window-close' style='margin-right: 2px'></i>删除</a>";
+                                html += '&nbsp;&nbsp;';
+                            }else if (getUserInfo().roles[0].resources[i].permission == 102002004){
+                                html += "<a  class='btn btn-warning btn-sm btn-outline' id='btn_add' href='javascript:void(0)' onclick=\'addOrEdit(" + JSON.stringify(data) + ")\'><i class='fa fa-edit' style='margin-right: 2px'></i>编辑</a>";
+                                html += '&nbsp';
+                            }else {
+                                html += '&nbsp';
+                            }
+                        }*/
+                        return html;
+                    }}
+
+            ]
+        });
+
+    }
+
+    //删除
+    function deleteData(did){
+        console.log(did)
+        var url = businessRestfulControllerDelete;
+        var param = {ids:did};
+        var result = {succ:'删除成功!',fail:'删除失败'};
+        layer.msg("确定要删除该消息？", {
+            shade: [0.1, '##f5f5f5'],
+            time: 0 //不自动关闭
+            ,btn: ['确定','取消']
+            ,yes: function(index){
+                layer.close(index);
+                myAjax(url,param,handle);
+                function handle(data,param){
+                    var msg = (data.msg == undefined ? '':','+data.msg);
+                    if(data.success) {
+                        layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                        handleTable(did,4);
+                    }else{
+                        layer.msg(result.fail+msg, {icon: 2,time:1000,shade: 0.01});
+                    }
+                }
+            },btn2: function(index, layero){
+            }
+        });
+    }
+
+    //添加修改
+    function addOrEdit(rowData){
+        var subType ;
+        if(isNotBlank(rowData)){
+            subType  = 1;
+
+        }else{
+            subType  = 0;
+            // formReset();
+        }
+        var index= layer.open({
+            type: 1 , shade: 0.01,
+            id: 'area', //设定一个id，防止重复弹出
+            title: '添加/更新',
+            area: ['600px','400px'],
+            content: $('.content-view'),
+            btn: ['提交', '关闭'],
+            yes:function(index){
+                submitData(index,subType);
+            },
+            shadeClose: true, //开启遮罩关闭
+            success: function(){
+
+                // 负责人  渲染人数
+                // 点击提交接口
+                myAjax(businessRestfulControllertoPage,'', handle)
+                function handle(data,params) {
+                    var managerHtml = ''
+                    var propertyHtml = ''
+                    var managerData = data.data.usss;
+                    var propertyData = data.data.queryPropertyList;
+
+                    // 总负责人
+                    for (var i=0;i<managerData.length;i++){
+                        if (managerData[i].name == ''){
+                            managerHtml += ''
+                        }else {
+                            managerHtml += '<option value="'+managerData[i].name+'">'+managerData[i].name+'</option>'
+                        }
+
+                    }
+                    $(".manager").html(managerHtml)
+                    // 渠道/
+                    for (var j=0;j<propertyData.length;j++){
+
+                        propertyHtml += '<option value="'+propertyData[j].info+'">'+propertyData[j].info+'</option>'
+                    }
+                    $(".property").html(propertyHtml)
+                }
+
+
+
+                if(isNotBlank(rowData)){
+                    $('#id').val(rowData.id);
+                    $('#username').val(rowData.masterUser.username);
+                    $('#name').val(rowData.masterUser.name);
+                    $('#lkm').val(rowData.lkm);
+                    $('#lkmPhone').val(rowData.lkmPhone);
+                    $('#lkmEmail').val(rowData.lkmEmail);
+                    $('.property').val(rowData.property);
+                    $('.channelType').val(rowData.channelType);
+                    $('#profit').val(rowData.profit);
+                    $('.manager').val(rowData.manager);
+                }
+            }
+
+        })
+    }
+
+    function submitData(index,type){
+        var id=$('#id').val();
+        var username=$.trim($('#username').val());
+        var name= $.trim($('#name').val());
+        var lkm=$.trim($('#lkm').val());
+        var lkmPhone=$.trim($('#lkmPhone').val());
+        var lkmEmail=$.trim($('#lkmEmail').val());
+        var property=$.trim($('.property').val());
+        var channelType=$.trim($('.channelType').val());
+        var profit=$.trim($('#profit').val());
+        var manager=$.trim($('.manager').val());
+        var result;
+        var params = {};
+        var url;
+        if(type == 0){
+            url =businessRestfulControllerSave;
+
+            result = {succ:'添加成功！',fail:'添加失败！'};
+        }else{
+            url = businessRestfulControllerSave;
+            result = {succ:'更新成功！',fail:'更新失败'};
+        }
+        /*if(isBlank(title)){
+            showValidate('#title');
+            return  ;
+        }
+        if(isBlank(startDate)){
+            showValidate('#pstartTime');
+            return  ;
+        }
+        if(isBlank(endDate)){
+            showValidate('#pendTime');
+            return  ;
+        }
+        if(isBlank(tid)){
+            tid=0;
+        }*/
+
+        if(isNotBlank(id)){
+            params.id = id;
+        }
+
+        layer.close(index);
+        params.type =2;
+        params.username = username;
+        params.name = name;
+        params.lkm = lkm;
+        params.lkmPhone = lkmPhone;
+        params.lkmEmail = lkmEmail;
+        params.property = property;
+        params.channelType =channelType;
+        params.profit =profit;
+        params.manager =manager;
+        myAjax(businessRestfulControllerSave,params,handle);
+        function handle(data,params){
+            var msg = (data.msg == undefined ? '':','+data.msg);
+            if(data.success) {
+                layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                handleTable("",3,businessRestfulControllerList);
+            }else{
+                layer.msg(result.fail+msg, {icon: 1,ime:1000,shade: 0.01});
+            }
+        }
+
+    }
+
+
+    // $(document).on("click",".notAuditStatus",function examine(sid) {
+    function examine(sid) {
+        console.log(sid)
+
+        formReset()
+        myAjax(businessRestfulControllertoCheckPage,{id:sid}, handle)
+        function handle(data,params) {
+            $("#notName").val(data.data.company.lkm)
+            $("#notPhone").val(data.data.company.lkmPhone)
+            $("#notEmail").val(data.data.company.lkmEmail)
+            $("#componyName").val(data.data.company.name)
+            $("#componyAdress").val(data.data.company.address)
+            $("#componyXing").val(data.data.company.property)
+            $("#componyFan").val(data.data.company.scope)
+            $("#notMixPhone").val(data.data.company.tel)
+            $("#notFax").val(data.data.company.fax)
+            $("#notDescribe").val(data.data.company.description)
+            $("#notNumber").val(data.data.company.identityNum)
+        }
+
+        var index = layer.open({
+            type: 1, shade: 0.01,
+            id: 'area1', //设定一个id，防止重复弹出
+            title: '未审核管理',
+            area: ['600px', '400px'],
+            content: $('.distribution'),
+            btn: ['提交', '关闭'],
+            yes: function (index) {
+                layer.close(index);
+                var notMiss = $("#areaFormAdius").serialize()
+                /*notMiss.lkm = lkm
+                notMiss.lkmPhone = lkmPhone
+                notMiss.lkmEmail = lkmEmail
+                notMiss.name = name
+                notMiss.location = address
+                notMiss.property = property
+                notMiss.scope = scope
+                notMiss.tel = tel
+                notMiss.fax = fax
+                notMiss.description = description
+                notMiss.identityNum = identityNum*/
+                formReset()
+                // 点击提交接口
+                $("#useAllJinbi").find("[type='radio']").iCheck('check');
+                if ($("input[type='radio']").iCheck('check')){
+                    auditStatus = $(".radioHtmlType").val()
+                }
+                myAjax(businessRestfulControllertoCheck,notMiss+"&id="+sid+"&auditStatus="+auditStatus, handle)
+                function handle(data,params) {
+                    console.log(data)
+                    var msg = (data.msg == undefined ? '' : ',' + data.msg);
+                    if (data.success) {
+                        formReset()
+                        handleTable("",3,businessRestfulControllerList);
+
+                    } else {
+                        layer.msg(result.fail + msg, {icon: 2,time:500, shade: 0.01});
+                    }
+                }
+
+            },
+            shadeClose: true, //开启遮罩关闭
+            success: function (layero, index) {
+
+            }
+        })
+    }
+
+    // 表单  刷新
+    function formReset() {
+        $("#areaFormAdius")[0].reset();
+    }
+
+    function openPOP(){
+        addOrEdit();
+    }
+
+    $(function () {
+        // var Table = new TableInit(columns);
+        Table();
+        var oButtonInit = new ButtonInit();
+        oButtonInit.Init();
+
+        //按钮权限
+        var resourcesData = getUserInfo().roles[0].resources
+        var resourcesHtml = []
+        for(item in resourcesData){
+            var activeDivObj = new Array();
+            resourcesHtml.push(activeDivObj)
+            if(resourcesData[item].parent == 16){
+                var addObj = {};
+                addObj.parent =  resourcesData[item].permission
+                resourcesHtml[item].push(addObj)
+            }
+        }
+        arrayHtml = new Array();
+        for (i in resourcesHtml){
+            if (resourcesHtml[i] != ''){
+                arrayHtml.push(resourcesHtml[i][0].parent)
+            }
+        }
+        console.log(arrayHtml)
+        /*if ($.inArray("102002005",arrayHtml) !== -1){
+            $("#toolbar").show()
+        }*/
+
+
+    });
+
+    $('.i_check').iCheck({
+        handler:'radio',
+        radioClass: 'iradio_square-green',
+        increaseArea: '20%',
+    });
+
+    function reInitTable() {
+        $table.bootstrapTable('refresh');
+    }
+
+    //初始化页面上面的按钮事件
+    var ButtonInit = function () {
+        var oInit = new Object();
+        oInit.Init = function () {
+            $('#btn_add').click(openPOP);
+            $('#btn_search').click(reInitTable);
+        };
+        laydate.render({
+            elem: '#startTime', type: 'datetime'
+        });
+        laydate.render({
+            elem: '#endTime'
+            ,type: 'datetime'
+        });
+        return oInit;
+
+    };
+
+</script>
+
+</body>
+
+</html>

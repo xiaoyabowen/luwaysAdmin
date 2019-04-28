@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台主题UI框架</title>
+    <meta name="keywords">
+    <meta name="description">
+    <meta name="keywords">
+    <meta name="description">
+    <!--网页logo-->
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../resource/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../resource/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../resource/js/plugins/select2/css/select2.css" rel="stylesheet">
+    <link href="../resource/js/plugins/bootstarp-table/css/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../resource/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../resource/css/animate.css" rel="stylesheet">
+    <link href="../resource/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../resource/css/common.css" rel="stylesheet">
+    <!--iCheck样式-->
+    <link rel="stylesheet" type="text/css" href="../resource/css/plugins/iCheck/custom.css"/>
+</head>
+<style>
+    .inputClass{
+        display: inline-block;
+        width: 50px;
+    }
+    .tableClass th,.tableClass td{
+        text-align: center;
+    }
+    #toolbar{
+        width: 1000px;
+    }
+    .labelSelect{
+        display: flex;
+    }
+    .distribution{
+        display: none;
+    }
+
+</style>
+<body class="gray-bg">
+
+
+
+
+<!--编辑  motal-->
+<div class="wrapper wrapper-content animated  fadeInDown  content-view  ">
+    <form method="get" class="form-horizontal" id="areaForm">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">账户名*</label>
+            <div class="col-sm-8">
+                <input type="hidden" class="form-control hiddenid" id="id">
+                <input type="text" class="form-control"  id="username" placeholder="请输入公司名字"/>
+                <span class="help-block m-b-none validate"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">公司名*</label>
+            <div class="col-sm-8">
+                <input type="text"  class="form-control" id="name" name="name" placeholder="请输入公司名">
+            </div>
+
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">所属集团*</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="sysUser" name="sysUser.username" placeholder="请输入所属集团">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">联系人</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="lkm" name="lkm" placeholder="请输入联系人">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">联系电话</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="lkmPhone" name="lkmPhone" placeholder="请输入联系电话">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">联系邮箱</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="lkmEmail" name="lkmEmail" placeholder="请输入联系邮箱">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">渠道利润率</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="profit" name="profit" placeholder="请输入联系邮箱">
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>商旅用户</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <div id="toolbar">
+                        <div class="form-group">
+                            <button class="btn btn-success  btn-outline" id="btn_add" style="display:none;">
+                                <i class="fa fa-plus">添加</i>
+                            </button>
+                        </div>
+                        <div class="form-group labelSelect col-sm-4">
+                            <input type="text" class="col-sm-12 form-control" id="keywords" placeholder="关键字搜索....">
+                        </div>
+                        <div class="form-group col-sm-1">
+                            <button class="btn btn-primary  btn-outline" id="btn_search">
+                                <i class="fa fa-search">搜索</i>
+                            </button>
+                        </div>
+                    </div>
+                    <table id="tb_table"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Panel Other -->
+</div>
+
+<!-- 全局js -->
+<script src="../resource/js/jquery.min.js?v=2.1.4"></script>
+<script src="../resource/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="../resource/js/content.js?v=1.0.0"></script>
+
+<script src="../resource/js/plugins/select2/js/select2.full.js"></script>
+<script src="../resource/js/plugins/select2/js/i18n/zh-CN.js"></script>
+<script src="../resource/js/plugins/layer/layer.js"></script>
+<script src="../resource/js/plugins/laydate/laydate.js"></script>
+<!-- ztree -->
+<!-- Bootstrap table -->
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table.js"></script>
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="../resource/js/plugins/bootstrap-3-typeahead/bootstrap3-typeahead.js"></script>
+
+<script src="../resource/common/multiselect.js"></script>
+<script src="../resource/common/common.js?time=" +Math.random()></script>
+
+<!--多选框 icheck.js-->
+<script src="../resource/js/plugins/iCheck/iCheck.js"></script>
+
+<script>
+
+    // for (var i=0;i<getUserInfo().roles[0].resources.length;i++){
+    //     if (getUserInfo().roles[0].resources[i].permission == 103001005){
+    //         $("#toolbar").show()
+    //     }
+    // }
+
+
+
+
+    var $table = $('#tb_table');
+    function Table() {
+        $table.bootstrapTable({
+            url: businessRestfulControllerList,         //请求后台的URL（*）
+            method: 'get',                      //请求方式（*）
+            contentType : "application/x-www-form-urlencoded",
+            toolbar: '#toolbar',                //工具按钮用哪个容器
+//                    striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            sortable: true,                     //是否启用排序
+            sortOrder: "asc",                   //排序方式
+            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber: 1,                       //初始化加载第一页，默认第一页
+            pageSize: 10,                       //每页的记录行数（*）
+            pageList:5,                         //分页步进值
+            pageList: [10, 20, 30, 50],        //可供选择的每页的行数（*）
+//                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            strictSearch: true,
+            showColumns: false,                         showRefresh: false,
+            minimumCountColumns: 2,             //最少允许的列数
+            clickToSelect: true,                //是否启用点击选中行
+//				height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+//                showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+            cardView: false,                    //是否显示详细视图
+            detailView: false,                   //是否显示父子表
+//                    showFooter:true,            //表格底部
+            onClickRow: function (row) {
+                console.log(row)
+            },
+            queryParamsType: 'limit',
+            queryParams: function (params) {
+
+                return {
+                    pageNo: (params.offset / params.limit) + 1,
+                    pageSize: params.limit,
+                    keywords: $("#keywords").val(),
+                    type:2,
+                    qq:666
+                };
+            },
+            onLoadSuccess : function (data) {
+                console.log(data)
+            },
+            responseHandler : function (e) {
+                console.log(e)
+                return { "rows": e.data.list.list, "total": e.data.list.total };
+
+            },
+            columns : [
+
+                {
+                    field: "id",width:140, title: "启用/禁用账户", formatter: function (value, row, index) {
+                        var data = row;
+                        var userHtml = '';
+                        for (var i=0;i<getUserInfo().roles[0].resources.length;i++){
+                            if (getUserInfo().roles[0].resources[i].permission == 103001003){
+                                userHtml += "<a class='btn-dangerEdit deleteData' href='javascript:void(0)' onclick=\'disableUser(" + data.id + ")\'>禁用账户</a>";
+                                userHtml += '&nbsp;';
+                                userHtml += "<a  class='btn-successEdit' id='btn_add' href='javascript:void(0)' onclick='openUser(" + data.id + ")'>启用账户</a>";
+                                userHtml += '&nbsp';
+                            }else {
+                                userHtml += '';
+                            }
+                        }
+
+                        return userHtml;
+                    }
+                },
+                {
+                    field: "username", title: "账户名", formatter: function (value, row, index) {
+                        return row.masterUser.username;
+                    }
+                },
+                {
+                    field: "name", title: "公司名", formatter: function (value, row, index) {
+                        return value;
+
+                    }
+                },
+                {
+                    field: "remark", title: "服务需求", formatter: function (value, row, index) {
+                        return value;
+
+                    }
+                },
+                {
+                    field: "status", title: "联系人/电话<br />联系邮箱", formatter: function (value, row, index) {
+                        return row.lkm  + row.lkmPhone + "<br />" + row.lkmEmail;
+                    }
+                },
+                {
+                    field: "name", title: "方便联系时间", formatter: function (value, row, index) {
+                        return formatDateTime(row.createDate);
+
+                    }
+                },
+                {
+                    field: "cityName", title: "认证", formatter: function (value, row, index) {
+                        var data = row;
+                        var auditStatusHtml = ''
+                        if (row.auditStatus == 2){
+                            auditStatusHtml += '通过'
+                        }else if (row.auditStatus == 3){
+                            auditStatusHtml += '拒绝'
+                        }else if (row.auditStatus ==1){
+                            auditStatusHtml += '<a class="notAuditStatus" onclick="examine('+data.id+')">未审核</a>'
+                        }
+                        return auditStatusHtml;
+                    }
+                },
+                {
+                    field: "status", title: "状态", formatter: function (value, row, index) {
+
+                        var statusHtml = ''
+                        if (row.status == 0){
+                            statusHtml += '<a class="btn btn-danger btn-sm btn-outline" href="javascript:void(0)">禁用</a>'
+                        }else if (row.status == 1){
+                            statusHtml += '<a class="btn btn-success btn-sm btn-outline" href="javascript:void(0)">启用</a>'
+                        }
+                        return statusHtml;
+
+                    }
+                },
+                {
+                    field: "id",width:150, title: "操作", align: "center", formatter: function (value, row, index) {
+                        var data = row;
+                        var html = '';
+
+                        if ($.inArray("103001004",arrayHtml) !== -1){
+                            html += "<a class='btn-warningEdit' id='btn_add' href='javascript:void(0)' onclick='addOrEdit(" +JSON.stringify(data)+")'>编辑</a>";
+                            html += '&nbsp';
+                        }else{
+                            html += '&nbsp';
+                        }
+
+                        if ($.inArray("103001002",arrayHtml) !== -1){
+                            html += "<a  class='btn-dangerEdit deleteData' href='javascript:void(0)' onclick=\'deleteData(" + data.id + ")\'>删除</a>";
+                            html += '&nbsp;';
+                        }else{
+                            html += '&nbsp';
+                        }
+
+                        return html;
+                    }
+                },
+
+            ]
+        });
+
+    }
+
+    //删除
+    function deleteData(did){
+        console.log(did)
+        var url = businessRestfulControllerDelete;
+        var param = {id:did};
+        var result = {succ:'删除成功!',fail:'删除失败'};
+        layer.msg("确定要删除该消息？", {
+            shade: [0.1, '##f5f5f5'],
+            time: 0 //不自动关闭
+            ,btn: ['确定','取消']
+            ,yes: function(index){
+                layer.close(index);
+                myAjax(url,param,handle);
+                function handle(data,param){
+                    var msg = (data.msg == undefined ? '':','+data.msg);
+                    if(data.success) {
+                        layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                        handleTable(did,4);
+                    }else{
+                        layer.msg(result.fail+msg, {icon: 2,time:1000,shade: 0.01});
+                    }
+                }
+            },btn2: function(index, layero){
+            }
+        });
+    }
+
+    //添加修改
+    function addOrEdit(rowData){
+        var subType ;
+        if(isNotBlank(rowData)){
+            subType  = 1;
+
+        }else{
+            subType  = 0;
+            formReset();
+        }
+        var index= layer.open({
+            type: 1 , shade: 0.01,
+            id: 'area', //设定一个id，防止重复弹出
+            title: '添加/更新',
+            area: ['600px','400px'],
+            content: $('.content-view'),
+            btn: ['提交', '关闭'],
+            yes:function(index){
+                submitData(index,subType);
+            },
+            shadeClose: true, //开启遮罩关闭
+            success: function(){
+
+                if(isNotBlank(rowData)){
+                    $('#id').val(rowData.id);
+                    $('#username').val(rowData.masterUser.username);
+                    $('#name').val(rowData.masterUser.name);
+                    $('#lkm').val(rowData.lkm);
+                    $('#lkmPhone').val(rowData.lkmPhone);
+                    $('#lkmEmail').val(rowData.lkmEmail);
+                    $('#profit').val(rowData.profit);
+                }
+            }
+
+        })
+    }
+
+    function submitData(index,type){
+        var id=$('#id').val();
+
+        var result;
+        var params = {};
+        var url;
+        if(type == 0){
+            url =businessRestfulControllerSave;
+
+            result = {succ:'添加成功！',fail:'添加失败！'};
+        }else{
+            url = businessRestfulControllerSave;
+            result = {succ:'更新成功！',fail:'更新失败'};
+        }
+        /*if(isBlank(title)){
+            showValidate('#title');
+            return  ;
+        }
+        if(isBlank(startDate)){
+            showValidate('#pstartTime');
+            return  ;
+        }
+        if(isBlank(endDate)){
+            showValidate('#pendTime');
+            return  ;
+        }
+        if(isBlank(tid)){
+            tid=0;
+        }*/
+
+        if(isNotBlank(id)){
+            params.id = id;
+        }
+
+        layer.close(index);
+        params.type =2;
+        var areaFormForm = $("#areaForm").serialize()
+        myAjax(businessRestfulControllerSave,areaFormForm+"&type=2&qq=666&id="+id,handle);
+        function handle(data,params){
+            var msg = (data.msg == undefined ? '':','+data.msg);
+            if(data.success) {
+                layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                handleTable("",3,businessRestfulControllerList);
+            }else{
+                layer.msg(result.fail+msg, {icon: 1,ime:1000,shade: 0.01});
+            }
+        }
+
+    }
+
+    // 禁用账户
+    function disableUser(sid) {
+        result = {succ:'禁用成功！',fail:'禁用失败！'};
+        myAjax(businessRestfulControllerFindStart,{ids:sid,status:0}, handle)
+        function handle(data,params) {
+            if(data.success) {
+                layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                handleTable("",3,businessRestfulControllerList);
+            }else{
+                layer.msg(result.fail, {icon: 2,ime:1000,shade: 0.01});
+            }
+
+        }
+    }
+
+    // 启用账户
+    function openUser(sid) {
+        result = {succ:'启用成功！',fail:'启用失败！'};
+        myAjax(businessRestfulControllerFindStart,{ids:sid,status:1}, handle)
+        function handle(data,params) {
+            if(data.success) {
+                layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                handleTable("",3,businessRestfulControllerList);
+            }else{
+                layer.msg(result.fail, {icon: 2,ime:1000,shade: 0.01});
+            }
+
+        }
+    }
+
+
+    // 表单  刷新
+    function formReset() {
+        $("#areaFormAdius")[0].reset();
+    }
+
+    function openPOP(){
+        addOrEdit();
+    }
+
+    $(function () {
+        // var Table = new TableInit(columns);
+        Table();
+        var oButtonInit = new ButtonInit();
+        oButtonInit.Init();
+        $('.i_check').iCheck({
+            handler:'radio',
+            radioClass: 'iradio_square-green',
+            increaseArea: '20%',
+        });
+
+        //按钮权限
+        var resourcesData = getUserInfo().roles[0].resources
+        var resourcesHtml = []
+        for(item in resourcesData){
+            var activeDivObj = new Array();
+            resourcesHtml.push(activeDivObj)
+            if(resourcesData[item].parent == 18){
+                var addObj = {};
+                addObj.parent =  resourcesData[item].permission
+                resourcesHtml[item].push(addObj)
+            }
+        }
+        arrayHtml = new Array();
+        for (i in resourcesHtml){
+            if (resourcesHtml[i] != ''){
+                arrayHtml.push(resourcesHtml[i][0].parent)
+            }
+        }
+        console.log(arrayHtml)
+
+        /*if ($.inArray("103001005",arrayHtml) !== -1){
+            $("#toolbar").show()
+        }*/
+    });
+
+
+
+    function reInitTable() {
+        $table.bootstrapTable('refresh');
+    }
+
+    //初始化页面上面的按钮事件
+    var ButtonInit = function () {
+        var oInit = new Object();
+        oInit.Init = function () {
+            $('#btn_add').click(openPOP);
+            $('#btn_search').click(reInitTable);
+        };
+        laydate.render({
+            elem: '#startTime', type: 'datetime'
+        });
+        laydate.render({
+            elem: '#endTime'
+            ,type: 'datetime'
+        });
+        return oInit;
+
+    };
+
+</script>
+</body>
+
+</html>

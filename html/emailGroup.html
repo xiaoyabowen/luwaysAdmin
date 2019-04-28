@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台主题UI框架</title>
+    <meta name="keywords">
+    <meta name="description">
+    <meta name="keywords">
+    <meta name="description">
+    <!--网页logo-->
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../resource/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../resource/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../resource/js/plugins/select2/css/select2.css" rel="stylesheet">
+    <link href="../resource/js/plugins/bootstarp-table/css/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../resource/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../resource/css/animate.css" rel="stylesheet">
+    <link href="../resource/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../resource/css/common.css" rel="stylesheet">
+    <link href="../resource/css/htmlBird.css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+
+<div class="mianBox">
+    <img src="../resource/img/yun0.png" alt="" class="yun yun0" />
+    <img src="../resource/img/yun1.png" alt="" class="yun yun1" />
+    <img src="../resource/img/yun2.png" alt="" class="yun yun2" />
+    <img src="../resource/img/bird.png" alt="" class="bird" />
+    <img src="../resource/img/san.png" alt="" class="san" />
+    <div class="tipInfo">
+        <div class="in">
+            <div class="textThis">
+                <h2>该页面功能暂未开发！</h2>
+                <p><span>页面自动<a id="href" href="javascript:;">关闭</a></span><span>等待<b id="wait">10</b>秒</span></p>
+                <script type="text/javascript">                            (function() {
+                    var wait = document.getElementById('wait'), href = document.getElementById('href').href;
+                    var interval = setInterval(function() {
+                        var time = --wait.innerHTML;
+                        if (time <= 0) {
+
+                            clearInterval(interval);
+                            closeMyselfInIframe()
+                        };
+                    }, 1000);
+                })();
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 全局js -->
+<script src="../resource/js/jquery.min.js?v=2.1.4"></script>
+<script src="../resource/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="../resource/js/content.js?v=1.0.0"></script>
+
+<script src="../resource/js/plugins/select2/js/select2.full.js"></script>
+<script src="../resource/js/plugins/select2/js/i18n/zh-CN.js"></script>
+<script src="../resource/js/plugins/layer/layer.js"></script>
+<!-- ztree -->
+<!-- Bootstrap table -->
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table.js"></script>
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="../resource/js/plugins/bootstrap-3-typeahead/bootstrap3-typeahead.js"></script>
+
+<script src="../resource/common/multiselect.js"></script>
+<script src="../resource/common/common.js?time=" +Math.random()></script>
+
+<script type="text/javascript">
+
+
+    $("#href").click(function () {
+        closeMyselfInIframe()
+    })
+
+
+    $(function() {
+        var h = $(window).height();
+        $('body').height(h);
+        $('.mianBox').height(h);
+        centerWindow(".tipInfo");
+    });
+
+    //2.将盒子方法放入这个方，方便法统一调用
+    function centerWindow(a) {
+        center(a);
+        //自适应窗口
+        $(window).bind('scroll resize',
+            function() {
+                center(a);
+            });
+    }
+
+    //1.居中方法，传入需要剧中的标签
+    function center(a) {
+        var wWidth = $(window).width();
+        var wHeight = $(window).height();
+        var boxWidth = $(a).width();
+        var boxHeight = $(a).height();
+        var scrollTop = $(window).scrollTop();
+        var scrollLeft = $(window).scrollLeft();
+        var top = scrollTop + (wHeight - boxHeight) / 2;
+        var left = scrollLeft + (wWidth - boxWidth) / 2;
+        $(a).css({
+            "top": top,
+            "left": left
+        });
+    }
+</script>
+
+</body>
+
+</html>

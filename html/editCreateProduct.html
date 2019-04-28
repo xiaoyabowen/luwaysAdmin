@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台主题UI框架</title>
+    <meta name="keywords">
+    <meta name="description">
+    <meta name="keywords">
+    <meta name="description">
+    <!--网页logo-->
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../resource/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../resource/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../resource/js/plugins/select2/css/select2.css" rel="stylesheet">
+    <link href="../resource/js/plugins/bootstarp-table/css/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../resource/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../resource/css/animate.css" rel="stylesheet">
+    <link href="../resource/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../resource/css/common.css" rel="stylesheet">
+    <!--iCheck样式-->
+    <link rel="stylesheet" type="text/css" href="../resource/css/plugins/iCheck/custom.css"/>
+</head>
+<style>
+    .inputClass{
+        display: inline-block;
+        width: 50px;
+    }
+    .tableClass th,.tableClass td{
+        text-align: center;
+    }
+    textarea{
+        resize: none;
+    }
+    .wrapper-content{
+        background: #fff;
+        margin: 15px;
+    }
+    .tab-pane{
+        padding-top: 30px;
+    }
+    .hoverBtnDel{
+        margin: 5px;
+    }
+    .catText,.leaveTypeText{
+        font-style: normal;
+    }
+</style>
+<body class="gray-bg">
+
+<!--编辑  motal-->
+
+    <div class="wrapper wrapper-content animated  fadeInDown">
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active">
+            <a href="#information" data-toggle="tab">
+                基本信息
+            </a>
+        </li>
+        <li>
+            <a href="#product" data-toggle="tab">
+                产品介绍
+            </a>
+        </li>
+        <li>
+            <a href="#notes" data-toggle="tab">
+                预定须知
+            </a>
+        </li>
+        <li>
+            <a href="#explain" data-toggle="tab">
+                使用说明
+            </a>
+        </li>
+        <li>
+            <a href="#photo" data-toggle="tab">
+                产品照片
+            </a>
+        </li>
+    </ul>
+
+    <div id="myTabContent" class="tab-content">
+            <!--基本信息-->
+            <div class="tab-pane fade in active" id="information">
+                <form method="get" class="form-horizontal" id="areaForm">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">英文名称*</label>
+                        <div class="col-sm-8">
+                            <input type="hidden" class="form-control hiddenid" id="id">
+                            <input type="text" class="form-control"  id="enTitle" name="enTitle" placeholder="请输入英文名称"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="col-sm-1 control-label">中文名称*</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="title" name="title" placeholder="请输入中文名称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <label class="col-sm-1 control-label">原文链接*</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="referUrl" name="referUrl" placeholder="请输入原文链接">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">产品地址*</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="address" name="address" placeholder="请输入产品地址">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">目的地*</label>
+                        <div class="col-sm-2">
+                            <select class="area-select form-control">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <select class="province-select form-control" >
+
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <select class="city-select form-control" name="city.id">
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">产品类型*</label>
+                        <div class="col-sm-2">
+                            <select class="cat1-select form-control" >
+
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <select class="leaveType form-control" name="leaveType">
+
+                            </select>
+                        </div>
+                        <!--<div class="col-sm-1" style="margin-top: 6px;width: 160px;">
+                            <label class="i_check_alone">
+                                <input type="checkbox" class="radioHtmlType" name="HtmlType" value=''/> 包含供应商类型
+                            </label>
+                        </div>-->
+                        <div class="col-sm-1">
+                        <span class="btn btn-success  btn-outline" id="addCat">
+                           添加类型
+                        </span>
+                        </div>
+                    </div>
+                    <div class="form-group AddBtn" style="margin-left: 10px">
+                        <!--<span class="btn btn-primary btn-outline hoverBtnDel">添加类型 &nbsp;<i class="fa fa-window-close hoverBtnDelClose"></i></span>-->
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">产品供应商*</label>
+                        <div class="col-sm-3">
+                            <select class="supplier form-control" name="supplier.id">
+                                <!--<option value="0">美元</option>-->
+
+                            </select>
+                        </div>
+                        <label class="col-sm-1 control-label">确认类型*</label>
+                        <div class="col-sm-3" style="margin-top: 6px;">
+                            <label class="i_check_radio">
+                                <input type="radio" class="radioHtmlTypeTwo" name="confirmType" value='2'/> 二次确认
+                            </label>
+                            <label class="i_check_radio">
+                                <input type="radio" class="radioHtmlTypeOne" name="confirmType" value='1'/> 一次确认
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">语言服务*</label>
+
+                        <div class="col-sm-8" style="margin-top: 6px;">
+                            <label class="i_check">
+                                <input type="checkbox" class="radioHtmlType" name="languageService" value='en'/> 英语
+                            </label>
+                            <label class="i_check">
+                                <input type="checkbox" class="radioHtmlType" name="languageService" value='zh'/> 中文
+                            </label>
+                            <label class="i_check">
+                                <input type="checkbox" class="radioHtmlType" name="languageService" value='sv'/> 瑞典语
+                            </label>
+                            <label class="i_check">
+                                <input type="checkbox" class="radioHtmlType" name="languageService" value='ja'/> 日语
+                            </label>
+                            <label class="i_check">
+                                <input type="checkbox" class="radioHtmlType" name="languageService" value='pt'/> 葡萄牙语
+                            </label>
+                            <label class="i_check">
+                                <input type="checkbox" class="radioHtmlType" name="languageService" value='fr'/> 法语
+                            </label>
+                            <label class="i_check">
+                                <input type="checkbox" class="radioHtmlType" name="languageService" value='de'/> 德语
+                            </label>
+                            <label class="i_check">
+                                <input type="checkbox" class="radioHtmlType" name="languageService" value='es'/> 西班牙语
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">游玩时间</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="duration" name="duration" placeholder="xx小时或x天x晚">
+                        </div>
+                        <label class="col-sm-1 control-label">币种</label>
+                        <div class="col-sm-2">
+                            <select class="currencyCode form-control" name="currencyCode">
+                                <option value="CNY">人民币</option>
+                                <option value="USD">美元</option>
+                                <option value="GBP">英镑</option>
+                                <option value="JPY">日元</option>
+                                <option value="EUR">欧元</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-1 control-label">凭证类型*</label>
+                        <div class="col-sm-2">
+                            <select class="voucherType form-control"  name="voucherType">
+                                <option value="0">无</option>
+                                <option value="1">电子票</option>
+                                <option value="2">电子确认函</option>
+                                <option value="3">电子票或确认函</option>
+                                <option value="4">实体票</option>
+                                <option value="5">纸质打印版</option>
+                                <option value="6">电子确认函换票</option>
+                                <option value="7">扫码电子票</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">最低售价</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="price" name="price" placeholder="请填写跟币种一样的价格.">
+                        </div>
+                        <label class="col-sm-1 control-label">产品CODE</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="sourceCode" name="sourceCode" placeholder="产品来源的CODE..">
+                        </div>
+                        <label class="col-sm-1 control-label">销量</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="salesCount" name="salesCount" placeholder="销量.">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">凭证说明</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="voucherNote" style="height: 150px;" placeholder="请输入凭证说明"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">作者</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="author" name="author" placeholder="请填写作者">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-group col-sm-2" style="text-align: center">
+                        <span class="btn btn-success  btn-outline" id="saveInformation">
+                            <i class="fa fa-save">保存</i>
+                        </span>
+                        </div>
+                        <div class="form-group col-sm-1">
+                        <span class="btn btn-warning  btn-outline" id="saveOnInformation">
+                            <i class="fa fa-check">保存并发布</i>
+                        </span>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+            <!--基本信息-->
+            <!--产品介绍-->
+            <div class="tab-pane fade" id="product">
+                <div method="get" class="form-horizontal" id="areaFormPro">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">推荐理由</label>
+                        <div class="col-sm-8">
+                            <input type="hidden" name="id" class="saveId">
+                            <textarea class="form-control" id="textarea" name="detail.recommend"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">产品介绍</label>
+                        <div class="col-sm-8 ">
+                            <textarea class="form-control" id="textareaPro" name="detail.introduce"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">备注</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="textareaRemarks" name="detail.remark"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group saveIdBtn">
+                        <div class="form-group col-sm-2" style="text-align: center">
+                        <span class="btn btn-success  btn-outline" id="saveProduct">
+                            <i class="fa fa-save">保存</i>
+                        </span>
+                        </div>
+                        <div class="form-group col-sm-1">
+                        <span class="btn btn-warning  btn-outline" id="saveOnProduct">
+                            <i class="fa fa-check">保存并发布</i>
+                        </span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--产品介绍-->
+            <!--预定须知-->
+            <div class="tab-pane fade" id="notes">
+                <div method="get" class="form-horizontal" id="areaFormNote">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">预定凭证</label>
+                        <div class="col-sm-8 ">
+                            <input type="hidden" name="id" class="saveId">
+                            <textarea class="form-control" id="voucherRequirements" name="detail.voucherRequirements"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">费用包含</label>
+                        <div class="col-sm-8 ">
+                            <textarea class="form-control" name="detail.inclusions" id="textareaYesMoney"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">费用不含</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" name="detail.exclusions" id="textareaNoMoney"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group saveIdBtn">
+                        <div class="form-group col-sm-2" style="text-align: center">
+                            <button class="btn btn-success  btn-outline" id="saveNotes">
+                                <i class="fa fa-save">保存</i>
+                            </button>
+                        </div>
+                        <div class="form-group col-sm-1">
+                            <button class="btn btn-warning  btn-outline" id="saveOnNotes">
+                                <i class="fa fa-check">保存并发布</i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--预定须知-->
+            <!--使用说明-->
+            <div class="tab-pane fade" id="explain">
+                <form method="get" class="form-horizontal" id="areaFormExplain">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">重要提示</label>
+                        <div class="col-sm-6 ">
+                            <input type="hidden" name="id" class="saveId">
+                            <textarea class="form-control" name="detail.importantTips" id="textareaExplain"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">可退订</label>
+                        <div class="col-sm-8">
+                            <label class="i_check_refundType">
+                                <input type="radio" class="radioHtmlType" name="detail.refundType" value='0'/>不可退订
+                            </label>
+                            <label class="i_check_refundType">
+                                <input type="radio" class="radioHtmlType" name="detail.refundType" value='1'/> 可退订
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">退订规则</label>
+                        <div class="col-sm-6 ">
+                            <textarea class="form-control" name="detail.refundRules" id="refundRules" style="height: 150px;"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group saveIdBtn">
+                        <div class="form-group col-sm-2" style="text-align: center">
+                            <button class="btn btn-success  btn-outline" id="saveExplain">
+                                <i class="fa fa-save">保存</i>
+                            </button>
+                        </div>
+                        <div class="form-group col-sm-1">
+                            <button class="btn btn-warning  btn-outline" id="saveOnExplain">
+                                <i class="fa fa-check">保存并发布</i>
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <!--使用说明-->
+            <!--产品图片-->
+            <div class="tab-pane fade" id="photo">
+                <form method="get" class="form-horizontal" id="areaFormPhoto">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">封面图</label>
+                        <div class="col-sm-6 ">
+                            <input type="hidden" name="id" class="saveId">
+                            <textarea class="form-control" id="textareaPhoto"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">替换封面图</label>
+                        <div class="col-sm-8">
+                            <!--<div class="input-group">
+                                <input id="cover" type="hidden">
+                                <input id="photoCover" type="text" class="form-control" placeholder="请选择图片" readonly="readonly">
+                                <span class="input-group-btn">
+                                        <button type="button" class="btn btn-primary" onclick="uploadIcon()">选择文件</button>
+                                    </span>
+                            </div>
+                            <img src="" class="img-rounded" id="iconView" width="15%" height="100%"
+                                 style="display: none">
+                            <span class="help-block m-b-none validate">请上传图片</span>-->
+                            <div class="form-group saveIdBtn">
+                                <div class="form-group col-sm-2" style="text-align: center">
+                                    <button class="btn btn-success  btn-outline" id="savePhoto">
+                                        <i class="fa fa-save">保存</i>
+                                    </button>
+                                </div>
+                                <div class="form-group col-sm-1">
+                                    <button class="btn btn-warning  btn-outline" id="saveOnPhoto">
+                                        <i class="fa fa-check">保存并发布</i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!--产品图片-->
+
+    </div>
+
+
+</div>
+
+
+
+<!-- 全局js -->
+<script src="../resource/js/jquery.min.js?v=2.1.4"></script>
+<script src="../resource/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="../resource/js/content.js?v=1.0.0"></script>
+
+<script src="../resource/js/plugins/select2/js/select2.full.js"></script>
+<script src="../resource/js/plugins/select2/js/i18n/zh-CN.js"></script>
+<script src="../resource/js/plugins/layer/layer.js"></script>
+<script src="../resource/js/plugins/laydate/laydate.js"></script>
+<!-- ztree -->
+<!-- Bootstrap table -->
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table.js"></script>
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="../resource/js/plugins/bootstrap-3-typeahead/bootstrap3-typeahead.js"></script>
+
+<script src="../resource/common/multiselect.js"></script>
+<script src="../resource/common/common.js?time=" +Math.random()></script>
+
+<!--多选框 icheck.js-->
+<script src="../resource/js/plugins/iCheck/iCheck.js"></script>
+
+<script src="../resource/js/plugins/ckeditor/ckeditor.js" type="text/javascript" charset="utf-8"></script>
+<script src="../resource/js/plugins/ckeditor/lang/zh-cn.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script>
+    //富文本编辑器      replace 是文本框的id    后面是图片上传的接口
+    var ckeditor = CKEDITOR.replace('textarea');
+    var ckeditor = CKEDITOR.replace('textareaPro');
+    var ckeditor = CKEDITOR.replace('textareaYesMoney');
+    var ckeditor = CKEDITOR.replace('textareaRemarks');
+    var ckeditor = CKEDITOR.replace('textareaNoMoney');
+    var ckeditor = CKEDITOR.replace('textareaExplain');
+    var myCKeditor = {
+        getData:function(){
+            return CKEDITOR.instances.textarea.getData();
+        },
+        setData:function(){
+            CKEDITOR.instances.textarea.setData(data);       //设置数据
+        }
+    }
+
+    $(function () {
+        var saveId;
+        var editId={};
+        // 判断是否有id
+        if (getQueryParam("id").id == 1){
+            $(".saveIdBtn").hide()
+            editId.id = ''
+        }else {
+            $(".saveIdBtn").show()
+            saveId = getQueryParam("id").id
+            $(".saveId").val(saveId)
+            editId.id = $(".saveId").val()
+        }
+
+        myAjax(ticketRestfulControllerEdit,editId,handle);
+        function handle(data,params){
+            console.log(data)
+            // 目的地  国家  城市 省份   三级联动
+            var selectData = data.data.allAbroadCities    //国家
+            coutry()
+            function coutry(){
+                var coutryHtml = ''
+                coutryHtml += '<option value="">--请选择--</option>'
+                for (var i=0;i<selectData.length;i++){
+                    coutryHtml += ' <option value="'+selectData[i].name+'" data-id="'+i+'">'+selectData[i].name+'</option>'
+                }
+                $(".area-select").html(coutryHtml)
+                provinces()
+            }
+
+            function provinces(){
+
+                $(".area-select").change(function () {
+                    var provincesHtml = ''
+                    provincesHtml += '<option value="">--请选择--</option>'
+                    var coutryId = $(".area-select option:selected").attr("data-id")
+                    $(".province-select").empty();
+                    for (var j = 0;j<selectData[coutryId].provinces.length;j++){
+                        provincesHtml += ' <option value="'+selectData[coutryId].provinces[j].name+'" data-id="'+j+'">'+selectData[coutryId].provinces[j].name+'</option>'
+                    }
+                    $(".province-select").html(provincesHtml)
+
+                    citys(coutryId)
+                })
+            }
+
+            function citys(coutryId){
+                var citysHtml = ''
+                citysHtml += '<option value="">--请选择--</option>'
+                $(".city-select").html('')
+                $(".province-select").change(function () {
+                    var cityId = $(".province-select option:selected").attr("data-id")
+                    for (var q = 0;q<selectData[coutryId].provinces[cityId].citys.length;q++){
+                        citysHtml += ' <option value="'+q+'" data-id="'+selectData[coutryId].provinces[cityId].citys[q].name+'">'+selectData[coutryId].provinces[cityId].citys[q].name+'</option>'
+                    }
+                    $(".city-select").html(citysHtml)
+                })
+            }
+            // 目的地  国家  城市 省份   三级联动  结束supplier
+
+            // 产品类型  二级联动
+            var ProductData = data.data.allProductCategory    //国家
+            Product()
+            function Product(){
+                var ProductHtml = ''
+                ProductHtml += '<option value="">--请选择--</option>'
+                for (var i=0;i<ProductData.length;i++){
+                    ProductHtml += ' <option class="dataIdOption" value="'+ProductData[i].name+'" data-id="'+i+'">'+ProductData[i].name+'</option>'
+                }
+                $(".cat1-select").html(ProductHtml)
+                productCategoryList()
+            }
+            function productCategoryList() {
+                $(".cat1-select").change(function () {
+                    var productCateHtml = ''
+                    productCateHtml += '<option value="">--请选择--</option>'
+                    var productId = $(".cat1-select option:selected").attr("data-id")
+                    for (var j = 0;j<ProductData[productId].productCategoryList.length;j++){
+                        productCateHtml += ' <option value="'+ProductData[productId].productCategoryList[j].name+'" data-productId="'+ProductData[productId].productCategoryList[j].id+'">'+ProductData[productId].productCategoryList[j].name+'</option>'
+                    }
+                    $(".leaveType").html(productCateHtml)
+
+                })
+            }
+
+            // 产品供应商  select  列表
+            var supplierHtml = ''
+            for (var i=0;i<data.data.supplierList.length;i++){
+                supplierHtml += '<option value="'+data.data.supplierList[i].id+'">'+data.data.supplierList[i].name+'</option>'
+            }
+            $(".supplier").html(supplierHtml)
+
+            //  --------------------------------编辑修改  渲染的产品信息
+            if (getQueryParam("id").id != 1){
+                var productData = data.data.product
+                // 基本信息   信息 渲染
+
+
+                $("#enTitle").val(productData.enTitle)
+                $("#title").val(productData.title)
+                $("#referUrl").val(productData.referUrl)
+               /* $(".area-select").val(productData.city.province.area.id)
+                $(".province-select").val(productData.city.province.name)
+                $(".city-select").val(productData.city.name)*/
+                $("#address").val(productData.address)
+                $(".supplier").val(productData.supplier.id)
+                if (productData.confirmType == 1){
+                    $(".radioHtmlTypeOne").iCheck('check');
+                }else if (productData.confirmType == 2){
+                    $(".radioHtmlTypeTwo").iCheck('check');
+                }
+
+                // languageService
+
+
+
+
+                // categories
+                console.log(productData.product.city)
+                console.log(productData.product.detail)
+                console.log(productData.product.categories)
+                var addHtmlSpan =''
+                for (var i=0;i<productData.product.categories.length;i++){
+                    addHtmlSpan += '<span class="btn btn-success btn-outline hoverBtnDel"><i class="catText">'+productData.product.categories[i].name+'</i> - <i class="leaveTypeText">'+productData.product.categories[i].name+'</i>> &nbsp;<i class="fa fa-window-close hoverBtnDelClose"></i></span>'
+                }
+                $(".AddBtn").html(addHtmlSpan)
+
+                $("#duration").val(productData.duration)
+                $(".currencyCode").val(productData.currencyCode)
+                $(".voucherType").val(productData.voucherType)
+                $("#price").val(productData.price)
+                $("#sourceCode").val(productData.sourceCode)
+                $("#salesCount").val(productData.salesCount)
+                $("#voucherNote").val(productData.voucherNote)
+                $("#author").val(productData.author)
+
+                // 产品介绍
+                $("#textarea").val(productData.detail.recommend)
+                $("#textareaPro").val(productData.detail.introduce)
+                $("#textareaRemarks").val(productData.detail.remark)
+
+                // 预定须知
+                $("#voucherRequirements").val(productData.detail.voucherRequirements)
+                $("#textareaYesMoney").val(productData.detail.inclusions)
+                $("#textareaNoMoney").val(productData.detail.exclusions)
+
+                // 使用说明
+                $("#textareaExplain").val(productData.detail.importantTips)
+                $(".radioHtmlType").val(productData.detail.refundType)
+                $("#refundRules").val(productData.detail.refundRules)
+            }
+
+
+        }
+    })
+
+    // 点击添加类型
+    var addHtml = '';
+    var categorieString = '';
+    $("#addCat").click(function () {
+
+        var catHtml = $(".cat1-select").val()
+        var leaveTypeHtml = $(".leaveType").val()
+        var dataProductid = $(".leaveType option:selected").attr("data-productid");
+
+        if (catHtml == '' || leaveTypeHtml ==''){
+            layer.msg("请先选择产品类型", {icon: 2,time:1000,shade: 0.01});
+        }else if ($(".catText").html() == catHtml && $(".leaveTypeText").html() == leaveTypeHtml){
+            addHtml += ''
+            layer.msg("请勿重复添加", {icon: 2,time:1000,shade: 0.01});
+        }else{
+
+            addHtml += '<span class="btn btn-success btn-outline hoverBtnDel"><i class="catText">'+catHtml+'</i> - <i class="leaveTypeText">'+leaveTypeHtml+'</i>> &nbsp;<i class="fa fa-window-close hoverBtnDelClose"></i></span>'
+            $(".AddBtn").html(addHtml)
+
+            if ($(".hoverBtnDel").length == 1){
+                categorieString += ''
+                categorieString += dataProductid
+            }else {
+                categorieString += ','
+                categorieString += dataProductid
+            }
+
+        }
+
+    })
+
+
+    // 添加里面的删除按钮
+    $(document).on("click",".hoverBtnDelClose",function () {
+
+        $(this).parent(".hoverBtnDel").hide()
+    })
+
+    //  点击提交接口
+
+    $(document).on("click","#saveInformation",function () {
+        if (categorieString == ''){
+            layer.msg("请添加类型", {icon: 2,time:1000,shade: 0.01});
+            return
+        }
+        var areaFormData = $("#areaForm").serialize()
+        myAjax(ticketRestfulControllerSave,areaFormData+"&categorieString="+categorieString,handle);
+        function handle(data,param){
+            console.log(data)
+            var result = {succ:'保存成功!',fail:'保存失败'};
+            var msg = (data.msg == undefined ? '':','+data.msg);
+            if(data.success) {
+                layer.confirm(result.succ, {icon: 1, title:'提示'}, function(index){
+                    closeMyselfInIframe()
+                    addMenuItem("../html/ticketProduct.html","产品管理");
+                    reLoad()
+                });
+                /*layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                closeMyselfInIframe()
+                addMenuItem("../html/ticketProduct.html","产品管理");*/
+            }else{
+                layer.msg(result.fail, {icon: 2,time:1000,shade: 0.01});
+            }
+        }
+
+        /*closeMyselfInIframe()
+        addMenuItem("../html/ticketProduct.html","产品管理");*/
+
+    });
+    // 产品介绍
+    $(document).on("click","#saveProduct",function () {
+        var areaFormProData = $("#areaFormPro").serialize()
+        myAjax(ticketRestfulControllerSave,areaFormProData,handle);
+        function handle(data,param){
+            console.log(data)
+            var result = {succ:'保存成功!',fail:'保存失败'};
+            var msg = (data.msg == undefined ? '':','+data.msg);
+
+            if(data.success) {
+                layer.confirm(result.succ, {icon: 1, title:'提示'}, function(index){
+                    closeMyselfInIframe()
+                    addMenuItem("../html/ticketProduct.html","产品管理");
+                    reLoad()
+                });
+                /*layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                closeMyselfInIframe()
+                addMenuItem("../html/ticketProduct.html","产品管理");*/
+            }else{
+                layer.msg(result.fail, {icon: 2,time:1000,shade: 0.01});
+            }
+        }
+
+        /*closeMyselfInIframe()
+        addMenuItem("../html/ticketProduct.html","产品管理");*/
+
+    });
+    // 预定须知
+    $(document).on("click","#saveNotes",function () {
+        var areaFormNoteData = $("#areaFormNote").serialize()
+        myAjax(ticketRestfulControllerSave,areaFormNoteData,handle);
+        function handle(data,param){
+            console.log(data)
+            var result = {succ:'保存成功!',fail:'保存失败'};
+            var msg = (data.msg == undefined ? '':','+data.msg);
+
+            if(data.success) {
+                layer.confirm(result.succ, {icon: 1, title:'提示'}, function(index){
+                    closeMyselfInIframe()
+                    addMenuItem("../html/ticketProduct.html","产品管理");
+                    reLoad()
+                });
+                /*layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                closeMyselfInIframe()
+                addMenuItem("../html/ticketProduct.html","产品管理");*/
+            }else{
+                layer.msg(result.fail, {icon: 2,time:1000,shade: 0.01});
+            }
+        }
+
+        /*closeMyselfInIframe()
+        addMenuItem("../html/ticketProduct.html","产品管理");*/
+
+    });
+    // 预定须知
+    $(document).on("click","#saveExplain",function () {
+        var areaFormExplainData = $("#areaFormExplain").serialize()
+        myAjax(ticketRestfulControllerSave,areaFormExplainData,handle);
+        function handle(data,param){
+            console.log(data)
+            var result = {succ:'保存成功!',fail:'保存失败'};
+            var msg = (data.msg == undefined ? '':','+data.msg);
+
+            if(data.success) {
+                layer.confirm(result.succ, {icon: 1, title:'提示'}, function(index){
+                    closeMyselfInIframe()
+                    addMenuItem("../html/ticketProduct.html","产品管理");
+                    reLoad()
+                });
+                /*layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                closeMyselfInIframe()
+                addMenuItem("../html/ticketProduct.html","产品管理");*/
+            }else{
+                layer.msg(result.fail, {icon: 2,time:1000,shade: 0.01});
+            }
+        }
+
+        /*closeMyselfInIframe()
+        addMenuItem("../html/ticketProduct.html","产品管理");*/
+
+    });
+
+    $(document).on("click","#saveExplain",function () {
+        var areaFormPhotoData = $("#areaFormPhoto").serialize()
+        myAjax(ticketRestfulControllerSave,areaFormPhotoData,handle);
+        function handle(data,param){
+            console.log(data)
+            var result = {succ:'保存成功!',fail:'保存失败'};
+            var msg = (data.msg == undefined ? '':','+data.msg);
+
+            if(data.success) {
+                layer.confirm(result.succ, {icon: 1, title:'提示'}, function(index){
+                    closeMyselfInIframe()
+                    addMenuItem("../html/ticketProduct.html","产品管理");
+                    reLoad()
+                });
+                /*layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                closeMyselfInIframe()
+                addMenuItem("../html/ticketProduct.html","产品管理");*/
+            }else{
+                layer.msg(result.fail, {icon: 2,time:1000,shade: 0.01});
+            }
+        }
+
+        /*closeMyselfInIframe()
+        addMenuItem("../html/ticketProduct.html","产品管理");*/
+
+    });
+
+
+
+    // 表单  刷新
+    function formReset() {
+        $("#areaForm")[0].reset();
+    }
+
+    function openPOP(){
+        addOrEdit();
+    }
+
+
+    function reInitTable() {
+        $table.bootstrapTable('refresh');
+    }
+    $('.i_check').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green',
+        increaseArea: '20%'
+    });
+    $('.i_check_alone').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green',
+        increaseArea: '20%'
+    });
+
+    $('.i_check_radio').iCheck({
+        handler:'radio',
+        radioClass: 'iradio_square-green',
+        increaseArea: '20%',
+    });
+    $('.i_check_refundType').iCheck({
+        handler:'radio',
+        radioClass: 'iradio_square-green',
+        increaseArea: '20%',
+    });
+
+    //初始化页面上面的按钮事件
+    var ButtonInit = function () {
+        var oInit = new Object();
+        oInit.Init = function () {
+            $('#btn_search').click(reInitTable);
+
+        };
+        laydate.render({
+            elem: '#startTime', type: 'datetime'
+        });
+        laydate.render({
+            elem: '#endTime'
+            ,type: 'datetime'
+        });
+        return oInit;
+
+    };
+
+</script>
+</body>
+
+</html>

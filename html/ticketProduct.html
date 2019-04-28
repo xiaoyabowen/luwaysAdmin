@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台主题UI框架</title>
+    <meta name="keywords">
+    <!--不缓存-->
+    <META HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <META HTTP-EQUIV="expires" CONTENT="0">
+    <meta name="description">
+    <meta name="keywords">
+    <meta name="description">
+    <!--网页logo-->
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../resource/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../resource/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../resource/js/plugins/select2/css/select2.css" rel="stylesheet">
+    <link href="../resource/js/plugins/bootstarp-table/css/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../resource/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../resource/css/animate.css" rel="stylesheet">
+    <link href="../resource/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../resource/css/common.css" rel="stylesheet">
+</head>
+<style>
+    .inputClass {
+        display: inline-block;
+        width: 50px;
+    }
+
+    .tableClass th,
+    .tableClass td {
+        text-align: center;
+    }
+
+    #toolbar {
+        width: 100%;
+    }
+
+    .labelSelect {
+        display: flex;
+    }
+
+    .moreBtnUp,
+    .moreBtnHot {
+        display: block;
+    }
+
+    .moreBtnUp>p,
+    .moreBtnHot>p {
+        width: 100px;
+    }
+
+    .BtnUp:hover .moreBtnUp {
+        display: block;
+    }
+
+    em {
+        display: inline-block;
+        font-style: normal;
+    }
+</style>
+
+<body class="gray-bg">
+
+    <!--订单详情-->
+    <div class="wrapper wrapper-content animated  fadeInDown  orderInfo" style="display:none;">
+
+    </div>
+
+
+    <div class="wrapper wrapper-content animated  fadeInDown  content-view ">
+
+        <form method="get" class="form-horizontal" id="areaForm">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">套餐名称</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="title" id="leaveUserId" placeholder="请输入套餐名称" />
+                    <span class="help-block m-b-none validate"></span>
+                </div>
+            </div>
+            <!--<div class="form-group">
+            <label class="col-sm-3 control-label">开始时间</label>
+            <div class="col-sm-8">
+                <input type="text" id="startTime" class="form-control" placeholder="请选择开始时间" readonly>
+            </div>
+
+        </div>
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">结束时间</label>
+            <div class="col-sm-8">
+                <input type="text" id="endTime" class="form-control" placeholder="请选择结束时间" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">库存</label>
+            <div class="col-sm-8">
+                <input type="text" id="Stock" class="form-control" placeholder="请输入库存">
+            </div>
+        </div>-->
+            <div class="form-group">
+
+                <label class="col-sm-3 control-label">币种</label>
+                <div class="col-sm-8">
+                    <select class="leaveType form-control" name="currencyCode">
+                        <option value="USD" selected="selected">美元</option>
+                        <option value="CNY">人民币</option>
+                        <option value="GBP">英镑</option>
+                        <option value="JPY">日元</option>
+                        <option value="EUR">欧元</option>
+                        <option value="NZD">新西兰元</option>
+                        <option value="AED">迪拉姆</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">套餐CODE</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="sourceCode" id="leaveNum" placeholder="请输入套餐CODE" />
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+    <!--sku查看-->
+
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>订单列表</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div id="toolbar">
+                            <div class="form-group col-sm-1 newBtn" style="display: none;">
+                                <button class="btn btn-success  btn-outline" id="btn_add">
+                                    <i class="fa fa-plus">新建</i>
+                                </button>
+                            </div>
+
+                            <!--<label>币种</label>-->
+                            <div class="col-sm-4">
+                                <select class="leaveType supplierList form-control">
+
+                                </select>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <select class="onSale form-control">
+                                    <option value="">全部</option>
+                                    <option value="1">在售</option>
+                                    <option value="0">未上架</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group labelSelect col-sm-4">
+                                <input type="text" class="col-sm-12 form-control keywords" value=""
+                                    placeholder="产品ID、Hotelbeds url、产品关键字、更新人">
+                                <input type="hidden" class="col-sm-12 form-control keywordsHref" value=""
+                                    placeholder="产品ID、Hotelbeds url、产品关键字、更新人">
+                            </div>
+                            <div class="form-group col-sm-1">
+                                <button class="btn btn-primary  btn-outline" id="btn_search">
+                                    <i class="fa fa-search">搜索</i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <table id="tb_table"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Panel Other -->
+    </div>
+
+    <!-- 全局js -->
+    <script src="../resource/js/jquery.min.js?v=2.1.4"></script>
+    <script src="../resource/js/bootstrap.min.js?v=3.3.6"></script>
+    <!-- 自定义js -->
+    <script src="../resource/js/content.js"></script>
+
+    <script src="../resource/js/plugins/select2/js/select2.full.js"></script>
+    <script src="../resource/js/plugins/select2/js/i18n/zh-CN.js"></script>
+    <script src="../resource/js/plugins/layer/layer.js"></script>
+    <script src="../resource/js/plugins/laydate/laydate.js"></script>
+    <!-- ztree -->
+    <!-- Bootstrap table -->
+    <script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table.js"></script>
+    <script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table-zh-CN.min.js"></script>
+
+    <script src="../resource/js/plugins/bootstrap-3-typeahead/bootstrap3-typeahead.js"></script>
+
+    <script src="../resource/common/multiselect.js"></script>
+    <!-- <script src="../resource/common/common.js?time=" +Math.random()></script> -->
+    <script src="../resource/common/common.js"></script>
+    <script>
+        otaPIDD = getQueryParam().otaPID
+        $(".keywordsHref").val(otaPIDD)
+        var $table = $('#tb_table');
+
+        function Table() {
+            $table.bootstrapTable({
+                url: ticketRestfulControllerList, //请求后台的URL（*）
+                // url:"../html/json_data_list.json",         //请求后台的URL（*）
+                method: 'get', //请求方式（*）
+                contentType: "application/x-www-form-urlencoded",
+                toolbar: '#toolbar', //工具按钮用哪个容器
+                //                    striped: true,                      //是否显示行间隔色
+                cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true, //是否显示分页（*）
+                sortable: true, //是否启用排序
+                sortOrder: "asc", //排序方式
+                sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber: 1, //初始化加载第一页，默认第一页
+                pageSize: 10, //每页的记录行数（*）
+                pageList: 5, //分页步进值
+                pageList: [10, 20, 30, 50], //可供选择的每页的行数（*）
+                //                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: true,
+                showColumns: false,
+                showRefresh: false,
+                minimumCountColumns: 2, //最少允许的列数
+                clickToSelect: true, //是否启用点击选中行
+                //				height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "id", //每一行的唯一标识，一般为主键列
+                //                showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+                cardView: false, //是否显示详细视图
+                detailView: false, //是否显示父子表
+                //                    showFooter:true,            //表格底部
+                onClickRow: function (row) {
+                                           // console.log(row)
+                },
+                queryParamsType: 'limit',
+                queryParams: function (params) {
+                    return {
+                        pageNo: (params.offset / params.limit) + 1,
+                        pageSize: params.limit,
+                        onSale: $(".onSale").val(),
+                        // keywords:(getQueryParam().otaPID == undefined? $(".keywords").val():$(".keywords").val(getQueryParam().otaPID)),
+                        keywords: $(".keywordsHref").val() || $(".keywords").val(),
+                        // supplierId:(sessionStorage.getItem('userSearch') == ''? '':sessionStorage.getItem('userSearch')),
+                        supplierId: sessionStorage.getItem('userSearch') || $(".supplierList").val(),
+                    };
+                },
+                onLoadSuccess: function (data) {
+                    console.log(data)
+
+                },
+                responseHandler: function (e) {
+                    console.log(e.data)
+                    sessionStorage.setItem('supplierList', JSON.stringify(e.data.supplierList));
+
+                    var supplierListHtml = ''
+                    supplierListHtml += '<option value="">所有渠道</option>'
+                    for (var i = 0; i < e.data.supplierList.length; i++) {
+                        supplierListHtml += '<option value="' + e.data.supplierList[i].id + '">' + e.data
+                            .supplierList[i].name + '</option>'
+                    }
+                    $(".supplierList").html(supplierListHtml)
+
+                    $(".supplierList").change(function () {
+                        var userSearchVal = $(this).val()
+                        sessionStorage.setItem('userSearch', '');
+                        sessionStorage.setItem('userSearch', userSearchVal);
+
+                    })
+
+
+
+
+                    return {
+                        "rows": e.data.list.list,
+                        "total": e.data.list.total
+                    };
+
+
+                },
+                columns: [{
+                        field: "title",
+                        width: 150,
+                        title: "sku操作",
+                        formatter: function (value, row, index) {
+                            var data = row;
+                            // console.log(data)
+                            var html = '';
+                            html +=
+                                "<a  class='btn-infoEdit SeeSku' href='javascript:void(0)' onclick=\'skuAdd(" +
+                                data.id + ")\'>添加</a>";
+                            html += '&nbsp';
+                            html +=
+                                "<a  class='btn-primaryEdit skuAdd' href='javascript:void(0)' onclick=\'skuSee(" +
+                                data.id + ")\'>查看</a>";
+                            html += '&nbsp;';
+                            /*if ($.inArray("100001007",arrayHtml) !== -1){
+                                html += "<a  class='btn btn-info btn-sm btn-outline SeeSku' href='javascript:void(0)' onclick=\'skuAdd(" + data.id + ")\'><i class='fa fa-plus' style='margin-right: 2px'></i>添加</a>";
+                                html += '&nbsp';
+                            }else{
+                                html += '&nbsp';
+                            }
+                            if ($.inArray("100001006",arrayHtml) !== -1){
+                                html += "<a  class='btn btn-primary btn-sm btn-outline skuAdd' href='javascript:void(0)' onclick=\'skuSee(" + data.id + ")\'><i class='fa fa-eye' style='margin-right: 2px'></i>查看</a>";
+                                html += '&nbsp;';
+                            }else{
+                                html += '&nbsp';
+                            }*/
+
+                            return html;
+                        }
+                    },
+                    {
+                        field: "id",
+                        title: "产品id",
+                        formatter: function (value, row, index) {
+
+                            return value;
+                        }
+                    },
+
+                    {
+                        field: "title",
+                        width: 340,
+                        title: "中文名称/英文名称",
+                        formatter: function (value, row, index) {
+                            var enTitle = ''
+                            var title = ''
+                            if (row.enTitle == null) {
+                                enTitle += "<br />"
+                                enTitle += "-"
+                            } else {
+                                enTitle += "<br />"
+                                enTitle += row.enTitle
+                            }
+                            if (row.title == null) {
+                                title += "-"
+                            } else {
+                                if (row.isHot == 1) {
+                                    title +=
+                                        "<i class='fa fa-fire' style='color: red'></i><a href='javascript:;' onclick='rowTitle(" +
+                                        row.id + ")'>" + row.title + "</a>"
+                                } else {
+                                    title += "<a href='javascript:;' onclick='rowTitle(" + row.id +
+                                        ")'>" + row.title + "</a>"
+                                }
+
+                            }
+
+
+                            return title + enTitle;
+                        }
+                    },
+
+                    {
+                        field: "onSale",
+                        title: "状态",
+                        formatter: function (value, row, index) {
+                            var statusHtml = ''
+                            if (value == 0) {
+                                statusHtml += '<em style="color: #666; font-style: normal">停售</em>'
+                            } else if (value == 1) {
+                                statusHtml += '<em style="color: #ff9600;font-style: normal">在售</em>'
+                            }
+                            return statusHtml;
+                        }
+                    },
+                    {
+                        field: "categories",
+                        title: "产品类型",
+                        formatter: function (value, row, index) {
+                            var categoriesHtml = ''
+                            if (row.categories == '') {
+                                categoriesHtml += '-'
+                            } else {
+                                categoriesHtml += JSON.stringify(row.categories[0].name)
+                            }
+                            return categoriesHtml;
+                        }
+                    },
+                    {
+                        field: "cityName",
+                        title: "目的地",
+                        formatter: function (value, row, index) {
+                            return value;
+                        }
+                    },
+                    {
+                        field: "supplier.name",
+                        title: "供应商",
+                        formatter: function (value, row, index) {
+                            // var Ahtml = '< a href="'+row.referUrl+'" target="_blank">'+row.supplier.name+'</ a>'
+                            var Ahtml = '<a href="' + row.referUrl + '" target="_blank">' + row.supplier
+                                .name + '</a>'
+                            return Ahtml;
+                        }
+                    },
+                    {
+                        field: "author",
+                        width: 150,
+                        title: "更新时间/更新人/作者",
+                        formatter: function (value, row, index) {
+                            var dataHtml = ''
+                            dataHtml += formatDateTime(row.updateTime)
+                            dataHtml += '<br />'
+                            dataHtml += row.lastModified
+                            dataHtml += '/'
+                            return dataHtml + value;
+                        }
+                    },
+                    {
+                        field: "id",
+                        width: 200,
+                        title: "操作",
+                        align: "center",
+                        formatter: function (value, row, index) {
+
+                            // var data = JSON.stringify(row);
+                            var data = row;
+                            var html = '';
+
+                            if ($.inArray("100001001", arrayHtml) !== -1) {
+                                html +=
+                                    "<a  class='btn-dangerEdit deleteData' href='javascript:void(0)' onclick=\'deleteData(" +
+                                    data.id + ")\'>删除</a>";
+                                html += '&nbsp;';
+                            } else {
+                                html += '&nbsp';
+                            }
+                            if ($.inArray("100001004", arrayHtml) !== -1) {
+                                html +=
+                                    "<a  class='btn-warningEdit' href='javascript:void(0)' onclick=\'editDate(" +
+                                    data.id + ")\'>编辑</a>";
+                                html += '&nbsp';
+                            } else {
+                                html += '&nbsp';
+                            }
+                            if ($.inArray("100001002", arrayHtml) !== -1) {
+
+                                html +=
+                                    "<a  class='btn-primaryEdit BtnUp' href='javascript:void(0)'  onclick=\'moreUp(" +
+                                    data.id + ")\'>上架</a>"
+                                html += '&nbsp;';
+                                html +=
+                                    "<a  class='btn-primaryEdit BtnUp' href='javascript:void(0)'  onclick=\'moreDown(" +
+                                    data.id + ")\'>下架</a>"
+                                html += '&nbsp;';
+                            } else {
+                                html += '&nbsp';
+                            }
+                            if ($.inArray("100001003", arrayHtml) !== -1) {
+
+                                html +=
+                                    "<a  class='btn-infoEdit BtnHot' href='javascript:void(0)'  onclick=\'moreHot(" +
+                                    data.id + ")\'>热销</a>"
+                                html += '&nbsp;';
+                                html +=
+                                    "<a  class='btn-infoEdit BtnHot' href='javascript:void(0)'  onclick=\'moreCancelHot(" +
+                                    data.id + ")\'>取消热销</a>"
+                                html += '&nbsp;';
+                            } else {
+                                html += '&nbsp';
+                            }
+
+                            return html;
+                        }
+                    }
+
+                ]
+            });
+
+        }
+
+        // 点击详情模态框
+
+        //   rowData 接入数据进行传参   skuAdd
+        //添加
+        function skuAdd(rowData) {
+            console.log(rowData)
+            var index = layer.open({
+                type: 1,
+                shade: 0.01,
+                id: 'area', //设定一个id，防止重复弹出
+                title: 'sku--添加/查看',
+                area: ['500px', '400px'],
+                content: $('.content-view'),
+                btn: ['提交', '关闭'],
+                yes: function (index) {
+                    layer.close(index)
+                    var result = {
+                        succ: '添加成功!',
+                        fail: '添加失败'
+                    };
+                    var skuAddForm = $("#areaForm").serialize()
+                    myAjax(skuSaveProduct, skuAddForm + "&productId=" + rowData, handle);
+
+                    function handle(data, param) {
+                        console.log(data)
+                        var msg = (data.msg == undefined ? '' : ',' + data.msg);
+                        if (data.success) {
+                            layer.msg(result.succ, {
+                                icon: 1,
+                                time: 1000,
+                                shade: 0.01
+                            });
+                            handleTable('', 3, ticketRestfulControllerList);
+                        } else {
+                            layer.msg(result.fail + msg, {
+                                icon: 2,
+                                time: 1000,
+                                shade: 0.01
+                            });
+                        }
+                    }
+
+                    formReset();
+
+                },
+                shadeClose: true, //开启遮罩关闭
+                success: function (layero, index) {
+
+                }
+            })
+        }
+
+        //查看
+        function skuSee(rowData) {
+            var index = layer.open({
+                type: 1,
+                shade: 0.01,
+                id: 'area', //设定一个id，防止重复弹出
+                title: 'sku--添加/查看',
+                area: ['800px', '400px'],
+                content: '<div class="wrapper wrapper-content animated  fadeInDown  content-viewSee  "><table class="tb_tableSku"></table></div>',
+                btn: ['提交', '关闭'],
+                yes: function (index) {
+                    formReset();
+                    // submitData(index, subType);
+                },
+                shadeClose: true, //开启遮罩关闭
+                success: function (layero, index) {
+                    TableSku(rowData, $('.tb_tableSku', layero))
+
+                }
+            })
+        }
+
+        function TableSku(rowData, $tableSku) {
+
+            var rowDataHtml = rowData
+            $tableSku.bootstrapTable({
+
+                url: ticketRestfulControllershowOfferPrice, //请求后台的URL（*）
+                method: 'get', //请求方式（*）
+                contentType: "application/x-www-form-urlencoded",
+                toolbar: '#toolbarSku', //工具按钮用哪个容器
+                //                    striped: true,                      //是否显示行间隔色
+                cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true, //是否显示分页（*）
+                sortable: true, //是否启用排序
+                sortOrder: "asc", //排序方式
+                sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber: 1, //初始化加载第一页，默认第一页
+                pageSize: 10, //每页的记录行数（*）
+                pageList: 5, //分页步进值
+                pageList: [10, 20, 30, 50], //可供选择的每页的行数（*）
+                //                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: true,
+                showColumns: false,
+                showRefresh: false,
+                minimumCountColumns: 2, //最少允许的列数
+                clickToSelect: true, //是否启用点击选中行
+                //				height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "id", //每一行的唯一标识，一般为主键列
+                showToggle: false, //是否显示详细视图和列表视图的切换按钮
+                cardView: false, //是否显示详细视图
+                detailView: false, //是否显示父子表
+                //                    showFooter:true,            //表格底部
+                onClickRow: function (row) {
+                                           console.log(row)
+                },
+                queryParamsType: 'limit',
+                queryParams: function (params) {
+                    return {
+                        pageNo: (params.offset / params.limit) + 1,
+                        pageSize: params.limit,
+                        id: rowDataHtml
+                    };
+                },
+                onLoadSuccess: function (data) {
+                    // console.log(data)
+                },
+                responseHandler: function (e) {
+                    // console.log(e)
+                    return {
+                        "rows": e.data.productSkuList,
+                        "total": 0
+                    };
+
+                },
+                columns: [
+
+                    {
+
+                        field: "id",
+                        title: "SkuId",
+                        formatter: function (value, row, index) {
+
+                            return value;
+                        }
+                    },
+
+                    {
+                        field: "sourceCode",
+                        title: "套餐CODE",
+                        formatter: function (value, row, index) {
+                            return value;
+                        }
+                    },
+
+                    {
+                        field: "title",
+                        title: "套餐名称",
+                        formatter: function (value, row, index) {
+
+                            return value;
+                        }
+                    },
+                    {
+                        field: "currencyCode",
+                        title: "币种",
+                        formatter: function (value, row, index) {
+                            return value;
+                        }
+                    },
+                    {
+                        field: "marketPrice",
+                        title: "售价",
+                        formatter: function (value, row, index) {
+                            var priceHtml = ''
+                            if (row.type == 0) {
+                                for (var i = 0; i < row.ageBandList.length; i++) {
+                                    if (row.ageBandList[i].bandId == 1) {
+                                        priceHtml += '<em>标准[' + row.ageBandList[i].ageFrom + '-' + row
+                                            .ageBandList[i].ageTo + ']：' + row.ageBandList[i].price +
+                                            '</em>'
+                                        priceHtml += '<br />'
+                                    } else {
+                                        priceHtml += ''
+                                    }
+                                    if (row.ageBandList[i].bandId == 2) {
+                                        priceHtml += '<em>成人[' + row.ageBandList[i].ageFrom + '-' + row
+                                            .ageBandList[i].ageTo + ']：' + row.ageBandList[i].price +
+                                            '</em>'
+                                        priceHtml += '<br />'
+                                    } else {
+                                        priceHtml += ''
+                                    }
+                                    if (row.ageBandList[i].bandId == 3) {
+                                        priceHtml += '<em>儿童[' + row.ageBandList[i].ageFrom + '-' + row
+                                            .ageBandList[i].ageTo + ']：' + row.ageBandList[i].price +
+                                            '</em>'
+                                        priceHtml += '<br />'
+                                    } else {
+                                        priceHtml += ''
+                                    }
+                                    if (row.ageBandList[i].bandId == 4) {
+                                        priceHtml += '<em>婴儿[' + row.ageBandList[i].ageFrom + '-' + row
+                                            .ageBandList[i].ageTo + ']：' + row.ageBandList[i].price +
+                                            '</em>'
+                                        priceHtml += '<br />'
+                                    } else {
+                                        priceHtml += ''
+                                    }
+                                    if (row.ageBandList[i].bandId == 5) {
+                                        priceHtml += '<em>青年[' + row.ageBandList[i].ageFrom + '-' + row
+                                            .ageBandList[i].ageTo + ']：' + row.ageBandList[i].price +
+                                            '</em>'
+                                        priceHtml += '<br />'
+                                    } else {
+                                        priceHtml += ''
+                                    }
+                                    if (row.ageBandList[i].bandId == 6) {
+                                        priceHtml += '<em>老人[' + row.ageBandList[i].ageFrom + '-' + row
+                                            .ageBandList[i].ageTo + ']：' + row.ageBandList[i].price +
+                                            '</em>'
+                                        priceHtml += '<br />'
+                                    } else {
+                                        priceHtml += ''
+                                    }
+                                }
+                            } else {
+                                priceHtml += '-'
+                            }
+
+
+                            return priceHtml;
+                        }
+                    },
+                    {
+                        field: "endDate",
+                        title: "报价有效期",
+                        formatter: function (value, row, index) {
+                            return formatDateTime(value);
+                        }
+                    },
+
+                    {
+                        field: "id",
+                        title: "操作",
+                        align: "center",
+                        formatter: function (value, row, index) {
+
+                            // var data = JSON.stringify(row);
+                            var data = row;
+                            // console.log(data)
+                            var html = '';
+                            html +=
+                                "<a  class='btn btn-danger btn-sm btn-outline deleteDataSku' href='javascript:void(0)' onclick=\'deleteDataSku(" +
+                                data.id +
+                                ")\'><i class='fa fa-window-close' style='margin-right: 2px'></i>删除</a>";
+                            html += '&nbsp;';
+                            html +=
+                                "<a  class='btn btn-info btn-sm btn-outline skuAdd' href='javascript:void(0)' onclick=\'skuEdit(" +
+                                JSON.stringify(data) + ")\'><i class='fa fa-edit'></i>价格编辑</a>";
+                            html += '&nbsp;';
+
+                            return html;
+                        }
+                    }
+
+                ]
+            });
+        }
+        // sku编辑
+        function skuEdit(rowDate) {
+            // addMenuItem("../html/skuEditPrice.html?skuId=" + rowDate.id + "&enName=" + rowDate.title, "sku编辑");
+            var rowDateStr = {
+                skuId : rowDate.id,
+                title : rowDate.title,
+                sourceCode : rowDate.sourceCode,
+                currencyCode : rowDate.currencyCode,
+                inventory : rowDate.inventory,
+                startDate :formatDateTime(rowDate.startDate),
+                endDate :formatDateTime(rowDate.endDate),
+                ageBandList : rowDate.ageBandList
+            }
+            sessionStorage.setItem('rowDateSku',JSON.stringify(rowDateStr))
+            addMenuItem("../html/skuEditPrice-Old.html", "sku编辑" );
+        }
+
+
+        //删除列表
+        function deleteData(sid) {
+
+            var param = {
+                ids: sid
+            };
+            var result = {
+                succ: '删除成功!',
+                fail: '删除失败'
+            };
+            layer.msg("确定要删除该消息？", {
+                shade: [0.1, '##f5f5f5'],
+                time: 0 //不自动关闭
+                    ,
+                btn: ['确定', '取消'],
+                yes: function (index) {
+                    layer.close(index);
+                    myAjax(batchDeleteLogic, param, handle);
+
+                    function handle(data, param) {
+                        var msg = (data.msg == undefined ? '' : ',' + data.msg);
+                        if (data.success) {
+                            layer.msg(result.succ, {
+                                icon: 1,
+                                time: 1000,
+                                shade: 0.01
+                            });
+                            handleTable(sid, 4);
+                        } else {
+                            layer.msg(result.fail + msg, {
+                                icon: 2,
+                                time: 1000,
+                                shade: 0.01
+                            });
+                        }
+                    }
+                },
+                btn2: function (index, layero) {}
+            });
+        }
+
+        // sku删除
+        function deleteDataSku(sid) {
+            console.log(sid)
+
+            var url = ticketRestfulControllerdeleteOfferPrice;
+            var param = {
+                id: sid
+            };
+            var result = {
+                succ: '删除成功!',
+                fail: '删除失败'
+            };
+            layer.msg("确定要删除该消息？", {
+                shade: [0.1, '##f5f5f5'],
+                time: 0 //不自动关闭
+                    ,
+                btn: ['确定', '取消'],
+                yes: function (index) {
+                    layer.close(index);
+                    myAjax(url, param, handle);
+
+                    function handle(data, param) {
+                        var msg = (data.msg == undefined ? '' : ',' + data.msg);
+                        if (data.success) {
+                            layer.msg(result.succ, {
+                                icon: 1,
+                                time: 1000,
+                                shade: 0.01
+                            });
+                            handleTable(sid, 4);
+                            $('.tb_tableSku').bootstrapTable('refresh', data.rows);
+                        } else {
+                            layer.msg(result.fail + msg, {
+                                icon: 2,
+                                time: 1000,
+                                shade: 0.01
+                            });
+                        }
+                    }
+                },
+                btn2: function (index, layero) {}
+            });
+
+
+        }
+
+        //产品详情预览
+        function rowTitle(sid) {
+            addMenuItem("../html/productDetail.html?id=" + sid, "产品预览");
+        }
+
+        // 上架
+        function moreUp(rowData) {
+            console.log(rowData)
+            myAjax(batchDeleteLogicOnSale, {
+                ids: rowData
+            }, handle)
+
+            function handle(data, params) {
+                handleTable("", 3, ticketRestfulControllerList);
+            }
+        }
+        // 上架
+        function moreDown(rowData) {
+            console.log(rowData)
+            myAjax(batchDeleteLogicOffSale, {
+                ids: rowData
+            }, handle)
+
+            function handle(data, params) {
+                handleTable("", 3, ticketRestfulControllerList);
+            }
+        }
+        // 热销
+        function moreHot(rowData) {
+            console.log(rowData)
+            myAjax(batchDeleteLogicHotSale, {
+                ids: rowData
+            }, handle)
+
+            function handle(data, params) {
+                handleTable("", 3, ticketRestfulControllerList);
+            }
+        }
+        // 取消热销
+        function moreCancelHot(rowData) {
+            console.log(rowData)
+            myAjax(batchDeleteLogicNoSale, {
+                ids: rowData
+            }, handle)
+
+            function handle(data, params) {
+                handleTable("", 3, ticketRestfulControllerList);
+            }
+        }
+
+
+
+
+
+        // 表单  刷新
+        function formReset() {
+            $("#areaForm")[0].reset();
+        }
+
+        /* $(document).on("click",'.SeeSku',skuAdd);   //sku添加
+         $(document).on("click",'.skuAdd',skuSee);   //查看*/
+
+        /*  $(document).on("click",'.deleteData',deleteData);  //  删除
+          $(document).on("click",'.deleteDataSku',deleteDataSku);  //  删除sku*/
+
+
+
+        $(function () {
+            // var Table = new TableInit(columns);
+            Table();
+
+            var oButtonInit = new ButtonInit();
+            oButtonInit.Init();
+
+
+            var resourcesData = getUserInfo().roles[0].resources
+            var resourcesHtml = []
+            for (item in resourcesData) {
+                var activeDivObj = new Array();
+                resourcesHtml.push(activeDivObj)
+                if (resourcesData[item].parent == 2) {
+                    var addObj = {};
+                    addObj.parent = resourcesData[item].permission
+                    resourcesHtml[item].push(addObj)
+                }
+            }
+            arrayHtml = new Array();
+            for (i in resourcesHtml) {
+                if (resourcesHtml[i] != '') {
+                    arrayHtml.push(resourcesHtml[i][0].parent)
+                }
+
+            }
+            if ($.inArray("100001001", arrayHtml) !== -1) {
+                $(".newBtn").show()
+            }
+
+
+
+        });
+
+
+        function reInitTable() {
+            $table.bootstrapTable('refresh');
+        }
+
+        function openPOP() {
+            addMenuItem("../html/CreateProduct.html?id=1", "创建产品");
+        }
+        //点击修改跳转页面
+        function editDate(row) {
+            // addMenuItem("../html/editCreateProduct.html?id="+row,"编辑产品");
+            addMenuItem("../html/CreateProduct.html?id=" + row, "创建产品");
+        }
+
+        //初始化页面上面的按钮事件
+        var ButtonInit = function () {
+            var oInit = new Object();
+            oInit.Init = function () {
+                $('#btn_add').click(openPOP);
+                $('#btn_search').click(reInitTable);
+            };
+
+            laydate.render({
+                elem: '#startTime',
+                type: 'datetime'
+            });
+            laydate.render({
+                elem: '#endTime',
+                type: 'datetime'
+            });
+            return oInit;
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台主题UI框架</title>
+    <meta name="keywords">
+    <meta name="description">
+    <meta name="keywords">
+    <meta name="description">
+    <!--网页logo-->
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../resource/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../resource/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../resource/css/animate.css" rel="stylesheet">
+    <link href="../resource/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../resource/css/common.css" rel="stylesheet">
+    <link href="../resource/css/dataRili.css" rel="stylesheet">
+    <!--iCheck样式-->
+    <link rel="stylesheet" type="text/css" href="../resource/css/plugins/iCheck/custom.css"/>
+</head>
+<style>
+    input{
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        color: #666;
+        text-align: center;
+        padding: 10px;
+    }
+    input:focus {
+        outline: none !important;
+        border:0;
+    }
+    .tableClass th,.tableClass td{
+        text-align: center;
+    }
+    textarea{
+        resize: none;
+    }
+    .arrow {
+        width: 0px;
+        height: 0px;
+        border-top: 16px solid transparent;
+        border-right: 26px solid;
+        border-bottom: 16px solid transparent;
+        position: absolute;
+        margin-left: -26px;
+        margin-top: 48px;
+        border-right-color: #fff;
+    }
+    .wrapper-content{
+        background: #fff;
+        margin: 15px;
+    }
+    .tab-pane{
+        padding-top: 30px;
+    }
+    .hoverBtnDel{
+        margin: 5px;
+    }
+    .catText,.leaveTypeText{
+        font-style: normal;
+    }
+
+    /*日历  样式*/
+    .content{
+        display: flex;
+        position: relative;
+    }
+    .signincalendar {
+        /*width: 700px;*/
+        width: 60%;
+        margin-right: 10px;
+    }
+
+    table {
+        margin: 0 auto;
+        background: rgba(255,255,255,1);
+        border: 1px solid rgba(222,222,222,1);
+    }
+
+    .signincalendar table tr {
+
+    }
+
+    table tr td {
+        width: 120px;
+        height: 40px;
+        text-align: center;
+        border:1px solid rgba(222,222,222,1);
+        border-radius: 0.5em;
+        font-weight: bolder;
+    }
+    .checkAllTr{
+        border-bottom:1px solid rgba(222,222,222,1);
+    }
+    .checkAllTr>td{
+        height: 46px;
+    }
+    table tr.firsttr td, table tr.secondtr td
+    {
+        border: 0px;
+    }
+    table tr.secondtr td{
+        height: 50px;
+        font-size: 18px;
+        color: #333;
+        font-weight: normal;
+    }
+    table tr td.cantsign {
+        background: none repeat scroll 0% 0% #9B9B9B;
+        color: #F2F2F2;
+    }
+
+    table tr.threetr td {
+        background: #9AFAA0;
+    }
+
+
+    div.normal {
+        height: 90px;
+        font-size: 12px;
+        text-align: center;
+        position: relative;
+    }
+    table td div.om {
+        background-color: #fff;
+        color: #bbb;
+        cursor: default;
+    }
+    /*table td div {
+        position: relative;
+        background: #fff;
+        height: 38px;
+        font-size: 14px;
+        padding: 3px 4px 0 3px;
+        cursor: pointer;
+        overflow: hidden;
+        border: 1px solid #fff;
+        z-index: 1;
+        text-align: center;
+    }*/
+    table td div .price {
+        position: absolute;
+        font-size: 18px;
+        color: #ff9600;
+        font-weight: normal;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    table td .om .price {
+        color: #ff3d00;
+    }
+    table td div p {
+        color: #ff3d00;
+        line-height: 18px !important;
+    }
+    .detailTable{
+        box-shadow: none;
+    }
+
+    .rightContent{
+        /*width: 600px;*/
+        width: 40%;
+        display: none;
+        height: 320px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 25px 2px rgba(222,222,222,1);
+        position: absolute;
+        /*left: 710px;*/
+        left: 61%;
+        top: 102px;
+    }
+    .rightContent>p{
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+        color: #666;
+    }
+    .dataBoxTitle{
+        /*width: 600px;*/
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        color: #fff;
+        font-size: 16px;
+        text-align: center;
+        background: #3DBFC1;
+        -webkit-border-radius: 10px 10px 0 0;
+        -moz-border-radius: 10px 10px 0 0;
+        border-radius: 10px 10px 0 0;
+    }
+    .tableBoxBtn{
+        display: flex;
+    }
+    .tableBoxBtnClose,.tableBoxBtnYes,.tableBoxBtnYesMonth,.tableBoxBtnYesOut{
+        /*width: 200px;*/
+        width: 33.3%;
+        height: 40px;
+        line-height: 40px;
+        font-size: 14px;
+        text-align: center;
+        cursor: pointer;
+    }
+    .tableBoxBtnClose{
+        color: #666;
+        background:rgba(245,247,248,1);
+        border-radius:0px 0px 0px 10px;
+        font-size: 16px;
+    }
+    .tableBoxBtnYes,.tableBoxBtnYesMonth{
+        color: #666;
+        background: #fff;
+        font-size: 16px;
+    }
+    .tableBoxBtnYesOut{
+        color: #fff;
+        background:rgba(255,150,0,1);
+        border-radius:0px 0px 10px 0px;
+        font-size: 16px;
+    }
+    .allCheck{
+        text-align: right;
+    }
+.dateNumCheck{
+    float: right;
+    font-size: 16px;
+    color: #333;
+    height: 40px;
+    line-height: 40px;
+    padding-right: 10px;
+    margin-bottom: 0;
+}
+.dateNum{
+    color: #ff9600;
+    padding: 0 3px;
+}
+    .classBtn{
+        display: inline-block;
+        margin: 5px !important;
+    }
+    .seePrice{
+        width: 100%;
+        padding: 10px;
+    }
+    .seePrice>span{
+        display: inline-block;
+        font-size: 16px;
+        height: 30px;
+        line-height: 30px;
+        color: #666;
+    }
+    .editMonth{
+        color: #3DBFC1 !important;
+        cursor: pointer;
+        position: relative;
+        margin-left: 10px;
+        padding-left: 10px;
+    }
+    .editMonth::after{
+        display: block;
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 5px;
+        width: 2px;
+        height: 18px;
+        background: #3DBFC1;
+    }
+    .timeSlot{
+        display: flex;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .timeSlot>span{
+        display: inline-block;
+
+    }
+    .timeslpe{
+        width: 10%;
+    }
+    .interval{
+        width: 5%;
+    }
+    #startTime,#endTime{
+        width: 25%;
+        display: inline-block;
+        border: 1px  solid #ccc;
+    }
+</style>
+<body class="gray-bg">
+
+
+<!--编辑  motal-->
+<div class="wrapper wrapper-content animated  fadeInDown  content-view ">
+    <div class="timeSlot">
+        <span class="timeslpe">时间段：</span>
+        <input type="text" readonly id="startTime" placeholder="请输入开始时间" />
+        <span class="interval">--</span>
+        <input type="text" readonly id="endTime" placeholder="请输入结束时间" />
+    </div>
+    <div class="dataBox">
+        <table class="detailTable">
+            <thead>
+            <tr>
+                <th style="width: 5%;">
+
+                </th>
+                <th style="width: 20%;">
+                    单价(人民币/人)
+                </th>
+                <th style="width: 20%;">
+                    库存剩余
+                </th>
+                <th style="width: 10%;">
+                    开始年龄
+                </th>
+                <th style="width: 10%;">
+                    结束年龄
+                </th>
+                <th style="width: 5%;">
+                    已售
+                </th>
+                <th style="width: 10%;">
+                    售卖状态
+                </th>
+            </tr>
+            </thead>
+            <tbody class="addPeople">
+                <tr>
+                    <td class="addName" data-addId="2">成人</td>
+                         <td>
+                                <input type="text" class="peopleInput adultPrice" onkeyup="clearNoNum(this)" value="">
+                               <input type="hidden" class="openType adultOpen" onkeyup="clearNoNum(this)">
+                            </td>
+                        <td>
+                               <input type="text" class="numInput adultSurplus" onkeyup="clearNoNum(this)" value="">
+                           </td>
+                        <td>
+                                <input type="text" class="ageStart ageStartAdult" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                        <td>
+                                <input type="text" class="ageEnd ageEndAdult" onkeyup="clearNoNum(this)" value="">
+                           </td>
+                         <td>0</td>
+                        <td style="padding-left: 10px">
+                                <div  class="div1 close1">
+                                        <div class="div2 close2" onclick="selectSubTask()"></div>
+                                    </div>
+                            </td>
+                   </tr>
+                <tr>
+                        <td class="addName" data-addId="5">青年</td>
+                        <td><input type="text" class="peopleInput yongPrice" onkeyup="clearNoNum(this)" value="">
+                               <input type="hidden" class="openType yongOpen">
+                            </td>
+                        <td><input type="text" class="numInput yongSurplus" onkeyup="clearNoNum(this)" value=""></td>
+                        <td>
+                                <input type="text" class="ageStart" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                        <td>
+                                <input type="text" class="ageEnd" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                        <td>0</td>
+                        <td style="padding-left: 10px">
+                                <div  class="yong1 close1">
+                                        <div class="yong2 close2" onclick="selectSubTaskYong()"></div>
+                                    </div>
+                            </td>
+                    </tr>
+                <tr>
+                        <td class="addName" data-addId="6">老人</td>
+                        <td><input type="text" class="peopleInput oldPrice" onkeyup="clearNoNum(this)" value=""><input type="hidden" class="openType oldOpen"></td>
+                        <td><input type="text" class="numInput oldSurplus" onkeyup="clearNoNum(this)" value=""></td>
+                        <td>
+                                <input type="text" class="ageStart" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                       <td>
+                                <input type="text" class="ageEnd" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                        <td>0</td>
+                        <td style="padding-left: 10px">
+                                <div  class="old1 close1">
+                                        <div class="old2 close2" onclick="selectSubTaskOld()"></div>
+                                    </div>
+                            </td>
+                    </tr>
+                <tr>
+                        <td class="addName" data-addId="3">儿童</td>
+                        <td><input type="text" class="peopleInput childPrice" onkeyup="clearNoNum(this)" value=""><input type="hidden" class="openType childOpen"></td>
+                        <td><input type="text" class="numInput childSurplus" onkeyup="clearNoNum(this)" value=""></td>
+                        <td>
+                                <input type="text" class="ageStart" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                        <td>
+                                <input type="text" class="ageEnd" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                        <td>0</td>
+                        <td style="padding-left: 10px">
+                                <div  class="child1 close1">
+                                        <div class="child2 close2" onclick="selectSubTaskChild()"></div>
+                                    </div>
+                            </td>
+                    </tr>
+                <tr>
+                        <td class="addName" data-addId="4">婴儿</td>
+                        <td><input type="text" class="peopleInput babyPrice" onkeyup="clearNoNum(this)" value=""><input type="hidden" class="openType babyOpen"></td>
+                        <td><input type="text" class="numInput babySurplus" onkeyup="clearNoNum(this)" value=""></td>
+                        <td>
+                                <input type="text" class="ageStart" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                        <td>
+                                <input type="text" class="ageEnd" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                        <td>0</td>
+                        <td style="padding-left: 10px">
+                            <div  class="baby1 close1">
+                                    <div class="baby2 close2" onclick="selectSubTaskBaby()"></div>
+                                </div>
+                        </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="tableBoxBtn">
+            <div class="tableBoxBtnClose">取消</div>
+            <div class="tableBoxBtnYesMonth">保存设置</div>
+            <div class="tableBoxBtnYesOut">保存并发布</div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInDown">
+    <ul id="myTab" class="nav nav-tabs">
+        <!--<li class="active">
+            <a href="#information" data-toggle="tab">
+                基本信息
+            </a>
+        </li>-->
+        <li class="active">
+            <a href="#product" data-toggle="tab">
+                价格库存 -- <i class="skuTitle"></i>
+            </a>
+        </li>
+    </ul>
+
+    <div id="myTabContent" class="tab-content">
+        <!--价格库存-->
+
+        <div class="tab-pane fade in active" id="product">
+            <div class="seePrice">
+                <span>查看价格库存日历</span>
+                <span class="editMonth">跨月设置价格库存</span>
+            </div>
+            <div data-role="content" class="content">
+
+
+                <div class="signincalendar"></div>
+                <!--点击当前日期 进行操作-->
+
+                <div class="rightContent">
+                    <div class="arrow" ></div>
+                    <input type="hidden" class="alldayNum">
+                    <input type="hidden" class="skuId">
+                    <!--<input type="hidden" class="dataJson">-->
+                    <p style="display: none" class="dataJson"></p>
+                    <div class="dataBox">
+                        <div class="dataBoxTitle">设置价格库存</div>
+                        <p class="dateNumCheck">已选<i class="dateNum">1</i>个日期</p>
+                        <table class="detailTable">
+                            <thead>
+                                <tr>
+                                    <th style="width: 5%;">
+
+                                    </th>
+                                    <th style="width: 20%;">
+                                        单价(人民币/人)
+                                    </th>
+                                    <th style="width: 20%;">
+                                        库存剩余
+                                    </th>
+                                    <th style="width: 10%;">
+                                        开始年龄
+                                    </th>
+                                    <th style="width: 10%;">
+                                        结束年龄
+                                    </th>
+                                    <th style="width: 5%;">
+                                        已售
+                                    </th>
+                                    <th style="width: 10%;">
+                                        售卖状态
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="addPeople">
+
+                            </tbody>
+                        </table>
+                        <div class="tableBoxBtn">
+                            <div class="tableBoxBtnClose">取消</div>
+                            <div class="tableBoxBtnYes">保存设置</div>
+                            <div class="tableBoxBtnYesOut">保存并发布</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--价格库存-->
+
+    </div>
+    <input type="hidden" class="startTime">
+    <input type="hidden" class="endTime">
+</div>
+
+<!-- 全局js -->
+<script src="../resource/js/jquery.min.js?v=2.1.4"></script>
+<script src="../resource/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../resource/js/content.js?v=1.0.0"></script>
+
+<script src="../resource/js/plugins/layer/layer.js"></script>
+<script src="../resource/js/plugins/laydate/laydate.js"></script>
+
+<script src="../resource/common/multiselect.js"></script>
+<script src="../resource/common/common.js?time=" +Math.random()></script>
+
+<!--多选框 icheck.js-->
+<script src="../resource/js/plugins/iCheck/iCheck.js"></script>
+<!--日历  js-->
+<script src="../resource/js/mycanledar.js"></script>
+
+
+<script>
+
+    $(".skuId").val(getQueryParam("skuId").skuId)
+
+    laydate.render({
+        elem:'#startTime',
+        done: function(value, date, endDate){
+            var endTime = $("#endTime").val()
+            if(Date.parse(value)>Date.parse(endTime)){
+                layer.msg("请选择结束日期之前", {icon: 2,time:1000,shade: 0.01});
+                $("#startTime").val('')
+            }
+        }
+    })
+    laydate.render({
+        elem:'#endTime',
+        done: function(value, date, endDate){
+            var startDate = $("#startTime").val()
+            if(Date.parse(startDate)>Date.parse(value)){
+                layer.msg("请选择开始日期之后", {icon: 2,time:1000,shade: 0.01});
+                $("#endTime").val('')
+            }
+        }
+    })
+</script>
+</body>
+
+</html>

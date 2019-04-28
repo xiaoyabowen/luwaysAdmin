@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台主题UI框架</title>
+    <meta name="keywords">
+    <meta name="description">
+    <meta name="keywords">
+    <meta name="description">
+    <!--网页logo-->
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../resource/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../resource/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../resource/js/plugins/select2/css/select2.css" rel="stylesheet">
+    <link href="../resource/js/plugins/bootstarp-table/css/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../resource/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../resource/css/animate.css" rel="stylesheet">
+    <link href="../resource/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../resource/css/common.css" rel="stylesheet">
+    <link href="../resource/css/dataRili.css" rel="stylesheet">
+    <!--iCheck样式-->
+    <!-- <link rel="stylesheet" type="text/css" href="../resource/css/plugins/iCheck/custom.css" /> -->
+</head>
+<style>
+    input {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        color: #666;
+        text-align: center;
+        padding: 10px;
+    }
+
+    input:focus {
+        outline: none !important;
+        border: 0;
+    }
+
+    .tableClass th,
+    .tableClass td {
+        text-align: center;
+    }
+
+    textarea {
+        resize: none;
+    }
+
+    .arrow {
+        width: 0px;
+        height: 0px;
+        border-top: 16px solid transparent;
+        border-right: 26px solid;
+        border-bottom: 16px solid transparent;
+        position: absolute;
+        margin-left: -26px;
+        margin-top: 48px;
+        border-right-color: #fff;
+    }
+
+    .wrapper-content {
+        background: #fff;
+        margin: 15px;
+    }
+
+    .tab-pane {
+        padding-top: 30px;
+    }
+
+    .hoverBtnDel {
+        margin: 5px;
+    }
+
+    .catText,
+    .leaveTypeText {
+        font-style: normal;
+    }
+
+    /*日历  样式*/
+    .content {
+        display: flex;
+        position: relative;
+    }
+
+    .signincalendar {
+        /*width: 700px;*/
+        width: 60%;
+        margin-right: 10px;
+    }
+
+    table {
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 1);
+        border: 1px solid rgba(222, 222, 222, 1);
+    }
+
+    .signincalendar table tr {}
+
+    table tr td {
+        width: 120px;
+        height: 40px;
+        text-align: center;
+        border: 1px solid rgba(222, 222, 222, 1);
+        /* border-radius: 0.5em; */
+        font-weight: bolder;
+    }
+
+    .checkAllTr {
+        border-bottom: 1px solid rgba(222, 222, 222, 1);
+    }
+
+    .checkAllTr>td {
+        height: 46px;
+    }
+
+    table tr.firsttr td,
+    table tr.secondtr td {
+        border: 0px;
+    }
+
+    table tr.secondtr td {
+        height: 50px;
+        font-size: 18px;
+        color: #333;
+        font-weight: normal;
+    }
+
+    table tr td.cantsign {
+        background: none repeat scroll 0% 0% #9B9B9B;
+        color: #F2F2F2;
+    }
+
+    table tr.threetr td {
+        background: #9AFAA0;
+    }
+
+
+    div.normal {
+        height: 90px;
+        font-size: 12px;
+        text-align: center;
+        position: relative;
+    }
+
+    table td div.om {
+        background-color: #fff;
+        color: #bbb;
+        cursor: default;
+    }
+
+    /*table td div {
+            position: relative;
+            background: #fff;
+            height: 38px;
+            font-size: 14px;
+            padding: 3px 4px 0 3px;
+            cursor: pointer;
+            overflow: hidden;
+            border: 1px solid #fff;
+            z-index: 1;
+            text-align: center;
+        }*/
+    table td div .price {
+        position: absolute;
+        font-size: 18px;
+        color: #ff9600;
+        font-weight: normal;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    table td .om .price {
+        color: #ff3d00;
+    }
+
+    table td div p {
+        color: #ff3d00;
+        line-height: 18px !important;
+    }
+
+    .detailTable {
+        box-shadow: none;
+    }
+
+    .rightContent {
+        /*width: 600px;*/
+        width: 40%;
+        display: none;
+        height: 320px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 25px 2px rgba(222, 222, 222, 1);
+        position: absolute;
+        /*left: 710px;*/
+        left: 61%;
+        top: 102px;
+    }
+
+    .rightContent>p {
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+        color: #666;
+    }
+
+    .dataBoxTitle {
+        /*width: 600px;*/
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        color: #fff;
+        font-size: 16px;
+        text-align: center;
+        background: #3DBFC1;
+        -webkit-border-radius: 10px 10px 0 0;
+        -moz-border-radius: 10px 10px 0 0;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .tableBoxBtn {
+        display: flex;
+    }
+
+    .tableBoxBtnClose,
+    .tableBoxBtnYes,
+    .tableBoxBtnYesMonth,
+    .tableBoxBtnYesOut {
+        /*width: 200px;*/
+        width: 33.3%;
+        height: 40px;
+        line-height: 40px;
+        font-size: 14px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .tableBoxBtnClose {
+        color: #666;
+        background: rgba(245, 247, 248, 1);
+        border-radius: 0px 0px 0px 10px;
+        font-size: 16px;
+    }
+
+    .tableBoxBtnYes,
+    .tableBoxBtnYesMonth {
+        color: #666;
+        background: #fff;
+        font-size: 16px;
+    }
+
+    .tableBoxBtnYesOut {
+        color: #fff;
+        background: rgba(255, 150, 0, 1);
+        border-radius: 0px 0px 10px 0px;
+        font-size: 16px;
+    }
+
+    .allCheck {
+        text-align: right;
+    }
+
+    .dateNumCheck {
+        float: right;
+        font-size: 16px;
+        color: #333;
+        height: 40px;
+        line-height: 40px;
+        padding-right: 10px;
+        margin-bottom: 0;
+    }
+
+    .dateNum {
+        color: #ff9600;
+        padding: 0 3px;
+    }
+
+    .classBtn {
+        display: inline-block;
+        margin: 5px !important;
+    }
+
+    .seePrice {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .seePrice>span {
+        display: inline-block;
+        font-size: 16px;
+        height: 30px;
+        line-height: 30px;
+        color: #666;
+    }
+
+    .editMonth {
+        color: #3DBFC1 !important;
+        cursor: pointer;
+        position: relative;
+        margin-left: 10px;
+        padding-left: 10px;
+    }
+
+    .editMonth::after {
+        display: block;
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 5px;
+        width: 2px;
+        height: 18px;
+        background: #3DBFC1;
+    }
+
+    .timeSlot {
+        display: flex;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .timeSlot>span {
+        display: inline-block;
+
+    }
+
+    .timeslpe {
+        width: 10%;
+    }
+
+    .interval {
+        width: 5%;
+    }
+
+    #startTime,
+    #endTime {
+        width: 48%;
+        display: inline-block;
+        border: 1px solid #ccc;
+    }
+</style>
+
+<body class="gray-bg">
+
+    <!--编辑  motal-->
+
+    <div class="wrapper wrapper-content animated fadeInDown">
+        <ul id="myTab" class="nav nav-tabs">
+            <!--<li class="active">
+            <a href="#information" data-toggle="tab">
+                基本信息
+            </a>
+        </li>-->
+            <li class="active">
+                <a href="#product" data-toggle="tab">
+                    价格库存
+                </a>
+            </li>
+        </ul>
+
+        <div id="myTabContent" class="tab-content">
+            <!--价格库存-->
+            <div class="tab-pane fade in active" id="product">
+
+                <div data-role="content" class="content">
+
+                    <form method="get" class="form-horizontal col-sm-6" id="areaForm">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">套餐名称</label>
+                            <div class="col-sm-8">
+                                <input type="hidden" name="id" id="skuId">
+                                <input type="text" class="form-control" name="title" id="skuName"
+                                    placeholder="请输入套餐名称" />
+                                <span class="help-block m-b-none validate"></span>
+                            </div>
+                        </div>
+                        <div class="timeSlot form-group">
+                            <label class="col-sm-2 control-label">销售日期</label>
+                            <!-- <span class="timeslpe">时间段：</span> -->
+                            <div class="col-sm-8">
+                                <input type="" class="form-control" name="startDate" readonly id="startTime"
+                                    placeholder="请输入开始时间" />
+                                <span class="interval">--</span>
+                                <input type="text" class="form-control" readonly id="endTime" name="endDate" placeholder="请输入结束时间" />
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">库存</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="inventory" id="inventory"
+                                    placeholder="库存" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <label class="col-sm-2 control-label">币种</label>
+                            <div class="col-sm-8">
+                                <select class="leaveType form-control currencyCode" name="currencyCode">
+                                    <option value="USD" selected="selected">美元</option>
+                                    <option value="CNY">人民币</option>
+                                    <option value="GBP">英镑</option>
+                                    <option value="JPY">日元</option>
+                                    <option value="EUR">欧元</option>
+                                    <option value="NZD">新西兰元</option>
+                                    <option value="AED">迪拉姆</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">套餐CODE</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="sourceCode" id="sourceCode"
+                                    placeholder="请输入套餐CODE" />
+                            </div>
+                        </div>
+
+                    </form>
+
+
+                </div>
+            </div>
+            <!--价格库存-->
+            <form id="numPrice">
+                <div class="dataBox" style="width:50%;">
+                    <table class="detailTable">
+                        <thead>
+                        <tr>
+                            <th style="width: 5%;">
+
+                            </th>
+                            <th style="width: 20%;">
+                                成本
+                            </th>
+                            <th style="width: 20%;">
+                                差价
+                            </th>
+                            <th style="width: 10%;">
+                                开始年龄
+                            </th>
+                            <th style="width: 10%;">
+                                结束年龄
+                            </th>
+                            <th style="width: 5%;">
+                                售价
+                            </th>
+                            <!--<th style="width: 10%;">-->
+                            <!--售卖状态-->
+                            <!--</th>-->
+                        </tr>
+                        </thead>
+                        <tbody class="addPeople">
+                        <tr>
+                            <td class="addName" data-addId="2">成人</td>
+                            <td>
+                                <input type="text" class="peopleInput adultPrice " name="ageBandList[0].price" onkeyup="clearNoNum(this)" value="">
+                                <input type="hidden" class="openType adultOpen" onkeyup="clearNoNum(this)">
+                            </td>
+                            <td>
+                                <input type="text" class="numInput adultcommission" name="ageBandList[0].commission" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                            <td>
+                                <input type="text" class="ageStart ageFromAdult" name="ageBandList[0].ageFrom" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                            <td>
+                                <input type="text" class="ageEnd ageToAdult" name="ageBandList[0].ageTo" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                            <td>
+                                <input type="text" class="marketPriceAdult" name="ageBandList[0].marketPrice" onkeyup="clearNoNum(this)" value="">
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="addName" data-addId="5">青年</td>
+                            <td><input type="text" class="peopleInput yongPrice" name="ageBandList[1].price" onkeyup="clearNoNum(this)" value="">
+                                <input type="hidden" class="openType yongOpen">
+                            </td>
+                            <td><input type="text" class="numInput yongSurplus" name="ageBandList[1].commission" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                            <td>
+                                <input type="text" class="ageStart yongFrom" name="ageBandList[1].ageFrom" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                            <td>
+                                <input type="text" class="ageEnd yongFromTO" name="ageBandList[1].ageTo" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                            <td>
+                                <input type="text" class="saultYong" name="ageBandList[1].marketPrice" onkeyup="clearNoNum(this)" value="">
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="addName" data-addId="6">老人</td>
+                            <td><input type="text" class="peopleInput oldPrice" name="ageBandList[2].price" onkeyup="clearNoNum(this)"
+                                       value=""><input type="hidden" class="openType oldOpen"></td>
+                            <td><input type="text" class="numInput oldSurplus" name="ageBandList[2].commission" onkeyup="clearNoNum(this)" value=""></td>
+                            <td>
+                                <input type="text" class="ageStart oldFrom" name="ageBandList[2].ageFrom" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                            <td>
+                                <input type="text" class="ageEnd oldTo" name="ageBandList[2].ageTo" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                            <td>
+                                <input type="text" class="saultOld" name="ageBandList[2].marketPrice" onkeyup="clearNoNum(this)" value="">
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="addName" data-addId="3">儿童</td>
+                            <td><input type="text" class="peopleInput childPrice" name="ageBandList[3].price" onkeyup="clearNoNum(this)"
+                                       value=""><input type="hidden" class="openType childOpen"></td>
+                            <td><input type="text" class="numInput childSurplus" name="ageBandList[3].commission" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                            <td>
+                                <input type="text" class="ageStart ageFromChild" name="ageBandList[3].ageFrom" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                            <td>
+                                <input type="text" class="ageEnd ageToChild" name="ageBandList[3].ageTo" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                            <td>
+                                <input type="text" class="saultChild marketPriceChild" name="ageBandList[3].marketPrice" onkeyup="clearNoNum(this)" value="">
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="addName" data-addId="4">婴儿</td>
+                            <td><input type="text" class="peopleInput babyPrice" name="ageBandList[4].price" onkeyup="clearNoNum(this)"
+                                       value=""><input type="hidden" class="openType babyOpen"></td>
+                            <td><input type="text" class="numInput babySurplus" name="ageBandList[4].commission" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                            <td>
+                                <input type="text" class="ageStart babyFrom" name="ageBandList[4].ageFrom" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                            <td>
+                                <input type="text" class="ageEnd babyFromTO" name="ageBandList[4].ageTo" onkeyup="clearNoNum(this)" value="">
+                            </td>
+                            <td>
+                                <input type="text" class="saultBaby" name="ageBandList[4].marketPrice" onkeyup="clearNoNum(this)" value="">
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="tableBoxBtn">
+                        <div class="tableBoxBtnClose">取消</div>
+                        <div class="tableBoxBtnYesMonth">保存设置</div>
+                        <div class="tableBoxBtnYesOut">保存并发布</div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <input type="hidden" class="startTime">
+        <input type="hidden" class="endTime">
+    </div>
+
+
+
+    <!-- 全局js -->
+    <script src="../resource/js/jquery.min.js?v=2.1.4"></script>
+    <script src="../resource/js/bootstrap.min.js?v=3.3.6"></script>
+    <!-- 自定义js -->
+    <script src="../resource/js/content.js?v=1.0.0"></script>
+
+    <script src="../resource/js/plugins/layer/layer.js"></script>
+    <script src="../resource/js/plugins/laydate/laydate.js"></script>
+
+    <script src="../resource/js/plugins/bootstrap-3-typeahead/bootstrap3-typeahead.js"></script>
+
+    <script src="../resource/common/common.js?time=" +Math.random()></script>
+
+
+    <script>
+
+        let rowDateSku = JSON.parse(sessionStorage.getItem('rowDateSku'))
+
+        $("#skuId").val(rowDateSku.skuId)
+        $("#skuName").val(rowDateSku.title)
+        $("#startTime").val(rowDateSku.startDate)
+        $("#endTime").val(rowDateSku.endDate)
+        $("#inventory").val(rowDateSku.inventory)
+        $(".currencyCode").val(rowDateSku.currencyCode)
+        $("#sourceCode").val(rowDateSku.sourceCode)
+        console.log(rowDateSku)
+
+        // 价格
+        let rowDataAdult = rowDateSku.ageBandList[0]
+        let rowDataChild = rowDateSku.ageBandList[1]
+        let rowDataBaby = rowDateSku.ageBandList[2]
+        let rowDataYong = rowDateSku.ageBandList[3]
+        let rowDataOld = rowDateSku.ageBandList[4]
+        // 成人
+        if (rowDataAdult !== undefined){
+            $(".adultPrice").val(rowDataAdult.price)
+            $(".adultcommission").val(rowDataAdult.commission)
+            $(".ageFromAdult").val(rowDataAdult.ageFrom)
+            $(".ageToAdult").val(rowDataAdult.ageTo)
+            $(".marketPriceAdult").val(rowDataAdult.marketPrice)
+        }
+        if (rowDataChild !== undefined){
+            $(".childPrice").val(rowDataChild.price)
+            $(".childSurplus").val(rowDataChild.commission)
+            $(".ageFromChild").val(rowDataChild.ageFrom)
+            $(".ageToChild").val(rowDataChild.ageTo)
+            $(".marketPriceChild").val(rowDataChild.marketPrice)
+        }
+        if (rowDataBaby !== undefined){
+            $(".babyPrice").val(rowDataBaby.price)
+            $(".babySurplus").val(rowDataBaby.commission)
+            $(".babyFrom").val(rowDataBaby.ageFrom)
+            $(".babyFromTO").val(rowDataBaby.ageTo)
+            $(".saultBaby").val(rowDataBaby.marketPrice)
+        }
+        if (rowDataYong !== undefined){
+            $(".yongPrice").val(rowDataYong.price)
+            $(".yongSurplus").val(rowDataYong.commission)
+            $(".yongFrom").val(rowDataYong.ageFrom)
+            $(".yongFromTO").val(rowDataYong.ageTo)
+            $(".saultYong").val(rowDataYong.marketPrice)
+        }
+
+        if (rowDataOld !== undefined){
+            $(".oldPrice").val(rowDataOld.price)
+            $(".oldSurplus").val(rowDataOld.commission)
+            $(".oldFrom").val(rowDataOld.ageFrom)
+            $(".oldTo").val(rowDataOld.ageTo)
+            $(".saultOld").val(rowDataOld.marketPrice)
+        }
+        $(".tableBoxBtnYesMonth").click(function () {
+
+    var numPrice = $("#numPrice").serialize()
+    var areaForm = $("#areaForm").serialize()
+    myAjax(skuSave, areaForm +"&"+ numPrice, handle);
+
+    function handle(data, param) {
+        console.log(data)
+        var result = {succ:'保存成功!',fail:'保存失败'};
+        if (data.success) {
+
+            layer.confirm(result.succ, {icon: 1, title:'提示'}, function(index){
+
+                reLoad();
+                addMenuItem("../html/ticketProduct.html","产品管理");
+                handleTable("",4);
+                closeMyselfInIframe()
+                layer.close(index);
+            });
+        }else{
+            layer.msg(result.fail, {icon: 2,time:1000,shade: 0.01});
+        }
+    }
+})
+
+
+
+        function selectSubTask() {
+            // 开关js
+            var div2 = document.getElementsByClassName("div2")[0];
+            var div1 = document.getElementsByClassName("div1")[0];
+            div1.className = (div1.className == "div1 close1") ? "div1 open1" : "div1 close1"; //关闭状态
+            div2.className = (div2.className == "div2 close2") ? "div2 open2" : "div2 close2"; //开启状态
+            if (div1.className == "div1 close1") {
+                $(".adultOpen").val("0")
+            } else {
+                $(".adultOpen").val("1")
+            }
+
+
+        }
+
+        function selectSubTaskYong() {
+            // 开关js
+            var div2 = document.getElementsByClassName("yong2")[0];
+            var div1 = document.getElementsByClassName("yong1")[0];
+            div1.className = (div1.className == "yong1 close1") ? "yong1 yongopen1" : "yong1 close1"; //关闭状态
+            div2.className = (div2.className == "yong2 close2") ? "yong2 yongopen2" : "yong2 close2"; //开启状态
+            if (div1.className == "yong1 close1") {
+                $(".yongOpen").val("0")
+            } else {
+                $(".yongOpen").val("1")
+            }
+            console.log($(".yongOpen").val())
+        }
+
+        function selectSubTaskOld() {
+            // 开关js
+            var div2 = document.getElementsByClassName("old2")[0];
+            var div1 = document.getElementsByClassName("old1")[0];
+            div1.className = (div1.className == "old1 close1") ? "old1 oldopen1" : "old1 close1"; //关闭状态
+            div2.className = (div2.className == "old2 close2") ? "old2 oldopen2" : "old2 close2"; //开启状态
+            if (div1.className == "old1 close1") {
+                $(".oldOpen").val("0")
+            } else {
+                $(".oldOpen").val("1")
+            }
+        }
+
+        function selectSubTaskChild() {
+            // 开关js
+            var div2 = document.getElementsByClassName("child2")[0];
+            var div1 = document.getElementsByClassName("child1")[0];
+            div1.className = (div1.className == "child1 close1") ? "child1 childopen1" : "child1 close1"; //关闭状态
+            div2.className = (div2.className == "child2 close2") ? "child2 childopen2" : "child2 close2"; //开启状态
+            if (div1.className == "child1 close1") {
+                $(".childOpen").val("0")
+            } else {
+                $(".childOpen").val("1")
+            }
+        }
+
+        function selectSubTaskBaby() {
+            // 开关js
+            var div2 = document.getElementsByClassName("baby2")[0];
+            var div1 = document.getElementsByClassName("baby1")[0];
+            div1.className = (div1.className == "baby1 close1") ? "baby1 babyopen1" : "baby1 close1"; //关闭状态
+            div2.className = (div2.className == "baby2 close2") ? "baby2 babyopen2" : "baby2 close2"; //开启状态
+            if (div1.className == "baby1 close1") {
+                $(".babyOpen").val("0")
+            } else {
+                $(".babyOpen").val("1")
+            }
+        }
+
+
+        $(".skuId").val(getQueryParam("skuId").skuId);
+        laydate.render({
+            elem: '#startTime',
+            type: 'datetime',
+            done: function (value, date, endDate) {
+                var endTime = $("#endTime").val()
+                if (Date.parse(value) > Date.parse(endTime)) {
+                    layer.msg("请选择结束日期之前", {
+                        icon: 2,
+                        time: 1000,
+                        shade: 0.01
+                    });
+                    $("#startTime").val('')
+                }
+            }
+        })
+        laydate.render({
+            elem: '#endTime',
+            type: 'datetime',
+            done: function (value, date, endDate) {
+                var startDate = $("#startTime").val()
+                if (Date.parse(startDate) > Date.parse(value)) {
+                    layer.msg("请选择开始日期之后", {
+                        icon: 2,
+                        time: 1000,
+                        shade: 0.01
+                    });
+                    $("#endTime").val('')
+                }
+            }
+        })
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            color: #3e3e3e;
+            text-decoration: none;
+        }
+
+        li{
+            list-style: none;
+        }
+        .calendar-main {
+            float: left;
+            margin-left: 12px;
+            display: inline;
+            width: 470px;
+            overflow: hidden;
+        }
+        .calendar-main .h3 {
+            height: 47px;
+            _height: 50px;
+            padding: 5px 0px 4px 0px;
+            position: relative;
+            z-index: 1;
+            font: 14px/32px Arial;
+            text-align: left;
+        }
+        .calendar-main .ul_time_tab {
+            width: 100%;
+            overflow: hidden;
+            zoom: 1;
+            bottom: -1px;
+            position: relative;
+            height: 51px;
+        }
+        .clr_after:after, .clrfix:after, .cf:after {
+            clear: both;
+            display: block;
+            height: 0;
+            visibility: hidden;
+            content: ".";
+        }
+        .calendar-main .cal-table {
+            padding: 0 3px 3px;
+        }
+        .calendar-main .ul_time_tab ul {
+            width: 1100%;
+        }
+        .calendar-main .ul_time_tab .on, .calendar-main .ul_time_tab li:hover {
+            height: 33px;
+            _height: 34px;
+            border-bottom: 2px solid #00afc7;
+            color: #00afc7;
+        }
+        .calendar-main .ul_time_tab li {
+            font-weight: bold;
+            width: 100px;
+            margin: 0 1px 0 0;
+            float: left;
+            cursor: pointer;
+            text-align: center;
+            padding-top: 15px;
+        }
+        .month-list li {
+            position: relative;
+        }
+        .price_low {
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+            -moz-border-radius: 3px;
+            background-color: #ff7145;
+            color: #FFF;
+            font-size: 5px;
+            width: 84px;
+            text-align: center;
+            position: absolute;
+            z-index: 2000;
+            font: 10px/16px Arial;
+            top: 1px;
+            left: 50%;
+            margin-left: -50px;
+            padding: 0 8px;
+        }
+        .price_low .sjx {
+            position: absolute;
+            content: "\0020";
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent;
+            border-top-color: #ff7145;
+            top: 14px;
+            left: 45px;
+        }
+         .year_month {
+            border-bottom: 1px solid #ddd;
+            font: 700 16px/36px Tahoma,sans-serif;
+            text-align: center;
+            color: #333;
+        }
+
+       .direct_pre {
+            left: 24px;
+        }
+       .direct_next {
+            right: 0px;
+        }
+        .direct {
+            position: absolute;
+            top: 6px;
+            width: 36px;
+            height: 36px;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        .calendar-main table {
+            border: 1px solid #ededed;
+            border-right: 0;
+            border-left: 0;
+            width: 100%;
+        }
+        .calendar-main table th {
+            width: 52px;
+            line-height: 25px;
+            font-weight: bold;
+            border-top: 1px solid #ededed;
+            border-bottom: 1px solid #ededed;
+        }
+        .calendar-main table th .weekend {
+            color: #f70;
+        }
+        .calendar-main table td {
+            border-bottom: 1px #ededed solid;
+            border-left: 1px #ededed solid;
+            border-right: 1px #ededed solid;
+        }
+        .calendar-main table td div.normal {
+            font-size: 12px;
+            text-align: center;
+            position: relative;
+        }
+        .calendar-main table td div.om {
+            background-color: #fff;
+            color: #bbb;
+            cursor: default;
+        }
+        .calendar-main table td div {
+            position: relative;
+            background: #fff;
+            height: 38px;
+            font-size: 14px;
+            padding: 3px 4px 0 3px;
+            cursor: pointer;
+            overflow: hidden;
+            border: 1px solid #fff;
+            z-index: 1;
+            text-align: center;
+        }
+        .calendar-main table td div .price {
+            font-size: 12px;
+            left: 0;
+            top: 25px;
+            width: 100%;
+            text-align: center;
+        }
+        .calendar-main table td .om .price {
+            color: #ff3d00;
+        }
+        .calendar-main table td div p {
+            color: #ff3d00;
+            line-height: 6px;
+        }
+        .calendar-main table td var {
+            position: absolute;
+            top: 0;
+            right: 3px;
+            color: #00afc7;
+        }
+        .calendar-main table td div.active {
+            background: #fffdd8;
+            border-color: #ffcc80;
+        }
+
+        .price_low_tag, .price_reduce_tag {
+            position: absolute;
+            color: #FFF;
+            background-color: #ff3d00;
+            display: inline-block;
+            padding: 2px;
+            font-size: 10px;
+            left: 0;
+            top: 0;
+        }
+    </style>
+
+    <script src="../resource/js/jquery.min.js?v=2.1.4"></script>
+    <script src="dateTable.js"></script>
+</head>
+<body>
+<div class="calendar-main js-price-calendar">
+    <div class="h3 cf">
+        <div class="year_month">2019年<span class="txt_blue">2</span>月</div>
+        <div class="direct direct_pre"><a href="javascript:void(0)" hidefocus="true" title="前一月">《<i class="icon i_exp_ll"></i></a></div>
+        <div class="direct direct_next"><a href="javascript:void(0)" hidefocus="true" title="后一月">》<i class="icon i_exp_rl"></i></a></div>
+    </div>
+    <div class="cal-table">
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    <div class="weekend">日</div>
+                </th>
+                <th>
+                    <div class="weekday">一</div>
+                </th>
+                <th>
+                    <div class="weekday">二</div>
+                </th>
+                <th>
+                    <div class="weekday">三</div>
+                </th>
+                <th>
+                    <div class="weekday">四</div>
+                </th>
+                <th>
+                    <div class="weekday">五</div>
+                </th>
+                <th>
+                    <div class="weekend">六</div>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td data-date="2018-11-25" data-tid="1486814962">
+                    <div class=" om normal ">
+                        <!--25
+                        <p class="price">¥1380</p>
+                        <var>余8</var>-->
+
+                    </div>
+                </td>
+                <td data-date="2018-11-26" data-tid="1903224635">
+                    <div class=" om normal">
+                        <!--26
+                        <p class="price">¥1380</p>
+                        <var>余8</var>-->
+
+                    </div>
+                </td>
+                <td data-date="2018-11-27" data-tid="2827021944">
+                    <div class=" om normal">
+                       <!-- 27
+                        <p class="price">¥1380</p>
+                        <var>余8</var>-->
+
+                    </div>
+                </td>
+                <td data-date="2018-11-28" data-tid="744576275">
+                    <div class=" om normal">
+                        <!--28
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+-->
+                    </div>
+                </td>
+                <td data-date="2018-11-29" data-tid="3677832778">
+                    <div class=" om normal">
+                        <!--29
+                        <p class="price">¥1380</p>
+                        <var>余8</var>-->
+
+                    </div>
+                </td>
+                <td data-date="2018-11-30" data-tid="1126111820">
+                    <div class=" om normal">
+                        <!--30
+                        <p class="price">¥1380</p>
+                        <var>余8</var>-->
+
+                    </div>
+                </td>
+                <td data-date="2018-12-01" data-tid="2873981828">
+                    <div class=" normal">
+                        1
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td data-date="2018-12-02" data-tid="3035483744">
+                    <div class=" normal">
+                        2
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-03" data-tid="2744128622">
+                    <div class=" normal active">
+                        3
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+                        <span class="price_low_tag">低</span>
+                    </div>
+                </td>
+                <td data-date="2018-12-04" data-tid="3639953431">
+                    <div class=" normal">
+                        4
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-05" data-tid="668804558">
+                    <div class=" normal">
+                        5
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-06" data-tid="1497246861">
+                    <div class=" normal">
+                        6
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-07" data-tid="4243628391">
+                    <div class=" normal">
+                        7
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-08" data-tid="501858422">
+                    <div class=" normal">
+                        8
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td data-date="2018-12-09" data-tid="3160248851">
+                    <div class=" normal">
+                        9
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-10" data-tid="1244314486">
+                    <div class=" normal">
+                        10
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-11" data-tid="406354929">
+                    <div class=" normal">
+                        11
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-12" data-tid="92633221">
+                    <div class=" normal">
+                        12
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-13" data-tid="3122040308">
+                    <div class=" normal">
+                        13
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-14" data-tid="1039548777">
+                    <div class=" normal">
+                        14
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-15" data-tid="4070403262">
+                    <div class=" normal">
+                        15
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td data-date="2018-12-16" data-tid="4275507246">
+                    <div class=" normal">
+                        16
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-17" data-tid="962104273">
+                    <div class=" normal">
+                        17
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-18" data-tid="2226649337">
+                    <div class=" normal">
+                        18
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-19" data-tid="1270016950">
+                    <div class=" normal">
+                        19
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-20" data-tid="3433774163">
+                    <div class=" normal">
+                        20
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-21" data-tid="3113261856">
+                    <div class=" normal">
+                        21
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-22" data-tid="1585702756">
+                    <div class=" normal">
+                        22
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td data-date="2018-12-23" data-tid="3312452996">
+                    <div class=" normal">
+                        23
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-24" data-tid="2418213272">
+                    <div class=" normal">
+                        24
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-25" data-tid="3076698445">
+                    <div class=" normal">
+                        25
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-26" data-tid="1860626261">
+                    <div class=" normal">
+                        26
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-27" data-tid="1081995784">
+                    <div class=" normal">
+                        27
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-28" data-tid="3048670763">
+                    <div class=" normal">
+                        28
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-29" data-tid="2269537596">
+                    <div class=" normal">
+                        29
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td data-date="2018-12-30" data-tid="4110893494">
+                    <div class=" om normal">
+                        30
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2018-12-31" data-tid="3591734289">
+                    <div class=" om normal">
+                        31
+                        <p class="price">¥1380</p>
+                        <var>余8</var>
+
+                    </div>
+                </td>
+                <td data-date="2019-01-01" data-tid="">
+                    <div class="disable om disable normal">
+                        <!--1-->
+
+                    </div>
+                </td>
+                <td data-date="2019-01-02" data-tid="">
+                    <div class="disable om disable normal">
+                        <!--2-->
+
+                    </div>
+                </td>
+                <td data-date="2019-01-03" data-tid="">
+                    <div class="disable om disable normal">
+                        <!--3-->
+
+                    </div>
+                </td>
+                <td data-date="2019-01-04" data-tid="">
+                    <div class="disable om disable normal">
+                        <!--4-->
+
+                    </div>
+                </td>
+                <td data-date="2019-01-05" data-tid="">
+                    <div class="disable om disable normal">
+                        <!--5-->
+
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+</body>
+</html>

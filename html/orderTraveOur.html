@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台主题UI框架</title>
+    <meta name="keywords">
+    <meta name="description">
+    <meta name="keywords">
+    <meta name="description">
+    <!--网页logo-->
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../resource/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../resource/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../resource/js/plugins/select2/css/select2.css" rel="stylesheet">
+    <link href="../resource/js/plugins/bootstarp-table/css/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../resource/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../resource/css/animate.css" rel="stylesheet">
+    <link href="../resource/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../resource/css/common.css" rel="stylesheet">
+    <!--iCheck样式-->
+    <link rel="stylesheet" type="text/css" href="../resource/css/plugins/iCheck/custom.css"/>
+</head>
+<style>
+.tableCaption{
+    width: 100%; background: #F5F5F5; padding-left: 10px;font-size: 16px;color: #333;
+}
+
+.split-line {
+    width: 100%;
+    border: solid #737373;
+    border-width: 1px 0px 0px 0px;
+}
+    .form-group{
+        margin-bottom: 10px;
+    }
+</style>
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>订单出行人信息</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+
+
+                    <h3 class="col-xs-12">订单状态：<span class="payStatus">未支付</span></h3>
+                    <h6 class="col-xs-12 split-line"></h6>
+                    <!--出游人信息-->
+                    <div class="tableBoxTraveInfo">
+                        <table class="table table-bordered">
+                            <caption class="tableCaption">出游人信息</caption>
+                            <thead>
+                                <tr>
+                                <th>产品信息</th>
+                                <th>票种</th>
+                                <th>出行日期</th>
+                                <th>金额</th>
+                                <th>游客人数</th>
+                                <th>订单号</th>
+                                <th>供应商订单号</th>
+                                <th>销售渠道订单号</th>
+                                <th>订单提交时间</th>
+                            </tr>
+                            </thead>
+                            <tbody id="TeacherList">
+                                <!--<tr>
+                                    <td>Tanmay</td>
+                                    <td>Bangalore</td>
+                                    <td>560001</td>
+                                    <td>560001</td>
+                                    <td>560001</td>
+                                    <td>560001</td>
+                                    <td>560001</td>
+                                    <td>Tanmay</td>
+                                    <td>Bangalore</td>
+                                </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">订单联系人姓名</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control orderUserName" readonly />
+                            </div>
+                            <label class="col-sm-1 control-label">订单联系人电话</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control orderUserPhone" readonly />
+                            </div>
+                            <label class="col-sm-1 control-label">订单联系人email</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control orderUserEmail" readonly />
+                            </div>
+                        </div>
+                    </form>
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">游客信息姓名</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control infoName" readonly />
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div id="toolbar">
+                    <div class="form-group col-sm-1">
+                        <button class="btn btn-success  btn-outline" id="btn_add">
+                            <i class="fa fa-plus">返回上一页</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Panel Other -->
+</div>
+
+<!-- 全局js -->
+<script src="../resource/js/jquery.min.js?v=2.1.4"></script>
+<script src="../resource/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="../resource/js/content.js?v=1.0.0"></script>
+
+<script src="../resource/js/plugins/select2/js/select2.full.js"></script>
+<script src="../resource/js/plugins/select2/js/i18n/zh-CN.js"></script>
+<script src="../resource/js/plugins/layer/layer.js"></script>
+<script src="../resource/js/plugins/laydate/laydate.js"></script>
+<!-- ztree -->
+<!-- Bootstrap table -->
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table.js"></script>
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="../resource/js/plugins/bootstrap-3-typeahead/bootstrap3-typeahead.js"></script>
+
+<script src="../resource/common/multiselect.js"></script>
+<script src="../resource/common/common.js?time=" +Math.random()></script>
+
+<!--多选框 icheck.js-->
+<script src="../resource/js/plugins/iCheck/iCheck.js"></script>
+
+<!--js模板渲染-->
+<script src="../resource/js/template-native.js"></script>
+
+<script type="text/html" id="TeacherHtml">
+    <tr>
+        <td><%=list.productTitle%></td>
+        <td><%=list.skuTitle%></td>
+        <td><%=list.startDate%></td>
+        <td><%=list.nowPrice%></td>
+        <td><%=list.adultDesc%></td>
+        <td><%=list.orderNo%></td>
+        <td><%=list.sourceReference%></td>
+        <td><%=list.fileTo%></td>
+        <td class="createDateHtml"><%=list.createDate%></td>
+    </tr>
+
+</script>
+
+<script>
+
+    $("#btn_add").click(function () {
+        closeMyselfInIframe()
+    })
+
+    myAjax(orderOrderDetail,getQueryParam("id"),handle);
+    function handle(data,param){
+        console.log(data)
+        if(data.success) {
+            var orderStatus = data.data.order.orderStatus
+            var orderData = data.data.order
+
+            if (orderStatus == 0){
+                $(".payStatus").html("未支付")
+            }else if (orderStatus == 1){
+                $(".payStatus").html("已支付")
+            }else if (orderStatus == 2){
+                $(".payStatus").html("已发Voucher")
+            }else if (orderStatus == 3){
+                $(".payStatus").html("二次确认-Viator")
+            }else if (orderStatus == 4){
+                $(".payStatus").html("已确认-Viator")
+            }else if (orderStatus == 6){
+                $(".payStatus").html("已提交-待支付")
+            }else if (orderStatus == 7){
+                $(".payStatus").html("支付成功-待确认")
+            }else if (orderStatus == 8){
+                $(".payStatus").html("确认失败")
+            }else if (orderStatus == 9){
+                $(".payStatus").html("确认成功")
+            }else if (orderStatus == 10){
+                $(".payStatus").html("已取消")
+            }else if (orderStatus == 13){
+                $(".payStatus").html("订单异常")
+            }else if (orderStatus == 15){
+                $(".payStatus").html("待确认")
+            }else if (orderStatus == 16){
+                $(".payStatus").html("确认中")
+            }
+
+
+            var data = {list: data.data.order};
+            var html = template("TeacherHtml",data);
+            document.getElementById('TeacherList').innerHTML = html;
+
+            var createDateHtml = $(".createDateHtml").html()
+            console.log(createDateHtml)
+            $(".createDateHtml").html(formatDateTime(createDateHtml))
+
+            $(".orderUserName").val(orderData.contractName)
+            $(".orderUserPhone").val(orderData.contractPhone)
+            $(".orderUserEmail").val(orderData.contractEmail)
+
+            var infoNameHtml = ''
+            for (var i=0;i<orderData.guest.length;i++){
+                infoNameHtml+=orderData.guest[i].lastName+orderData.guest[i].firstName
+                infoNameHtml += ' '
+            }
+            console.log(infoNameHtml)
+            $(".infoName").val(infoNameHtml)
+
+        }else{
+
+        }
+    }
+
+</script>
+
+
+
+</body>
+
+</html>

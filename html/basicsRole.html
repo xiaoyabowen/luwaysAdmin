@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台主题UI框架</title>
+    <meta name="keywords">
+    <meta name="description">
+    <meta name="keywords">
+    <meta name="description">
+    <!--网页logo-->
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../resource/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../resource/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../resource/js/plugins/select2/css/select2.css" rel="stylesheet">
+    <link href="../resource/js/plugins/bootstarp-table/css/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../resource/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../resource/css/animate.css" rel="stylesheet">
+    <link href="../resource/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../resource/css/common.css" rel="stylesheet">
+    <!--iCheck样式-->
+    <link rel="stylesheet" type="text/css" href="../resource/css/plugins/iCheck/custom.css"/>
+</head>
+<style>
+    .inputClass{
+        display: inline-block;
+        width: 50px;
+    }
+    .tableClass th,.tableClass td{
+        text-align: center;
+    }
+    #toolbar{
+        width: 1000px;
+    }
+    .labelSelect{
+        display: flex;
+    }
+    .distribution{
+        display: none;
+    }
+
+</style>
+<body class="gray-bg">
+
+
+<div class="wrapper wrapper-content  animated fadeInDown tree-view"  style="display: none;">
+    <div class="col-sm-10">
+        <div class="ibox float-e-margins" id="ztree">
+            <div class="ibox-title">
+                <h5>选择权限</h5>
+
+            </div>
+            <div class="ibox-content" >
+                <ul id="treeDemo" class="ztree">
+
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--编辑  motal-->
+<div class="wrapper wrapper-content animated  fadeInDown  content-view  ">
+    <form method="get" class="form-horizontal" id="areaForm">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">角色名称</label>
+            <div class="col-sm-8">
+                <input type="hidden" class="form-control hiddenid" id="id">
+                <input type="text" class="form-control"  id="name" name="name" placeholder="请输入用户名"/>
+                <span class="help-block m-b-none validate"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">简介</label>
+            <div class="col-sm-8">
+                <input type="text"  class="form-control" id="description" name="description" placeholder="请输入简介">
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <form method="get" class="form-horizontal">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>角色管理</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <div id="toolbar">
+                        <div class="form-group col-sm-1 newBtn" style="display:none;">
+                            <button class="btn btn-success  btn-outline" id="btn_add">
+                                <i class="fa fa-plus">添加</i>
+                            </button>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-sm-5 ">
+                                <div class="input-group">
+                                    <input id="coverPdf" type="hidden">
+                                    <!--<input id="wordCover" type="text" class="form-control" placeholder="请选择文档" readonly="readonly">-->
+                                    <span class="input-group-btn">
+			                        <button type="button" class="btn btn-primary  wordBtn" onclick="uploadWord()">选择文档</button>
+			                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <table id="tb_table"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+    <!--文档表单-->
+    <form style="opacity: 0" action="" id="wordForm" autocomplete="off" enctype="multipart/form-data">
+        <input type="hidden" value="111" name="orderId">
+        <input style="height: 0;width: 0;" type="file" name="myfiles" accept=".xls,.doc,.txt,.pdf,.docx"/>
+    </form>
+    <!-- End Panel Other -->
+</div>
+
+<!-- 全局js -->
+<script src="../resource/js/jquery.min.js?v=2.1.4"></script>
+<script src="../resource/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="../resource/js/content.js?v=1.0.0"></script>
+
+<script src="../resource/js/plugins/select2/js/select2.full.js"></script>
+<script src="../resource/js/plugins/select2/js/i18n/zh-CN.js"></script>
+<script src="../resource/js/plugins/layer/layer.js"></script>
+<script src="../resource/js/plugins/laydate/laydate.js"></script>
+<!-- ztree -->
+<!-- Bootstrap table -->
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table.js"></script>
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="../resource/js/plugins/bootstrap-3-typeahead/bootstrap3-typeahead.js"></script>
+
+<script src="../resource/common/multiselect.js"></script>
+<script src="../resource/common/common.js?time=" +Math.random()></script>
+
+<!--多选框 icheck.js-->
+<script src="../resource/js/plugins/iCheck/iCheck.js"></script>
+
+<script>
+
+    /*for (var i=0;i<getUserInfo().roles[0].resources.length;i++){
+        if (getUserInfo().roles[0].resources[i].permission == 104002001){
+            $(".newBtn").show()
+        }
+    }*/
+
+
+
+    var $table = $('#tb_table');
+    function Table() {
+        $table.bootstrapTable({
+            url: adminRoleRestfulControllerList,         //请求后台的URL（*）
+            method: 'get',                      //请求方式（*）
+            contentType : "application/x-www-form-urlencoded",
+            toolbar: '#toolbar',                //工具按钮用哪个容器
+//                    striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            sortable: true,                     //是否启用排序
+            sortOrder: "asc",                   //排序方式
+            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber: 1,                       //初始化加载第一页，默认第一页
+            pageSize: 10,                       //每页的记录行数（*）
+            pageList:5,                         //分页步进值
+            pageList: [10, 20, 30, 50],        //可供选择的每页的行数（*）
+//                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            strictSearch: true,
+            showColumns: false,                         showRefresh: false,
+            minimumCountColumns: 2,             //最少允许的列数
+            clickToSelect: true,                //是否启用点击选中行
+//				height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+//                showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+            cardView: false,                    //是否显示详细视图
+            detailView: false,                   //是否显示父子表
+//                    showFooter:true,            //表格底部
+            onClickRow: function (row) {
+                console.log(row)
+            },
+            queryParamsType: 'limit',
+            queryParams: function (params) {
+
+                return {
+                    pageNo: (params.offset / params.limit) + 1,
+                    pageSize: params.limit,
+                    keywords: $("#keywords").val(),
+                };
+            },
+            onLoadSuccess : function (data) {
+                console.log(data)
+            },
+            responseHandler : function (e) {
+                console.log(e)
+                return { "rows": e.data.list.list, "total":  e.data.list.total };
+
+            },
+            columns : [
+
+
+                {
+                    field: "name", title: "角色名称", formatter: function (value, row, index) {
+                        return value;
+                    }
+                },
+                {
+                    field: "description", title: "简介", formatter: function (value, row, index) {
+                        return value;
+
+                    }
+                },
+                {
+                    field: "id", title: "操作", align: "center", formatter: function (value, row, index) {
+                        var data = row;
+                        var html = '';
+
+                        /*for (var i=0;i<getUserInfo().roles[0].resources.length;i++){
+                            if (getUserInfo().roles[0].resources[i].permission == 104001002){
+                                html += "<a  class='btn btn-warning btn-sm btn-outline'  href='javascript:void(0)' onclick='addOrEdit(" +JSON.stringify(data)+")'><i class='fa fa-edit' style='margin-right: 2px'></i>编辑</a>";
+                                html += '&nbsp';
+                            }else if (getUserInfo().roles[0].resources[i].permission == 104001003){
+                                html += "<a  class='btn btn-danger btn-sm btn-outline deleteData' href='javascript:void(0)' onclick=\'deleteData(" + data.id + ")\'><i class='fa fa-window-close' style='margin-right: 2px'></i>删除</a>";
+                                html += '&nbsp;';
+                            }else if (getUserInfo().roles[0].resources[i].permission == 104001004){
+                                html += "<a  class='btn btn-info btn-sm btn-outline deleteData' href='javascript:void(0)' onclick=\'distribution(" + data.id + ")\'><i class='fa fa-window-close'></i>分配权限</a>";
+                            }else {
+                                html += ""
+                            }
+                        }*/
+                            if ($.inArray("104002003",arrayHtml) !== -1){
+                                html += "<a  class='btn btn-warning btn-sm btn-outline'  href='javascript:void(0)' onclick='addOrEdit(" +JSON.stringify(data)+")'><i class='fa fa-edit' style='margin-right: 2px'></i>编辑</a>";
+                                html += '&nbsp';
+                            }else{
+                                html += '&nbsp';
+                            }
+                            if ($.inArray("104002002",arrayHtml) !== -1){
+                                html += "<a  class='btn btn-danger btn-sm btn-outline deleteData' href='javascript:void(0)' onclick=\'deleteData(" + data.id + ")\'><i class='fa fa-window-close' style='margin-right: 2px'></i>删除</a>";
+                                html += '&nbsp;';
+                            }else{
+                                html += '&nbsp';
+                            }
+                            if ($.inArray("104002004",arrayHtml) !== -1){
+                                html += "<a  class='btn btn-info btn-sm btn-outline deleteData' href='javascript:void(0)' onclick=\'distribution(" + data.id + ")\'><i class='fa fa-window-close'></i>分配权限</a>";
+                            }else{
+                                html += '&nbsp';
+                            }
+
+
+
+                        return html;
+                    }
+                },
+
+            ]
+        });
+
+    }
+
+    //删除
+    function deleteData(did){
+        console.log(did)
+        var url = adminRoleRestfulControllerAdelete;
+        var param = {id:did};
+        var result = {succ:'删除成功!',fail:'删除失败'};
+        layer.msg("确定要删除该消息？", {
+            shade: [0.1, '##f5f5f5'],
+            time: 0 //不自动关闭
+            ,btn: ['确定','取消']
+            ,yes: function(index){
+                layer.close(index);
+                myAjax(url,param,handle);
+                function handle(data,param){
+                    var msg = (data.msg == undefined ? '':','+data.msg);
+                    if(data.success) {
+                        layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                        handleTable(did,4);
+                    }else{
+                        layer.msg(result.fail+msg, {icon: 2,time:1000,shade: 0.01});
+                    }
+                }
+            },btn2: function(index, layero){
+            }
+        });
+    }
+
+    //添加修改
+    function addOrEdit(rowData){
+        var subType ;
+        if(isNotBlank(rowData)){
+            subType  = 1;
+
+        }else{
+            subType  = 0;
+            formReset();
+        }
+        var index= layer.open({
+            type: 1 , shade: 0.01,
+            id: 'area', //设定一个id，防止重复弹出
+            title: '添加/更新',
+            area: ['600px','400px'],
+            content: $('.content-view'),
+            btn: ['提交', '关闭'],
+            yes:function(index){
+                submitData(index,subType);
+            },
+            shadeClose: true, //开启遮罩关闭
+            success: function(){
+
+                if(isNotBlank(rowData)){
+                    $('#id').val(rowData.id);
+                    $('#name').val(rowData.name);
+                    $('#description').val(rowData.description);
+                }
+            }
+
+        })
+    }
+
+    function submitData(index,type){
+        var id=$('#id').val();
+
+        var result;
+        var params = {};
+        var url;
+        if(type == 0){
+            url =adminRoleRestfulControllerASave;
+
+            result = {succ:'添加成功！',fail:'添加失败！'};
+        }else{
+            url = adminRoleRestfulControllerASave;
+            result = {succ:'更新成功！',fail:'更新失败'};
+        }
+        /*if(isBlank(title)){
+            showValidate('#title');
+            return  ;
+        }
+        if(isBlank(startDate)){
+            showValidate('#pstartTime');
+            return  ;
+        }
+        if(isBlank(endDate)){
+            showValidate('#pendTime');
+            return  ;
+        }
+        if(isBlank(tid)){
+            tid=0;
+        }*/
+
+        if(isNotBlank(id)){
+            params.id = id;
+        }
+
+        layer.close(index);
+        params.type =2;
+        var areaFormForm = $("#areaForm").serialize()
+        myAjax(url,areaFormForm+"&id="+id,handle);
+        function handle(data,params){
+            var msg = (data.msg == undefined ? '':','+data.msg);
+            if(data.success) {
+                layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                handleTable("",3,adminRoleRestfulControllerList);
+            }else{
+                layer.msg(result.fail+msg, {icon: 1,ime:1000,shade: 0.01});
+            }
+        }
+
+    }
+
+    // 权限管理
+
+    function distribution(sid){
+        reInitTree(sid);
+        var index = layer.open({
+            type: 1,
+            skin: 'layui-layer-demo', //样式类名
+            area: ['500px', '400px'],
+            anim: 0,
+            shadeClose: true, //开启遮罩关闭
+            content: $('.tree-view'),
+            btn: ['提交', '关闭'],
+            btnAlign: 'r',
+            yes: function(){
+                var param = {};
+                var treeData =  filterNode();
+                layer.close(index);
+                param.uid = sid;
+                param.permissionIds = treeData.toString();
+                submitUserPermissionData(param);
+            },
+            btn2: function(){},
+        });
+    }
+    //转换节点
+    function transferNode(){
+        var attr = [];
+        var nodes = zTree.getCheckedNodes(true);
+        for(var i = 1;l = nodes.length, i< l;i++){
+            attr.push(nodes[i].name);
+        }
+        return attr.toString();
+    }
+
+    function submitUserPermissionData(params) {
+        // var url = '';
+        var result;
+        url = resourceRestfulControllerList;
+        result =  {succ:'更新成功！',fail:'更新失败！'};
+
+        var index = loading();
+        layer.close(index);
+        myAjax(url,params,handle);
+        function handle(data,param){
+            if (data && data.success) {
+                layer.msg(result.succ, {icon: 1});
+            }else{
+                layer.msg(result.fail, {icon: 2});
+            }
+        }
+
+    }
+
+
+
+    //回显节点
+
+    var zNodes =[];
+    var zTree;
+    var setting = {
+        view: {
+            selectedMulti: false
+        },
+//            edit: { //增删改图标
+//                enable: true,
+////                showRemoveBtn: false,
+////                showRenameBtn: false
+//            },
+        check: {
+            enable: true,
+            chkStyle: "checkbox",
+            chkboxType: { "Y" : "s", "N" : "s" }
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            onClick: zTreeOnClick
+        },
+    };
+
+    function zTreeOnClick(event, treeId, treeNode) {
+        console.log(treeNode)
+    };
+    function initZtree(){
+        var url = serverUrl+"/permission/getAllPermission?schoolId="+schoolId;
+        myAjax(url,"",handle);
+        function handle(data,param){
+            if(data&& data.length>0){
+                var treeData = transTreeData(data);
+                zNodes = treeData;
+            }
+            $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        }
+
+    }
+    function refreshTree(){
+        zTree.checkAllNodes(false);
+        zTree.refresh();
+    }
+
+    function transTreeData(data){
+        var temp = [];
+        for(var i = 0;i<data.length;i++){
+            var obj = {};
+            if(data[i].pid == 0){
+                obj.open = true;
+                obj.nocheck = true;
+            }
+            obj.id = data[i].id;
+            obj.sort = data[i].sort;
+            obj.cssName = data[i].cssName;
+            obj.name = data[i].text;
+            obj.pId = data[i].pid;
+            obj.href = data[i].href;
+            temp.push(obj)
+        }
+
+        return temp;
+    }
+
+    function reInitTree(id) {
+        var url =  serverUrl+"/backend/getMyPermission";
+        myAjax(url,{uid:id},handle);
+        function handle(data,param){
+            if (data) {
+                reviewNodes(data);
+            }
+        }
+    }
+    //回显ztree数据
+    function reviewNodes(data) {
+        var Nodes = cloneObj(zNodes);
+        for (var m = 0; m < Nodes.length; m++) {
+            for (var n = 0; n < data.length; n++) {
+                if (Nodes[m].id == data[n].id) {
+                    Nodes[m].checked = true;
+                }
+            }
+        }
+        zTree.destroy();
+        $.fn.zTree.init($("#treeDemo"), setting, Nodes);
+
+    }
+    //获取ztree选中数据
+    function filterNode(){
+        var attr = [];
+        if(zTree){
+            var nodes = zTree.getCheckedNodes(true);
+            for(var i = 0;l = nodes.length, i< l;i++){
+                attr.push(nodes[i].id);
+            }
+        }
+
+        return attr;
+    }
+
+
+
+
+    // 表单  刷新
+    function formReset() {
+        $("#areaForm")[0].reset();
+    }
+
+    // 表单  刷新
+    function formReset() {
+        $("#areaFormMasger")[0].reset();
+    }
+
+    function openPOP(){
+        addOrEdit();
+    }
+
+    $(function () {
+        // var Table = new TableInit(columns);
+        Table();
+        var oButtonInit = new ButtonInit();
+        oButtonInit.Init();
+        var resourcesData = getUserInfo().roles[0].resources
+        var resourcesHtml = []
+        for(item in resourcesData){
+            var activeDivObj = new Array();
+            resourcesHtml.push(activeDivObj)
+            if(resourcesData[item].parent == 22){
+                var addObj = {};
+                addObj.parent =  resourcesData[item].permission
+                resourcesHtml[item].push(addObj)
+            }
+        }
+        arrayHtml = new Array();
+        for (i in resourcesHtml){
+            if (resourcesHtml[i] != ''){
+                arrayHtml.push(resourcesHtml[i][0].parent)
+            }
+        }
+        console.log(arrayHtml)
+        if ($.inArray("104002001",arrayHtml) !== -1){
+            $(".newBtn").show()
+        }
+
+    });
+
+    function reInitTable() {
+        $table.bootstrapTable('refresh');
+    }
+
+    //初始化页面上面的按钮事件
+    var ButtonInit = function () {
+        var oInit = new Object();
+        oInit.Init = function () {
+            $('#btn_add').click(openPOP);
+            $('#btn_search').click(reInitTable);
+        };
+        laydate.render({
+            elem: '#startTime', type: 'datetime'
+        });
+        laydate.render({
+            elem: '#endTime'
+            ,type: 'datetime'
+        });
+        return oInit;
+
+
+    };
+
+
+    //   =================== 文档上传
+    function uploadWord() {
+        $("#wordForm input").click();
+    }
+    /*--------------文档上传-----------*/
+    $("#wordForm input").change(function () {
+        var index = layer.load(1, {time: 1*500});
+        // $('#wordCover').val($(this).val());
+        var formData = new FormData($(this).parent()[0]);
+        $.ajax({
+            url: uploadFile, //Server script to process data
+            type: 'POST',
+            data: formData,
+            sync: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (result) {
+                console.log(result)
+                if (result.ok != undefined) {
+
+
+                } else {
+                    layer.msg('上传失败！', {
+                        icon: 2
+                    });
+                }
+
+            },
+            error: function () {
+                layer.msg('上传失败！', {
+                    icon: 2
+                });
+            }
+        });
+    })
+
+
+</script>
+<script type="text/html" id="scriptVidSelect">
+    <option value="0">未选择</option>
+    <%for(var i=0; i
+    <list.length; i++){%>
+    <option value="<%=list[i].id %>"><%=list[i].name %></option>
+    <%}%>
+</script>
+</body>
+
+</html>

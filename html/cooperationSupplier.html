@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台主题UI框架</title>
+    <meta name="keywords">
+    <meta name="description">
+    <meta name="keywords">
+    <meta name="description">
+    <!--网页logo-->
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../resource/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../resource/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../resource/js/plugins/select2/css/select2.css" rel="stylesheet">
+    <link href="../resource/js/plugins/bootstarp-table/css/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../resource/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../resource/css/animate.css" rel="stylesheet">
+    <link href="../resource/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../resource/css/common.css" rel="stylesheet">
+</head>
+<style>
+    .table {table-layout:fixed;}
+    .table>td{
+        word-wrap: break-word;
+    }
+    .inputClass{
+        display: inline-block;
+        width: 50px;
+    }
+    .tableClass th,.tableClass td{
+        text-align: center;
+    }
+    #toolbar{
+        width: 1000px;
+    }
+    .labelSelect{
+        display: flex;
+    }
+    .content-viewSee{
+        display: none;
+    }
+
+</style>
+<body class="gray-bg">
+
+<!--订单详情-->
+<div class="wrapper wrapper-content animated  fadeInDown  orderInfo" style="display:none;">
+
+</div>
+
+
+<div class="wrapper wrapper-content animated  fadeInDown  content-view  ">
+
+    <form method="get" class="form-horizontal" id="areaForm">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">公司名字*</label>
+            <div class="col-sm-8">
+                <input type="hidden" class="form-control hiddenid" id="id">
+                <input type="text" class="form-control"  id="username" placeholder="请输入公司名字"/>
+                <span class="help-block m-b-none validate"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">所在城市/国家*</label>
+            <div class="col-sm-8">
+                <input type="text"  class="form-control" id="address" placeholder="请选择所在城市/国家">
+            </div>
+
+        </div>
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">账户对接联系人*</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="lkm" placeholder="请输入联系人">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">账户对接联系电话</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="lkmPhone" placeholder="请输入联系电话">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">客服电话</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="tel" placeholder="请输入客服电话">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">客服邮箱</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="fax" placeholder="请输入客服邮箱">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">客服工作时间</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="scope" placeholder="请输入客服工作时间">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">账户对接联系邮箱</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="lkmEmail" placeholder="请输入账户对接联系邮箱">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">财务对接联系邮箱</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="financeEmail" placeholder="请输入财务对接联系邮箱">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">对账时间</label>
+            <div class="col-sm-8">
+                <input type="text"  class="form-control" id="billDate" placeholder="请输入对账时间">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">合同签订时间</label>
+            <div class="col-sm-8">
+                <input type="text" id="startTime" class="form-control" placeholder="请输入合同签订时间" readonly>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">负责人</label>
+            <div class="col-sm-8">
+                <select class="manager form-control" name="manager">
+                    <option value="admintest">admintest</option>
+                    <option value="刘莹莹">刘莹莹</option>
+                    <option value="叶湘凡">叶湘凡</option>
+                    <option value="李琪琦">李琪琦</option>
+                    <option value="周娜">周娜</option>
+                    <option value="赵雅琦">赵雅琦</option>
+                    <option value="丁熳熳">丁熳熳</option>
+                    <option value="刘洋">刘洋</option>
+                    <option value="Robbie">Robbie</option>
+                    <option value="Jacob Goering">Jacob Goering</option>
+                    <option value="郑嵘">郑嵘</option>
+                    <option value="班鑫茹">班鑫茹</option>
+                    <option value="李松伟">李松伟</option>
+                    <option value="王娆">王娆</option>
+                    <option value="曹勇">曹勇</option>
+                    <option value="Shark">Shark</option>
+                    <option value="杨江南">杨江南</option>
+                    <option value="李川">李川</option>
+                    <option value="李东旭">李东旭</option>
+                    <option value="徐一飞">徐一飞</option>
+                    <option value="韦俊">韦俊</option>
+                    <option value="陈丝雨">陈丝雨</option>
+                    <option value="徐广">徐广</option>
+                    <option value="刘金金">刘金金</option>
+                    <option value="魏艳巍">魏艳巍</option>
+                    <option value="郭玲玲">郭玲玲</option>
+                    <option value="边远">边远</option>
+                    <option value="周慧杰">周慧杰</option>
+                    <option value="刘博文">刘博文</option>
+                    <option value="李晓红">李晓红</option>
+                    <option value="刘佳鑫">刘佳鑫</option>
+                    <option value="刘艺">刘艺</option>
+                    <option value="乔晶晶">乔晶晶</option>
+                    <option value="王蕴萌">王蕴萌</option>
+                    <option value="卢笑君">卢笑君</option>
+                    <option value="hkong">hkong</option>
+                    <option value="马娣">马娣</option>
+                    <option value="公用">公用</option>
+                    <option value="张继城">张继城</option>
+                    <option value="冯凯">冯凯</option>
+                    <option value="史丽楠">史丽楠</option>
+                    <option value="kenny">kenny</option>
+                    <option value="樊拓岩">樊拓岩</option>
+                    <option value="马云龙">马云龙</option>
+                    <option value="曹雪">曹雪</option>
+                    <option value="李楠">李楠</option>
+                    <option value="sherry">sherry</option>
+                    <option value="郑博文">郑博文</option>
+                    <option value="王鹏">王鹏</option>
+                    <option value="廖雅楠">廖雅楠</option>
+                    <option value="alina">alina</option>
+                    <option value="卢超">卢超</option>
+                    <option value="李胜艳">李胜艳</option>
+                </select>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>供应商管理</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <div id="toolbar">
+                        <div class="form-group col-sm-1 newBtn" style="display:none;">
+                            <button class="btn btn-success  btn-outline" id="btn_add">
+                                <i class="fa fa-plus">添加</i>
+                            </button>
+                        </div>
+                        <div class="form-group labelSelect col-sm-4 searchBtn">
+                            <input type="text" class="col-sm-12 form-control" id="keywords" placeholder="产品ID、Hotelbeds url、产品关键字、更新人">
+                        </div>
+                        <div class="form-group col-sm-1 searchBtn">
+                            <button class="btn btn-primary  btn-outline" id="btn_search">
+                                <i class="fa fa-search">搜索</i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <table id="tb_table"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Panel Other -->
+</div>
+
+<!-- 全局js -->
+<script src="../resource/js/jquery.min.js?v=2.1.4"></script>
+<script src="../resource/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="../resource/js/content.js?v=1.0.0"></script>
+
+<script src="../resource/js/plugins/select2/js/select2.full.js"></script>
+<script src="../resource/js/plugins/select2/js/i18n/zh-CN.js"></script>
+<script src="../resource/js/plugins/layer/layer.js"></script>
+<script src="../resource/js/plugins/laydate/laydate.js"></script>
+<!-- ztree -->
+<!-- Bootstrap table -->
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table.js"></script>
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="../resource/js/plugins/bootstrap-3-typeahead/bootstrap3-typeahead.js"></script>
+
+<script src="../resource/common/multiselect.js"></script>
+<script src="../resource/common/common.js?time=" +Math.random()></script>
+<script>
+
+
+
+    /*for (var i=0;i<getUserInfo().roles[0].resources.length;i++){
+        if (getUserInfo().roles[0].resources[i].permission == 102001001){
+            $(".newBtn").show()
+        }
+        if (getUserInfo().roles[0].resources[i].permission == 102001005){
+            $(".searchBtn").show()
+        }
+    }*/
+
+
+    var $table = $('#tb_table');
+    function Table() {
+        $table.bootstrapTable({
+            url: businessRestfulControllerList,         //请求后台的URL（*）
+            // url: "../html/json_data_list_he.json",         //请求后台的URL（*）
+            method: 'get',                      //请求方式（*）
+            contentType : "application/x-www-form-urlencoded",
+            toolbar: '#toolbar',                //工具按钮用哪个容器
+//                    striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            sortable: true,                     //是否启用排序
+            sortOrder: "asc",                   //排序方式
+            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber: 1,                       //初始化加载第一页，默认第一页
+            pageSize: 10,                       //每页的记录行数（*）
+            pageList:5,                         //分页步进值
+            pageList: [10, 20, 30, 50],        //可供选择的每页的行数（*）
+//                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            strictSearch: true,
+            showColumns: false,                         showRefresh: false,
+            minimumCountColumns: 2,             //最少允许的列数
+            clickToSelect: true,                //是否启用点击选中行
+//				height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+//                showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+            cardView: false,                    //是否显示详细视图
+            detailView: false,                   //是否显示父子表
+//                    showFooter:true,            //表格底部
+            onClickRow: function (row) {
+//                        console.log(row)
+            },
+            queryParamsType: 'limit',
+            queryParams: function (params) {
+
+                return {
+                    pageNo: (params.offset / params.limit) + 1,
+                    pageSize: params.limit,
+                    type:1,
+                    keywords: $("#keywords").val()
+                };
+            },
+            onLoadSuccess : function (data) {
+                console.log(data)
+            },
+            responseHandler : function (e) {
+                console.log(e)
+                return { "rows": e.data.list.list, "total": e.data.list.total };
+
+            },
+            columns : [
+
+                {
+                    field: "id", title: "公司名称",cellStyle:{
+                        css:{"word-wrap":"break-word",}
+                    },width:80, formatter: function (value, row, index) {
+                        return row.name;
+                    }
+                },
+                {
+                    field: "onSale", title: "城市/国家", formatter: function (value, row, index) {
+                        // var CityHtml = '';
+
+                        return row.address;
+                    }
+                },
+                {
+                    field: "title",cellStyle:{
+            css:{"word-wrap":"break-word",}
+        },width:140,title: "账户对接<br /> 联系人/电话/邮箱", formatter: function (value, row, index) {
+                        var lkm = ''
+                        var lkmPhone = ''
+                        var lkmEmail = ''
+                        if (row.lkm != null){
+                            lkm += row.lkm
+                        }else{
+                            lkm += '-'
+                        }
+                        if (row.lkmPhone != null){
+                            lkmPhone += row.lkmPhone
+                        }else{
+                            lkmPhone += '-'
+                        }
+                        if (row.lkmEmail != null){
+                            lkmEmail += row.lkmEmail
+                        }else{
+                            lkmEmail += '-'
+                        }
+                        return lkm +'<br />'+ lkmPhone+'<br />'+ lkmEmail;
+                    }
+                },
+                {
+                    field: "onSale",cellStyle:{
+            css:{"word-wrap":"break-word",}
+        },width:200,title: "客服电话/邮箱/工作时间", formatter: function (value, row, index) {
+                        var lkm = ''
+                        var lkmPhone = ''
+                        var lkmEmail = ''
+                        if (row.tel != null){
+                            lkm += row.tel
+                        }else{
+                            lkm += '-'
+                        }
+                        if (row.fax != null){
+                            lkmPhone += row.fax
+                        }else{
+                            lkmPhone += '-'
+                        }
+                        if (row.scope != null){
+                            lkmEmail += row.scope
+                        }else{
+                            lkmEmail += '-'
+                        }
+
+                        return lkm + "<br />" + lkmPhone + "<br />" + lkmEmail;
+                    }
+                },
+                {
+                    field: "categories",cellStyle:{
+                        css:{"word-wrap":"break-word",}
+                    },width:100, title: "财务对接<br />联系人/邮箱", formatter: function (value, row, index) {
+
+                        var lkm = ''
+                        var lkmPhone = ''
+                        if (row.financeName != null){
+                            lkm += row.financeName
+                        }else{
+                            lkm += '-'
+                        }
+                        if (row.financeEmail != null){
+                            lkmPhone += row.financeEmail
+                        }else{
+                            lkmPhone += '-'
+                        }
+                        return lkm + "<br />" + lkmPhone;
+                    }
+                },
+                {
+                    field: "cityName", width:150,title: "对账时间", formatter: function (value, row, index) {
+                        return row.billDate;
+                    }
+                },
+                {
+                    field: "supplier.name", title: "合同签订时间", formatter: function (value, row, index) {
+                        return formatDateTime(row.createDate);
+                    }
+                },
+                {
+                    field: "author", title: "负责人", formatter: function (value, row, index) {
+
+                        return row.manager;
+                    }
+                },
+                {
+                    field: "id", title: "操作",width: 140,align: "center", formatter: function (value, row, index) {
+
+                        var data = row;
+                        var html = '';
+
+                        if ($.inArray("102001004",arrayHtml) !== -1){
+                            html += "<a  class='btn-warningEdit' id='btn_add' style='display: inline-block' href='javascript:void(0)' onclick='addOrEdit(" +JSON.stringify(data)+")'>编辑</a>";
+                            html += '&nbsp';
+                        }else{
+                            html += '&nbsp';
+                        }
+
+                        if ($.inArray("102001002",arrayHtml) !== -1){
+                            html += "<a  class='btn-dangerEdit deleteData' style='display: inline-block'  href='javascript:void(0)' onclick=\'deleteData(" + data.id + ")\'>删除</a>";
+                            html += '&nbsp;';
+                        }else{
+                            html += '&nbsp';
+                        }
+
+                       /* for (var i=0;i<getUserInfo().roles[0].resources.length;i++){
+                            if (getUserInfo().roles[0].resources[i].permission == 102001004){
+                                html += "<a  class='btn btn-warning btn-sm btn-outline' id='btn_add' href='javascript:void(0)' onclick='addOrEdit(" +JSON.stringify(data)+")'><i class='fa fa-edit' style='margin-right: 2px'></i>编辑</a>";
+                                html += '&nbsp';
+                            }else if (getUserInfo().roles[0].resources[i].permission == 102001002){
+                                html += "<a  class='btn btn-danger btn-sm btn-outline deleteData' href='javascript:void(0)' onclick=\'deleteData(" + data.id + ")\'><i class='fa fa-window-close' style='margin-right: 2px'></i>删除</a>";
+                                html += '&nbsp;&nbsp;';
+                            }else {
+                                html += ''
+                            }
+
+                        }*/
+
+
+                        return html;
+                    }}
+
+            ]
+        });
+
+    }
+
+    //删除
+    function deleteData(did){
+        var url = businessRestfulControllerDelete;
+        var param = {ids:did};
+        var result = {succ:'删除成功!',fail:'删除失败'};
+        layer.msg("确定要删除该消息？", {
+            shade: [0.1, '##f5f5f5'],
+            time: 0 //不自动关闭
+            ,btn: ['确定','取消']
+            ,yes: function(index){
+                layer.close(index);
+                myAjax(url,param,handle);
+                function handle(data,param){
+                    var msg = (data.msg == undefined ? '':','+data.msg);
+                    if(data.success) {
+                        layer.msg(result.succ, {icon: 1,time:2000,shade: 0.01});
+                        handleTable(did,4);
+                    }else{
+                        layer.msg(result.fail+msg, {icon: 2,time:1000,shade: 0.01});
+                    }
+                }
+            },btn2: function(index, layero){
+            }
+        });
+    }
+
+
+
+
+    //添加修改
+    function addOrEdit(rowData){
+        var subType ;
+        if(isNotBlank(rowData)){
+            subType  = 1;
+
+        }else{
+            subType  = 0;
+            formReset();
+        }
+        var index= layer.open({
+            type: 1 , shade: 0.01,
+            id: 'area', //设定一个id，防止重复弹出
+            title: '添加/更新',
+            area: ['600px','400px'],
+            content: $('.content-view'),
+            btn: ['提交', '关闭'],
+            yes:function(index){
+                submitData(index,subType);
+            },
+            shadeClose: true, //开启遮罩关闭
+            success: function(){
+                if(isNotBlank(rowData)){
+                    $('#id').val(rowData.id);
+                    console.log($('#id').val())
+                    $('#username').val(rowData.name);
+                    $('#address').val(rowData.address);
+                    $('#lkm').val(rowData.lkm);
+                    $('#lkmPhone').val(rowData.lkmPhone);
+                    $('#tel').val(rowData.tel);
+                    $('#fax').val(rowData.fax);
+                    $('#scope').val(rowData.scope);
+                    $('#lkmEmail').val(rowData.lkmEmail);
+                    $('#financeEmail').val(rowData.financeEmail);
+                    $('#billDate').val(rowData.billDate);
+                    if(rowData.createDate>0){
+                        $("#startTime").val(formatDateTime(rowData.createDate));
+                    }
+                    $('.manager').val(rowData.manager);
+                }
+            }
+
+        })
+    }
+
+
+    function submitData(index,type){
+        var id=$('#id').val();
+        console.log(id)
+        var name=$.trim($('#username').val());
+        var address= $.trim($('#address').val());
+        var lkm=$.trim($('#lkm').val());
+        var lkmPhone=$.trim($('#lkmPhone').val());
+        var tel=$.trim($('#tel').val());
+        var fax=$.trim($('#fax').val());
+        var scope=$.trim($('#scope').val());
+        var lkmEmail=$.trim($('#lkmEmail').val());
+        var financeEmail=$.trim($('#financeEmail').val());
+        var billDate=$.trim($('#billDate').val());
+        var startTime=$.trim($('#startTime').val());
+        var manager=$.trim($('.manager').val());
+        var result ;
+        var params = {};
+        var url;
+        if(type == 0){
+            url =businessRestfulControllerSave;
+
+            result = {succ:'添加成功！',fail:'添加失败！'};
+        }else{
+            url = businessRestfulControllerSave;
+            result = {succ:'更新成功！',fail:'更新失败'};
+        }
+        /*if(isBlank(title)){
+            showValidate('#title');
+            return  ;
+        }
+        if(isBlank(startDate)){
+            showValidate('#pstartTime');
+            return  ;
+        }
+        if(isBlank(endDate)){
+            showValidate('#pendTime');
+            return  ;
+        }
+        if(isBlank(tid)){
+            tid=0;
+        }*/
+
+        if(isNotBlank(id)){
+            params.id = id;
+        }
+
+        layer.close(index);
+        params.type =1;
+        params.name = name;
+        params.address = address;
+        params.lkm = lkm;
+        params.lkmPhone = lkmPhone;
+        params.tel=tel;
+        params.fax = fax;
+        params.scope = scope
+        params.lkmEmail = lkmEmail;
+        params.financeEmail = financeEmail;
+        params.billDate =billDate;
+        params.startTime =startTime;
+        params.manager =manager;
+        myAjax(businessRestfulControllerSave,params,handle);
+        function handle(data,params){
+            var msg = (data.msg == undefined ? '':','+data.msg);
+            if(data.success) {
+                layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                handleTable("",3,businessRestfulControllerList);
+            }else{
+                layer.msg(result.fail+msg, {icon: 1,ime:1000,shade: 0.01});
+            }
+        }
+
+    }
+
+
+    $(function () {
+        // var Table = new TableInit(columns);
+        Table();
+        var oButtonInit = new ButtonInit();
+        oButtonInit.Init();
+
+
+        //按钮权限
+        var resourcesData = getUserInfo().roles[0].resources
+        var resourcesHtml = []
+        for(item in resourcesData){
+            var activeDivObj = new Array();
+            resourcesHtml.push(activeDivObj)
+            if(resourcesData[item].parent == 15){
+                var addObj = {};
+                addObj.parent =  resourcesData[item].permission
+                resourcesHtml[item].push(addObj)
+            }
+        }
+        arrayHtml = new Array();
+        for (i in resourcesHtml){
+            if (resourcesHtml[i] != ''){
+                arrayHtml.push(resourcesHtml[i][0].parent)
+            }
+        }
+        console.log(arrayHtml)
+
+        if ($.inArray("102001001",arrayHtml) !== -1){
+            $(".newBtn").show()
+        }
+       /* if ($.inArray("102001005",arrayHtml) !== -1){
+            $(".searchBtn").show()
+        }
+*/
+
+
+    });
+
+    function openPOP(){
+        addOrEdit();
+    }
+
+    function reInitTable() {
+        $table.bootstrapTable('refresh');
+    }
+    function formReset(){
+        $("#areaForm")[0].reset();
+    }
+
+    //初始化页面上面的按钮事件
+    var ButtonInit = function () {
+        var oInit = new Object();
+        oInit.Init = function () {
+            // $(document).on("click",'#btn_add',addOrEdit);   //编辑
+            $('#btn_add').click(openPOP);
+            $('#btn_search').click(reInitTable);
+        };
+        laydate.render({
+            elem: '#startTime', type: 'datetime'
+        });
+        laydate.render({
+            elem: '#endTime'
+            ,type: 'datetime'
+        });
+        return oInit;
+    };
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台主题UI框架</title>
+    <meta name="keywords">
+    <meta name="description">
+    <meta name="keywords">
+    <meta name="description">
+    <!--网页logo-->
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../resource/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../resource/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../resource/js/plugins/select2/css/select2.css" rel="stylesheet">
+    <link href="../resource/js/plugins/bootstarp-table/css/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../resource/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../resource/css/animate.css" rel="stylesheet">
+    <link href="../resource/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../resource/css/common.css" rel="stylesheet">
+    <!--iCheck样式-->
+    <link rel="stylesheet" type="text/css" href="../resource/css/plugins/iCheck/custom.css"/>
+</head>
+<style>
+    .inputClass{
+        display: inline-block;
+        width: 50px;
+    }
+    .tableClass th,.tableClass td{
+        text-align: center;
+    }
+    #toolbar{
+        width: 1000px;
+    }
+    .labelSelect{
+        display: flex;
+    }
+    .distribution{
+        display: none;
+    }
+
+</style>
+<body class="gray-bg">
+
+
+
+
+<!--编辑  motal-->
+<div class="wrapper wrapper-content animated  fadeInDown  content-view  ">
+
+    <form method="get" class="form-horizontal" id="areaForm">
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">上级分类</label>
+            <div class="col-sm-8">
+                <select class="parent form-control" name="parent.id">
+                    <option value="">无</option>
+                    <option value="101">门票</option>
+                    <option value="106">交通</option>
+                    <option value="107">美食</option>
+                    <option value="136">当地玩乐</option>
+                    <option value="30538">当地参团</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">名称*</label>
+            <div class="col-sm-8">
+                <input type="hidden" class="form-control hiddenid" id="id">
+                <input type="text" class="form-control"  id="name" name="name" placeholder="请输入公司名字"/>
+                <span class="help-block m-b-none validate"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">英文名称</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="ename" name="ename" placeholder="请输入英文名称">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">描述</label>
+            <div class="col-sm-8">
+                <textarea name="description" id="description" style="resize: none; height: 100px;width: 100%;"></textarea>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>门票类型</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <div id="toolbar">
+                        <div class="form-group col-sm-1 newBtn" style="display:none;">
+                            <button class="btn btn-success btn-outline"  id="btn_add">
+                                <i class="fa fa-plus">添加</i>
+                            </button>
+                        </div>
+                        <div class="form-group labelSelect col-sm-4 searchBtn">
+                            <input type="text" class="col-sm-12 form-control" id="keywords" placeholder="关键字搜索....">
+                        </div>
+                        <div class="form-group col-sm-1 searchBtn">
+                            <button class="btn btn-primary  btn-outline" id="btn_search">
+                                <i class="fa fa-search">搜索</i>
+                            </button>
+                        </div>
+                    </div>
+                    <table id="tb_table"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Panel Other -->
+</div>
+
+<!-- 全局js -->
+<script src="../resource/js/jquery.min.js?v=2.1.4"></script>
+<script src="../resource/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="../resource/js/content.js?v=1.0.0"></script>
+
+<script src="../resource/js/plugins/select2/js/select2.full.js"></script>
+<script src="../resource/js/plugins/select2/js/i18n/zh-CN.js"></script>
+<script src="../resource/js/plugins/layer/layer.js"></script>
+<script src="../resource/js/plugins/laydate/laydate.js"></script>
+<!-- ztree -->
+<!-- Bootstrap table -->
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table.js"></script>
+<script src="../resource/js/plugins/bootstarp-table/js/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="../resource/js/plugins/bootstrap-3-typeahead/bootstrap3-typeahead.js"></script>
+
+<script src="../resource/common/multiselect.js"></script>
+<script src="../resource/common/common.js?time=" +Math.random()></script>
+
+<!--多选框 icheck.js-->
+<script src="../resource/js/plugins/iCheck/iCheck.js"></script>
+
+<script>
+    /*for (var i=0;i<getUserInfo().roles[0].resources.length;i++){
+        if (getUserInfo().roles[0].resources[i].permission == 100002001){
+            $(".newBtn").show()
+        }
+    }
+    for (var i=0;i<getUserInfo().roles[0].resources.length;i++){
+        if (getUserInfo().roles[0].resources[i].permission == 100002004){
+            $(".searchBtn").show()
+        }
+    }
+*/
+    var $table = $('#tb_table');
+    function Table() {
+        $table.bootstrapTable({
+            url: adminTicketTypeControllerList,         //请求后台的URL（*）
+            method: 'get',                      //请求方式（*）
+            contentType : "application/x-www-form-urlencoded",
+            toolbar: '#toolbar',                //工具按钮用哪个容器
+//                    striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            sortable: true,                     //是否启用排序
+            sortOrder: "asc",                   //排序方式
+            sortName:"名称",
+            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber: 1,                       //初始化加载第一页，默认第一页
+            pageSize: 10,                       //每页的记录行数（*）
+            pageList:5,                         //分页步进值
+            pageList: [10, 20, 30, 50],        //可供选择的每页的行数（*）
+//                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            strictSearch: true,
+            showColumns: false,                         showRefresh: false,
+            minimumCountColumns: 2,             //最少允许的列数
+            clickToSelect: true,                //是否启用点击选中行
+//				height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+//                showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+            cardView: false,                    //是否显示详细视图
+            detailView: false,                   //是否显示父子表
+//                    showFooter:true,            //表格底部
+            onClickRow: function (row) {
+                console.log(row)
+            },
+            queryParamsType: 'limit',
+            queryParams: function (params) {
+
+                return {
+                    pageNo: (params.offset / params.limit) + 1,
+                    pageSize: params.limit,
+                    keywords: $("#keywords").val(),
+                };
+            },
+            onLoadSuccess : function (data) {
+                // console.log(data)
+            },
+            responseHandler : function (e) {
+                console.log(e)
+                return { "rows": e.data.list.list, "total": e.data.list.total };
+
+            },
+            columns : [
+
+                {
+                    field: "name", title: "名称", formatter: function (value, row, index) {
+                        return value;
+                    }
+                },
+                {
+                    field: "ename", title: "英文名称", formatter: function (value, row, index) {
+                        return value;
+
+                    }
+                },
+                {
+                    field: "parentType.name", title: "上级类型", formatter: function (value, row, index) {
+                        return value;
+
+                    }
+                },
+                {
+                    field: "description", title: "描述", formatter: function (value, row, index) {
+                        return value;
+
+                    }
+                },
+                {
+                    field: "id", title: "操作", align: "center", formatter: function (value, row, index) {
+                        var data = row;
+                        var html = '';
+
+                        if ($.inArray("100002002",arrayHtml) !== -1){
+
+                            html += "<a  class='btn btn-info btn-sm btn-outline' id='btn_add' href='javascript:void(0)' onclick='addOrEdit(" +JSON.stringify(data)+")'><i class='fa fa-edit'></i>编辑</a>";
+                            html += '&nbsp';
+                        }else{
+                            html += '&nbsp';
+                        }
+
+                        if ($.inArray("100002003",arrayHtml) !== -1){
+
+                            if (row.parentId == null){
+                                html += "<a  class='btn-dangerEdit' href='javascript:void(0)' onclick=\'deleteData(" + JSON.stringify(data) + ")\'>删除子元素</a>";
+
+                            }else{
+                                html += "<a  class='btn-warningEdit' href='javascript:void(0)' onclick=\'deleteData(" + JSON.stringify(data) + ")\'><i class='fa fa-window-close' style='margin-right: 2px'></i>删除父元素</a>";
+
+                            }
+                        }else{
+                            html += '&nbsp';
+                        }
+
+
+
+
+                        return html;
+                    }
+                },
+
+            ]
+        });
+
+    }
+
+    //删除
+    function deleteData(did){
+        var didId = did.id
+        var url = adminTicketTypeControllerBatchDelete;
+        var param = {ids:did.id};
+        var result = {succ:'删除成功!',fail:'删除失败'};
+        layer.msg("确定要删除该消息？", {
+            shade: [0.1, '##f5f5f5'],
+            time: 0 //不自动关闭
+            ,btn: ['确定','取消']
+            ,yes: function(index){
+                layer.close(index);
+                if (did.parentId != null){
+                    layer.msg("删除父级元素请联系管理员",{icon: 2,time:1000,shade: 0.01});
+                }else{
+                    myAjax(url,param,handle);
+                    function handle(data,param){
+                        var msg = (data.msg == undefined ? '':','+data.msg);
+                        if(data.success) {
+                            layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                            handleTable(didId,4);
+                        }else{
+                            layer.msg(result.fail+msg, {icon: 2,time:1000,shade: 0.01});
+                        }
+                    }
+                }
+
+            },btn2: function(index, layero){
+            }
+        });
+    }
+
+    //添加修改
+    function addOrEdit(rowData){
+        var subType ;
+        if(isNotBlank(rowData)){
+            subType  = 1;
+
+        }else{
+            subType  = 0;
+            formReset();
+        }
+        var index= layer.open({
+            type: 1 , shade: 0.01,
+            id: 'area', //设定一个id，防止重复弹出
+            title: '添加/更新',
+            area: ['600px','400px'],
+            content: $('.content-view'),
+            btn: ['提交', '关闭'],
+            yes:function(index){
+                submitData(index,subType);
+            },
+            shadeClose: true, //开启遮罩关闭
+            success: function(){
+
+                if(isNotBlank(rowData)){
+                    $('#id').val(rowData.id);
+                    $('#name').val(rowData.name);
+                    $('#ename').val(rowData.ename);
+                    $('#description').val(rowData.description);
+
+                }
+            }
+
+        })
+    }
+
+    function submitData(index,type){
+
+        console.log(id)
+        var result;
+        var params = {};
+
+        if(type == 0){
+            id='';
+            result = {succ:'添加成功！',fail:'添加失败！'};
+        }else{
+            id=$('#id').val();
+            result = {succ:'更新成功！',fail:'更新失败'};
+        }
+        /*if(isBlank(title)){
+            showValidate('#title');
+            return  ;
+        }
+        if(isBlank(startDate)){
+            showValidate('#pstartTime');
+            return  ;
+        }
+        if(isBlank(endDate)){
+            showValidate('#pendTime');
+            return  ;
+        }
+        if(isBlank(tid)){
+            tid=0;
+        }*/
+
+        if(isNotBlank(id)){
+            params.id = id;
+        }
+
+        layer.close(index);
+        var areaFormForm = $("#areaForm").serialize()
+        myAjax(adminTicketTypeControllerEdit,areaFormForm+"&id="+id,handle);
+        function handle(data,params){
+            var msg = (data.msg == undefined ? '':','+data.msg);
+            if(data.success) {
+                layer.msg(result.succ, {icon: 1,time:1000,shade: 0.01});
+                handleTable("",3,adminTicketTypeControllerList);
+            }else{
+                layer.msg(result.fail+msg, {icon: 1,ime:1000,shade: 0.01});
+            }
+        }
+
+    }
+
+
+    // 表单  刷新
+    function formReset() {
+        $("#areaForm")[0].reset();
+    }
+
+    function openPOP(){
+        addOrEdit();
+    }
+
+    $(function () {
+        // var Table = new TableInit(columns);
+        Table();
+        var oButtonInit = new ButtonInit();
+        oButtonInit.Init();
+        $('.i_check').iCheck({
+            handler:'radio',
+            radioClass: 'iradio_square-green',
+            increaseArea: '20%',
+        });
+
+        var resourcesData = getUserInfo().roles[0].resources
+        var resourcesHtml = []
+        for(item in resourcesData){
+            var activeDivObj = new Array();
+            resourcesHtml.push(activeDivObj)
+            if(resourcesData[item].parent == 2){
+                var addObj = {};
+                addObj.parent =  resourcesData[item].permission
+                resourcesHtml[item].push(addObj)
+            }
+        }
+        arrayHtml = new Array();
+        for (i in resourcesHtml){
+            if (resourcesHtml[i] != ''){
+                arrayHtml.push(resourcesHtml[i][0].parent)
+            }
+
+        }
+        if ($.inArray("100002001",arrayHtml) !== -1){
+            $(".newBtn").show()
+        }
+
+    });
+
+
+
+    function reInitTable() {
+        $table.bootstrapTable('refresh');
+    }
+
+    //初始化页面上面的按钮事件
+    var ButtonInit = function () {
+        var oInit = new Object();
+        oInit.Init = function () {
+            $('#btn_add').click(openPOP);
+            $('#btn_search').click(reInitTable);
+        };
+        laydate.render({
+            elem: '#startTime', type: 'datetime'
+        });
+        laydate.render({
+            elem: '#endTime'
+            ,type: 'datetime'
+        });
+        return oInit;
+
+    };
+
+</script>
+</body>
+
+</html>

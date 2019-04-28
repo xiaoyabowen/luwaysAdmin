@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台主题UI框架</title>
+    <meta name="keywords">
+    <meta name="description">
+    <meta name="keywords">
+    <meta name="description">
+    <!--网页logo-->
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../resource/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../resource/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../resource/js/plugins/select2/css/select2.css" rel="stylesheet">
+    <link href="../resource/js/plugins/bootstarp-table/css/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../resource/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../resource/css/animate.css" rel="stylesheet">
+    <link href="../resource/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../resource/css/common.css" rel="stylesheet">
+    <!--iCheck样式-->
+    <link rel="stylesheet" type="text/css" href="../resource/css/plugins/iCheck/custom.css"/>
+</head>
+<style>
+   .ibox-content{
+       /*height: 100vh !important;*/
+       /*position: relative;*/
+   }
+
+   .welImg{
+       width: 100%;
+       height: 100vh;
+       position: relative;
+   }
+   .welImg>img{
+       display: inline-block;
+       position: absolute;
+       left: 50%;
+       top: 50%;
+       transform: translate(-50%,-50%);
+       width: 280px;
+       height: 260px;
+   }
+    i{
+        font-style: normal;
+    }
+   .hotelShowAllPageListPage {
+       position: absolute;
+       left: 50%;
+       top: 50%;
+       z-index: 99999;
+       transform: translate(-50%,-50%);
+   }
+</style>
+<body class="gray-bg">
+<div class="hotelShowAllPageListPage"></div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-content" >
+            <div class="row row-lg">
+                <div class="col-sm-12 welImgPos">
+
+                    <p>
+                        <span>邮件标题：</span>
+                        <input type="text" class="inputEamil emailName">
+                    </p>
+                    <p>
+                        <span>收件人：</span>
+                        <input type="text" class="inputEamil" id="Addressee">
+                    </p>
+                    <p>
+                        <span>附件：</span>
+                        <i class="Enclosure"></i>
+                    </p>
+                    <textarea name="textarea" id="textarea" style="height: 150px;"></textarea>
+                    <a href="javascript:;" class="btn btn-info vertical" style="margin-top: 10px">发送</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Panel Other -->
+</div>
+
+<!-- 全局js -->
+<script src="../resource/js/jquery.min.js?v=2.1.4"></script>
+<script src="../resource/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="../resource/js/content.js?v=1.0.0"></script>
+<script src="../resource/js/plugins/ckeditor/ckeditor.js" type="text/javascript" charset="utf-8"></script>
+<script src="../resource/js/plugins/ckeditor/lang/zh-cn.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="../resource/js/plugins/bootstrap-3-typeahead/bootstrap3-typeahead.js"></script>
+
+<script src="../resource/common/multiselect.js"></script>
+<script src="../resource/js/plugins/layer/layer.js"></script>
+<script src="../resource/common/common.js?time=" +Math.random()></script>
+<script>
+    //富文本编辑器      replace 是文本框的id    后面是图片上传的接口
+    ckeditor = CKEDITOR.replace('textarea');
+
+    var orderNo =getQueryParam().orderNo
+    var skuTitle =getQueryParam().skuTitle
+    var contractEmail =getQueryParam().contractEmail
+        console.log(skuTitle)
+
+    if (skuTitle == 'null'){
+        console.log(1)
+        $(".emailName").val('')
+    }else{
+        $(".emailName").val(skuTitle)
+    }
+
+
+
+    $("#Addressee").val(contractEmail)
+    // $("#Addressee").val("bowenru@163.com")
+    $(".Enclosure").html("Luways_voucher_"+orderNo+".pdf")
+    $("#textarea").val("尊敬的用户您好​，您的订单已确认，附件是您的订单确认函voucher\n" +
+        "\n" +
+        "具体信息请以产品详情页和确认函为准\n" +
+        "\n" +
+        "祝您游玩愉快!")
+    $(".vertical").click(function () {
+        var address = $("#Addressee").val()
+        var title = $(".emailName").val()
+        var content = CKEDITOR.instances.textarea.getData();
+        var orderId = orderNo
+
+        if (isBlank(title)) {
+            layer.msg("邮件标题不能为空", {icon: 2,time:1000,shade: 0.01});
+            return;
+        }
+        /*myAjax(sendMailAndFile,{address:address, title:title, content:content, orderId:orderId}, handle)
+        function handle(data,params) {
+            console.log(data)
+            if (data.success){
+                layer.msg("发送成功", {icon: 1,time:1000,shade: 0.01});
+                closeMyselfInIframe()
+            }else{
+                layer.msg("发送失败", {icon: 2,time:1000,shade: 0.01});
+            }
+        }*/
+        $.ajax({
+            url: sendMailAndFile,
+            type: "POST",
+            dataType: "json",
+            sync:true,
+            data: {address:address, title:title, content:content, orderId:orderId},
+            beforeSend: function () {
+                $(".hotelShowAllPageListPage").append('<div id="loadingPageSub"><img src="../resource/img/timg.gif" alt=""></div>');
+            },
+            complete: function () {
+                $("#hotelShowAllPageListPage").remove()
+            },
+            xhrFields: {
+                withCredentials: true
+            },
+            traditional:true,
+
+            success: function (data) {
+                console.log(data)
+                var result = {succ:'发送成功!',fail:'发送失败'};
+                if (data.success){
+                    layer.confirm(result.succ, {icon: 1, title:'提示'}, function(index){
+                        addMenuItem("../html/ticketOrder.html","门票订单管理");
+                        handleTable("",3,businessRestfulControllerList);
+                    });
+
+
+                }else{
+                    layer.msg("发送失败", {icon: 2,time:1000,shade: 0.01});
+                }
+            },
+            error: function() {
+
+            }
+        })
+
+    })
+
+</script>
+
+</body>
+
+</html>

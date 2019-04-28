@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="../resource/css/style.css?v=4.1.0" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+</head>
+<style>
+    /* .tableCus input {
+        border: none;
+        width: 100%;
+        height: 120px;
+        line-height: 120px;
+        text-align: center;
+        font-size: 16px;
+    }*/
+
+    .temInput {
+        width: 100%;
+        height: 150px !important;
+        resize: none;
+        font-size: 16px;
+    }
+
+    /*.notPlan {
+        text-align: center;
+    }*/
+</style>
+
+<body>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>订制详情</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="containerCus" id="containerCus">
+
+                            <!--   --------------订制   增删改查  开始    ---------------------------------  -->
+
+                            <!-- <tr>
+                                <td><textarea class="temInput"></textarea></td>
+                                <td>
+                                    <textarea class="temInput"></textarea>
+                                </td>
+                                <td><input type="text" name="" id=""></td>
+                                <td><input type="text" name="" id=""></td>
+                                <td>
+                                    <a href="javascript:;" class="btn-dangerEdit deleteBtn">删除</a>
+                                    <a href="javascript:;" class="btn-infoEdit">编辑</a>
+                                </td>
+                            </tr>
+
+
+
+                            <tr class="notPlan">
+                                <td colspan="5">暂无安排行程</td>
+                            </tr> -->
+                            <form class="form-inline">
+                                <button type="button" class="btn btn-primary" v-on:click="add()">新增</button>
+                                <div class="form-group" style="float: right">
+                                    <label>搜索</label>
+                                    <input type="text" class="form-control" v-model="search" v-on:input="searchFn"
+                                        placeholder="请输入搜索关键字">
+                                </div>
+                            </form>
+                            <hr />
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="width:5%">ID</th>
+                                        <th style="width:20%">日期</th>
+                                        <th style="width:35%">内容</th>
+                                        <th style="width:10%">餐</th>
+                                        <th style="width:20%">酒店</th>
+                                        <th style="width:10%">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(item,index) in cloneTableDatas">
+                                        <td>{{ item.id }}</td>
+                                        <td>{{ item.cusDay }}</td>
+                                        <td>{{ item.cusContent }}</td>
+                                        <td>{{ item.cusMeal }}</td>
+                                        <td>{{ item.cusHotel }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-default"
+                                                v-on:click="edit(index)">编辑</button>
+                                            <button type="button" class="btn btn-danger"
+                                                v-on:click="del(index)">删除</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <!--新增-->
+                            <div class="modal fade" tabindex="-1" role="dialog" id="addModal">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title">订制信息</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label>日期</label>
+                                                    <input type="text" name="cusDay" class="form-control"
+                                                        v-model="tableData.cusDay">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>内容</label>
+                                                    <!-- <input type="text" name="cusContent" class="form-control"
+                                                        v-model="tableData.cusContent"> -->
+                                                    <textarea class="temInput form-control" name="cusContent"
+                                                        v-model="tableData.cusContent"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>餐</label>
+                                                    <input type="text" name="cusMeal" class="form-control"
+                                                        v-model="tableData.cusMeal">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>酒店</label>
+                                                    <input type="text" name="cusHotel" class="form-control"
+                                                        v-model="tableData.cusHotel">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">取消</button>
+                                            <button type="button" class="btn btn-primary"
+                                                v-on:click="addSubForm">提交</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--   --------------订制   增删改查  结束    ---------------------------------  -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Panel Other -->
+    </div>
+    <!--编辑-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="editModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">订制信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label>日期</label>
+                            <input type="text" name="cusDay" class="form-control" v-model="selectedlist.cusDay">
+                        </div>
+                        <div class="form-group">
+                            <label>内容</label>
+                            <textarea class="temInput form-control" name="cusContent"
+                                v-model="selectedlist.cusContent"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>餐</label>
+                            <input type="text" name="cusMeal" class="form-control" v-model="selectedlist.cusMeal">
+                        </div>
+                        <div class="form-group">
+                            <label>酒店</label>
+                            <input type="text" name="cusHotel" class="form-control" v-model="selectedlist.cusHotel">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" v-on:click="editSubForm">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+
+
+
+    <script>
+        var app = new Vue({
+            el: "#containerCus",
+            data: {
+                selected: -1,
+                selectedlist: {},
+                tableData: {
+                    "id": 0,
+                    "cusDay": "",
+                    "cusContent": "",
+                    "cusMeal": "",
+                    "cusHotel": ""
+                },
+                tableDatas: [{
+                    "id": 1,
+                    "cusDay": "123",
+                    "cusContent": "456",
+                    "cusMeal": "789",
+                    "cusHotel": "123445"
+                }],
+                cloneTableDatas: [],
+                search: ""
+            },
+            //在实例被创建之后被调用
+            created: function () {
+                this.getShowData(this.tableDatas);
+            },
+            methods: {
+                // 获取需要渲染到页面中的数据
+                getShowData: function (arr) {
+                    this.cloneTableDatas = JSON.parse(JSON.stringify(arr));
+                },
+                //新增
+                add: function () {
+                    $('#addModal').modal('show');
+                },
+                //提交新增
+                addSubForm: function () {
+                    this.tableData.id = this.tableDatas.length + 1;
+                    this.tableDatas.push(this.tableData);
+                    this.getShowData(this.tableDatas);
+                    this.tableData = {};
+                    $('#addModal').modal('hide');
+                },
+                //编辑
+                edit: function (index) {
+
+                    $('#editModal').modal('show');
+                    this.selected = index;
+                    console.log(this.tableDatas)
+                    this.selectedlist = JSON.parse(JSON.stringify(this.tableDatas))[index];
+                },
+                //提交编辑
+                editSubForm: function () {
+                    Vue.set(this.tableDatas, this.selected, this.selectedlist);
+                    this.getShowData(this.tableDatas);
+                    $('#editModal').modal('hide');
+                },
+                //删除
+                del: function (index) {
+                    this.tableDatas.splice(index, 1);
+                    this.getShowData(this.tableDatas);
+                },
+                //查询
+                searchFn: function (e) {
+                    var key = e.target.value;
+                    //查询firstName列
+                    if (key) {
+                        var searchArray = [];
+                        this.tableDatas.forEach(function (item) {
+                            if (item.firstName.indexOf(key) > -1) {
+                                searchArray.push(item);
+                            }
+                        });
+                        this.getShowData(searchArray);
+                    } else {
+                        this.getShowData(this.tableDatas);
+                    }
+                }
+
+            }
+        })
+    </script>
+
+</body>
+
+</html>
